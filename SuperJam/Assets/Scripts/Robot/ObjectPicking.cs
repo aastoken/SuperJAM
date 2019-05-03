@@ -38,7 +38,7 @@ public class ObjectPicking : MonoBehaviour
     //Delete after getting a pathfinding
     void TravelToObject()
     {
-        if(targetObject != null)
+        if (targetObject != null)
         {
             distanceToObject = targetObject.transform.position - transform.position;
             distanceValue = distanceToObject.magnitude;

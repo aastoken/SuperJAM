@@ -4,5 +4,6 @@
     GO,
     WITHBOX,
     LEAVEBOX,
+    TAKEBOX,
     WAIT
 }
