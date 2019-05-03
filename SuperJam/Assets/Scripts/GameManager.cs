@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public int waitSecondsForRobotSpawn = 10;
     public GameObject boxPrefab = null;
     public GameObject robotPrefab = null;
+    public float SceneDimensions = 500.0f;
     #endregion
 
     #region MonoBehaviour
@@ -82,19 +83,29 @@ public class GameManager : MonoBehaviour
     /// </summary>
     IEnumerator InstantiateRandomRobot()
     {
-        GameObject robot = (GameObject)Instantiate(robotPrefab);
-        Vector2 randomPosition = ReturnRandomAvailablePosition(robot.transform);
-        robot.transform.position = new Vector3(randomPosition.x, 0, randomPosition.y);
-        yield return new WaitForSeconds(waitSecondsForBoxSpawn);
+        while (true)
+        {
+            GameObject robot = (GameObject)Instantiate(robotPrefab);
+            robot.transform.position = ReturnRandomAvailablePosition(100f, 100f);
+            yield return new WaitForSeconds(waitSecondsForBoxSpawn);
+        }
     }
 
     /// <summary>
     /// Returns the random available position depending on the scale of the object.
     /// </summary>
     /// <returns>Vector2: The random available position.</returns>
-    public Vector2 ReturnRandomAvailablePosition(Transform tr)
+    public Vector3 ReturnRandomAvailablePosition(float modelLength, float modelWidth)
     {
-        return Vector2.one;
+        Vector3 RandomV = new Vector3(0.0f, 0.0f, 0.0f);
+        do
+        {
+            // Assuming scenario is a square. We should change this
+            RandomV = new Vector3(Random.Range(-SceneDimensions, SceneDimensions), 1.0f, Random.Range(-SceneDimensions, SceneDimensions));
+
+        } while (!Physics.CheckBox(RandomV, new Vector3(modelWidth, 0, modelLength)));
+        Debug.Log("Random " + RandomV);
+        return RandomV;
     }
 
     /// <summary>
@@ -107,6 +118,11 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine("InstantiateRandomBox");
             _assignedCoroutineBoxSpawn = true;
+        }
+        if (!_assignedCoroutineRobotSpawn)
+        {
+            StartCoroutine("InstantiateRandomRobot");
+            _assignedCoroutineRobotSpawn = true;
         }
     }
 

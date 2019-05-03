@@ -9,7 +9,7 @@ public class RobotManager : MonoBehaviour
     #endregion
 
     #region Private
-
+    private RobotState _currentState = RobotState.SEARCH;
     #endregion
 
     #region MonoBehaviour
@@ -22,11 +22,14 @@ public class RobotManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Control();
     }
     #endregion
 
     #region Methods
+    void Control()
+    {
 
+    }
     #endregion
 }

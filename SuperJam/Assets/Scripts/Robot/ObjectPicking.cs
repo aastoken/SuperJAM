@@ -43,18 +43,18 @@ public class ObjectPicking : MonoBehaviour
             distanceToObject = targetObject.transform.position - transform.position;
             distanceValue = distanceToObject.magnitude;
 
+            // TODO Use this in RobotMovement.
             transform.Translate((distanceToObject + new Vector3(0.0f, 0.5f, 0.0f)) * Time.deltaTime * 2.0f);
 
             if (distanceValue < 1.5f)
             {
                 mainState = State.REACHED;
             }
-        }
-            
+        }            
 
     }
 
-    void PickUpObject()
+    public void PickUpObject()
     {
         targetObject.transform.SetParent(transform);
         targetObject.transform.position = transform.position + distanceToObject.normalized;
@@ -62,7 +62,7 @@ public class ObjectPicking : MonoBehaviour
         mainState = State.PICKEDUP;
     }
 
-    void DropObject()
+    public void DropObject()
     {
         targetObject.transform.SetParent(null);
         targetObject.GetComponent<Rigidbody>().useGravity = true;
