@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RobotMovement : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class RobotMovement : MonoBehaviour
     /// <param name="objective">Objective.</param>
     public void Move(Vector3 objective)
     {
+        /*
         float dt = Time.deltaTime;
         // Direction
         Vector3 dir = objective - transform.position;
@@ -32,7 +34,10 @@ public class RobotMovement : MonoBehaviour
         velocity += offsetVelocity;
         velocity.y = 0;
         transform.position += velocity * dt;
-        // todo make model look at point where he is going.
+        */
+        // PONER AQUI TU CODIGO DE IA PATHFINDING 
+        GetComponent<NavMeshAgent>().SetDestination(objective);
+        // todo: make model look at point where he is going.
     }
 
     /// <summary>
