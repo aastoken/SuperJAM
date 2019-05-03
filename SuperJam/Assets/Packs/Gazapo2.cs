@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gazapo : MonoBehaviour
+public class Gazapo2 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
