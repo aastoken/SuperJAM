@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7021525132262080966}
   - component: {fileID: 7021525132262080961}
   - component: {fileID: 7021525132262080960}
+  - component: {fileID: 1740972687535841431}
+  - component: {fileID: 4487937002190342123}
   m_Layer: 0
   m_Name: TestRobot
   m_TagString: Untagged
@@ -104,3 +106,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e517f13841194501b5d8dfc9f4831c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1740972687535841431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7021525132262080963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7109b1c3bd24d4f999c90a465ab78df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 0}
+--- !u!114 &4487937002190342123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7021525132262080963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4236447927f3a442fbd3f4b71c22fdf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 5
+  acceleration: 3

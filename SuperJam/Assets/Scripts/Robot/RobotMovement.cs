@@ -22,7 +22,7 @@ public class RobotMovement : MonoBehaviour
     {
         float dt = Time.deltaTime;
         // Direction
-        Vector3 dir = transform.position - objective;
+        Vector3 dir = objective - transform.position;
         // Distance
         float distance = dir.magnitude;
         // Set target velocity
@@ -30,6 +30,7 @@ public class RobotMovement : MonoBehaviour
         Vector3 offsetVelocity = targetVelocity - velocity;
         offsetVelocity = Vector3.ClampMagnitude(offsetVelocity, acceleration * dt);
         velocity += offsetVelocity;
+        velocity.y = 0;
         transform.position += velocity * dt;
         // todo make model look at point where he is going.
     }

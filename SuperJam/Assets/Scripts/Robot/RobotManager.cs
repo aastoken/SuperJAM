@@ -5,7 +5,7 @@ using UnityEngine;
 public class RobotManager : MonoBehaviour
 {
     #region Public
-
+    public GameObject testBox = null;
     #endregion
 
     #region Private
@@ -47,6 +47,9 @@ public class RobotManager : MonoBehaviour
             case RobotState.SEARCH:
                 // With the probability script here we will find the box, when
                 // the box is found set state to GO
+                _currentBoxTarget = testBox;
+                _currentBoxTargetManager = testBox.GetComponent<BoxManager>();
+                _currentState = RobotState.GO;
                 break;
             case RobotState.GO:
                 HandleGo();
