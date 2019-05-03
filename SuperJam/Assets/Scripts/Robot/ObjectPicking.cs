@@ -119,7 +119,7 @@ public class ObjectPicking : MonoBehaviour
             mainState = State.DROPPING;
         }
 
-        StateHandling();
-        
+        StateHandling();        
     }
+
 }

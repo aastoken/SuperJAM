@@ -13,6 +13,7 @@ public class RobotManager : MonoBehaviour
     private GameObject _currentBoxTarget = null;
     private BoxManager _currentBoxTargetManager = null;
     private RobotMovement _rm;
+    private ObjectPicking _op;
     #endregion
 
     #region MonoBehaviour
@@ -23,6 +24,11 @@ public class RobotManager : MonoBehaviour
         if (_rm == null)
         {
             Debug.LogError("ERROR! Set the RobotMovement Script in the prefab.");
+        }
+        _op = GetComponent<ObjectPicking>();
+        if (_op == null)
+        {
+            Debug.LogError("ERROR! Set the ObjectPicking Script in the prefab.");
         }
     }
 
@@ -46,8 +52,10 @@ public class RobotManager : MonoBehaviour
                 HandleGo();
                 break;
             case RobotState.TAKEBOX:
+                HandleTakeBox();
                 break;
             case RobotState.WITHBOX:
+                // With box function
                 break;
             case RobotState.LEAVEBOX:
                 break;
@@ -65,11 +73,34 @@ public class RobotManager : MonoBehaviour
         {
             Debug.LogWarning("Current box target is not found? Probably an error finding it?");
             _currentState = RobotState.SEARCH;
+            return;
         }
         if (_currentBoxTargetManager.GetState() == BoxState.PICKED)
         {
             _currentState = RobotState.SEARCH;
+            return;
         }
+        _rm.Move(_currentBoxTarget.transform.position);
+        if (_rm.IsHeNearInstance(_currentBoxTarget.transform.position)) {
+            _currentState = RobotState.TAKEBOX;
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Handles the take box state.
+    /// </summary>
+    void HandleTakeBox()
+    {
+        if (_currentBoxTargetManager.GetState() == BoxState.PICKED)
+        {
+            _currentState = RobotState.SEARCH;
+            return;
+        }
+        _op.SetTarget(_currentBoxTarget);
+        _op.PickUpObject();
+        _currentState = RobotState.WITHBOX;
+        return;
     }
 
     #endregion
