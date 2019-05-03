@@ -14,16 +14,9 @@ public class RobotMovement : MonoBehaviour
     #endregion
 
     #region MonoBehaviour
-    // Start is called before the first frame update
-    void Start()
+    public void Move(Vector3 dir)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     #endregion
 }
