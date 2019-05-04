@@ -7,6 +7,7 @@ public class RobotAI : MonoBehaviour
     #region Private
     // BLUE, RED, YELLOW, GREEN ...
     private float[] probs = { 1, 1, 1, 1 };
+    private RobotBehaviour _rm = null;
     #endregion 
 
     public bool Think(GameObject objective)
@@ -65,4 +66,5 @@ public class RobotAI : MonoBehaviour
         }
         Debug.Log("PROBABILIDADES: " + probs[0] + " " + probs[1] + " " + probs[2] + " " + probs[3]);
     }
+
 }
