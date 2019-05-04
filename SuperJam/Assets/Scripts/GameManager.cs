@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject robotPrefab = null;
     public float SceneDimensions = 500.0f;
     public GameObject[] Buttons;
-    public readonly Color[] colors = { Color.blue, Color.red, Color.yellow, Color.green };
+    public Color[] colors = { Color.blue, Color.red, Color.yellow, Color.green };
     #endregion
 
     #region MonoBehaviour

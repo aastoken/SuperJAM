@@ -22,9 +22,10 @@ public class RobotBehaviour : MonoBehaviour
     private BoxRobot _currentBoxPicked = new BoxRobot();
     private RobotMovement _rm;
     private ObjectPicking _op;
-    private BoxColor _colorOfRobot;
     private GameManager _gm;
     private RobotAI _ai;
+    private RobotCountToDeath _rcd;
+    private BoxColor _colorOfRobot;
     // Variable that will inform in LeaveBox if the robot is right or not. In the rest of states this will be null, it will be set on the WithBox state.
     private GameObject _door;
     // Wandering
@@ -75,75 +76,21 @@ public class RobotBehaviour : MonoBehaviour
                 break;
             case RobotState.WITHBOX:
                 HandleWithBox();
-                break;
-            //case RobotState.WAITINGFORDROP:
-            //if (_desiredDropPoint.GetInstanceID() != _gm.GiveButton(_colorOfRobot).GetInstanceID())
-            //{
-            //    _currentState = RobotState.WITHBOX;
-            //}
-            //// if (!_desiredDropPoint.HasRobot()) _desiredDropPoint.GetPointToGo() -> GOINGTODROPPOINT -> LEAVEBOX
-            //break;
+                break;            
             case RobotState.QUEUE:
-                DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
-                _op.SetTarget(_currentBoxPicked.box);
-                _op.Stay();
-                if (dropper.CanIGo(gameObject.GetInstanceID()))
-                {
-                    _currentState = RobotState.GOTOWAITZONE;
-                    _rm.SetInstantSpeed(0);
-                }
+                HandleQueue();
                 break;
             case RobotState.GOTOWAITZONE:
-                DropPointLogic dropperForWaitZone = _door.GetComponent<DoorRobotInteraction>().dropper;
-                _rm.Move(dropperForWaitZone.GetPoint(PointsDrop.WAITSTATION));
-                _op.SetTarget(_currentBoxPicked.box);
-                _op.Stay();
-                if (_rm.IsHeNearInstance(dropperForWaitZone.GetPoint(PointsDrop.WAITSTATION)))
-                {
-                    _currentState = RobotState.INWAITZONE;
-                    _rm.SetInstantSpeed(0);
-                }
+                HandleGoToWaitZone();
                 break;
             case RobotState.INWAITZONE:
-                DropPointLogic dropper_ = _door.GetComponent<DoorRobotInteraction>().dropper;
-                PointsDrop can = dropper_.WhatDrop(gameObject.GetInstanceID());
-                _op.SetTarget(_currentBoxPicked.box);
-                _op.Stay();
-                if (can != PointsDrop.NOTHING)
-                {
-                    _rm.Move(dropper_.GetPoint(can));
-                    if (_rm.IsHeNearInstance(dropper_.GetPoint(can)))
-                    {
-                        dropper_.SetIDLE();
-                        dropper_.SetBotInDropZone(this, can);
-                        Debug.Log("WE ARE GODS");
-                        _currentState = RobotState.GONNADROP;
-                    }
-                }
+                HandleInWaitZone();
                 break;
             case RobotState.GONNADROP:
-                DropPointLogic dropper__ = _door.GetComponent<DoorRobotInteraction>().dropper;
-                PointsDrop can_ = dropper__.WhatDrop(gameObject.GetInstanceID());
-                Vector3 pt = dropper__.GetPoint(can_ == PointsDrop.DROPRIGHT ? PointsDrop.VENTCORRECT : PointsDrop.VENTINCORRECT);
-                transform.LookAt(pt);
-                if (_rm.IsHeLookingAt(pt))
-                {
-                    _currentState = RobotState.LEAVEBOX;
-                }
+                HandleGonnaDrop();
                 break;
             case RobotState.LEAVEBOX:
-                SoundManager.instance.PlayRobotPoint(gameObject.GetComponent<AudioSource>());
-                DoorRobotInteraction DRI = _door.GetComponent<DoorRobotInteraction>();
-                Debug.Log("Leave box");
-                bool isRobotRight = false;
-                isRobotRight = DRI.IsRobotRight(GetInstanceID());
-                _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
-                HandleIfTheUserIsRight(_currentBoxPicked.boxManager.color, isRobotRight);
-                Destroy(_currentBoxPicked.box);
-                _currentBoxPicked.boxManager = null;
-                _door = null;
-                _currentState = RobotState.SEARCH;
-
+                HandleLeaveBox();
                 break;
             case RobotState.WAIT:
                 break;
@@ -165,6 +112,83 @@ public class RobotBehaviour : MonoBehaviour
         _rm.Move(_currentPositionWander);
         _finishedMovingWander |= _rm.IsHeNearInstance(_currentPositionWander);
     }
+
+    #region Handlers
+    void HandleLeaveBox()
+    {
+        SoundManager.instance.PlayRobotPoint(gameObject.GetComponent<AudioSource>());
+        DoorRobotInteraction DRI = _door.GetComponent<DoorRobotInteraction>();
+        Debug.Log("Leave box");
+        bool isRobotRight = false;
+        isRobotRight = DRI.IsRobotRight(GetInstanceID());
+        _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
+        HandleIfTheUserIsRight(_currentBoxPicked.boxManager.color, isRobotRight);
+        Destroy(_currentBoxPicked.box);
+        _currentBoxPicked.boxManager = null;
+        _door = null;
+        _rcd.SubstractOne();
+        _currentState = RobotState.SEARCH;
+
+    }
+
+    void HandleGonnaDrop()
+    {
+        DropPointLogic dropper__ = _door.GetComponent<DoorRobotInteraction>().dropper;
+        PointsDrop can_ = dropper__.WhatDrop(gameObject.GetInstanceID());
+        Vector3 pt = dropper__.GetPoint(can_ == PointsDrop.DROPRIGHT ? PointsDrop.VENTCORRECT : PointsDrop.VENTINCORRECT);
+        transform.LookAt(pt);
+        if (_rm.IsHeLookingAt(pt))
+        {
+            _currentState = RobotState.LEAVEBOX;
+        }
+    }
+
+    void HandleInWaitZone()
+    {
+        DropPointLogic dropper_ = _door.GetComponent<DoorRobotInteraction>().dropper;
+        PointsDrop can = dropper_.WhatDrop(gameObject.GetInstanceID());
+        _op.SetTarget(_currentBoxPicked.box);
+        _op.Stay();
+        if (can != PointsDrop.NOTHING)
+        {
+            _rm.Move(dropper_.GetPoint(can));
+            if (_rm.IsHeNearInstance(dropper_.GetPoint(can)))
+            {
+                dropper_.SetIDLE();
+                dropper_.SetBotInDropZone(this, can);
+                Debug.Log("WE ARE GODS");
+                _currentState = RobotState.GONNADROP;
+            }
+        }
+    }
+
+    void HandleGoToWaitZone()
+    {
+        DropPointLogic dropperForWaitZone = _door.GetComponent<DoorRobotInteraction>().dropper;
+        _rm.Move(dropperForWaitZone.GetPoint(PointsDrop.WAITSTATION));
+        _op.SetTarget(_currentBoxPicked.box);
+        _op.Stay();
+        if (_rm.IsHeNearInstance(dropperForWaitZone.GetPoint(PointsDrop.WAITSTATION)))
+        {
+            _currentState = RobotState.INWAITZONE;
+            _rm.SetInstantSpeed(0);
+        }
+    }
+
+
+
+    void HandleQueue()
+    {
+        DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
+        _op.SetTarget(_currentBoxPicked.box);
+        _op.Stay();
+        if (dropper.CanIGo(gameObject.GetInstanceID()))
+        {
+            _currentState = RobotState.GOTOWAITZONE;
+            _rm.SetInstantSpeed(0);
+        }
+    }
+
 
     /// <summary>
     /// Handles the withbox state.
@@ -256,7 +280,12 @@ public class RobotBehaviour : MonoBehaviour
     void HandleErrorsStart()
     {
         _ai = GetComponent<RobotAI>();
+        _rcd = GetComponent<RobotCountToDeath>();
 
+        if (_rcd == null)
+        {
+            Debug.LogError("ERROR! Set the RobotCountToDeath Script in the prefab.");
+        }
         if (_ai == null)
         {
             Debug.LogError("ERROR! Set the RobotAI Script in the prefab.");
@@ -275,6 +304,7 @@ public class RobotBehaviour : MonoBehaviour
         {
             Debug.LogError("ERROR! Set the GameManager object when spawning.");
         }
+
         _gm = gameManager.GetComponent<GameManager>();
         _colorOfRobot = robotColor;
     }
@@ -290,6 +320,7 @@ public class RobotBehaviour : MonoBehaviour
             if (right && box == _colorOfRobot) _gm.LessHealth();
         }
     }
+    #endregion
 
     /// <summary>
     /// Sets the state.
@@ -329,11 +360,18 @@ public class RobotBehaviour : MonoBehaviour
         _colorOfRobot = c;
     }
 
+    /// <summary>
+    /// Gets the box target.
+    /// </summary>
+    /// <returns>The box target.</returns>
     public GameObject GetBoxTarget()
     {
         return _currentBoxTarget.box;
     }
 
+    /// <summary>
+    /// Sets the color of the renderer.
+    /// </summary>
     public void SetRendererColor()
     {
         modelMaterial.materials[0].color = _gm.colors[(int)_colorOfRobot];        
