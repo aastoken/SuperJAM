@@ -132,6 +132,7 @@ public class RobotBehaviour : MonoBehaviour
         GameObject desiredButton = _gm.GiveButton(_colorOfRobot);
         Vector3 objective = desiredButton.transform.position;
         _rm.Move(objective);
+        _op.SetTarget(_currentBoxPicked.box);
         _op.Stay();
         if (_rm.IsHeNearInstance(objective))
         {
