@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeStart: 4
   audioSrc: {fileID: 0}
-  waitSecondsForBoxSpawn: 1000
+  waitSecondsForBoxSpawn: 1
   waitSecondsForRobotSpawn: 1000
   boxPrefab: {fileID: 2276473682867194360, guid: 29a2e70d7b71f554aa81a8bdff968bed,
     type: 3}
@@ -199,7 +199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96975463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: -108.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -616,7 +616,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615112510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11, y: 1.12, z: 1.743}
+  m_LocalPosition: {x: 0, y: -0.416, z: 0.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 547179482}
@@ -1905,7 +1905,7 @@ PrefabInstance:
     - target: {fileID: 2276473682867194338, guid: 29a2e70d7b71f554aa81a8bdff968bed,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.46
+      value: -13.82
       objectReference: {fileID: 0}
     - target: {fileID: 2276473682867194338, guid: 29a2e70d7b71f554aa81a8bdff968bed,
         type: 3}
