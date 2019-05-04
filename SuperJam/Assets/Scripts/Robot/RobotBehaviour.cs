@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotManager : MonoBehaviour
+public class RobotBehaviour : MonoBehaviour
 {
     #region Public
     public GameObject testBox = null;

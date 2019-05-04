@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
                     _currentState = GameManagerState.FINISH;
                     return;
                 }
-                //StartCoroutinesForSpawn();
+                StartCoroutinesForSpawn();
                 break;
             case GameManagerState.FINISH:
 
@@ -73,12 +73,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     IEnumerator InstantiateRandomBox()
     {
-        //GameObject box = (GameObject)Instantiate(boxPrefab);
-        //Vector2 randomPosition = ReturnRandomAvailablePosition(box.transform);
-        //box.transform.position = new Vector3(randomPosition.x, 0, randomPosition.y);       
+            
         while (true)
         {
             Debug.Log("WORK");
+            GameObject box = (GameObject)Instantiate(boxPrefab);
+            Vector3 randomPosition = ReturnRandomAvailablePosition(100, 100);
+            box.transform.position = new Vector3(randomPosition.x, 0, randomPosition.y);
             yield return new WaitForSeconds(waitSecondsForBoxSpawn);
         }
     }
