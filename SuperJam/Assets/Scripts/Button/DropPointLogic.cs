@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum PointsDrop
 {
-    QUEUE, WAITSTATION, DROPRIGHT, DROPWRONG, NOTHING
+    QUEUE, WAITSTATION, DROPRIGHT, DROPWRONG, VENTCORRECT, VENTINCORRECT, NOTHING 
 }
 
 public class DropPointLogic : MonoBehaviour
@@ -77,21 +77,32 @@ public class DropPointLogic : MonoBehaviour
         return paths[desiredInt].position;
     }
 
+    public void SetBotInDropZone(RobotBehaviour rb, PointsDrop pd)
+    {
+        WaitingList.RemoveAt(0);
+        if (pd == PointsDrop.DROPRIGHT)
+        {
+            CorrectBot = rb;
+        }
+        else
+        {
+            IncorrectBot = rb;
+        }
+    }
+
     public PointsDrop WhatDrop(int id)
     {
-       if (CorrectBot.gameObject.GetInstanceID() == id)
+        if (CorrectBot) Debug.Log("righttt");
+       if (_correctPath && !CorrectBot)
        {
             return PointsDrop.DROPRIGHT;
        }
-       else if (IncorrectBot.gameObject.GetInstanceID() == id)
+       if (!_correctPath && !IncorrectBot)
        {
             return PointsDrop.DROPWRONG;
        }
-       else
-        {
-            Debug.LogError("Vaya, al parecer te has equivocado en la máquina de estados... gilipollas...");
-            return PointsDrop.NOTHING;
-        }
+       return PointsDrop.NOTHING;
+
     }
 
     private void OnMouseDown()
@@ -106,16 +117,19 @@ public class DropPointLogic : MonoBehaviour
     #region Methods
     private void ManageQueues()
     {
-        if(WaitingList.Count!=0)
+        if(WaitingList.Count != 0)
         {
+            Debug.Log("uwu");
             if (_currentState == DoorState.IDLE && _correctPath && !CorrectBot)
             {
+                Debug.LogWarning("Yes");
                 allowDropPointEntrance = true;
                 CorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
             }
             else if (_currentState == DoorState.IDLE && !_correctPath && !IncorrectBot)
             {
+                Debug.LogWarning("No");
                 allowDropPointEntrance = true;
                 IncorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
@@ -159,21 +173,23 @@ public class DropPointLogic : MonoBehaviour
     {
 
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerStay(Collider other)
     {
         //allowBridgeExit = false;
+        Debug.Log("ontrigger");
         if(other.gameObject.CompareTag("Robot"))
-        _tempTriggerBot = other.gameObject.GetComponent<RobotBehaviour>();
+            _tempTriggerBot = other.gameObject.GetComponent<RobotBehaviour>();
 
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Robot"))
-        {
-            _currentState = DoorState.IDLE; //This resets the door after a robot comes through
-        }
-        _tempTriggerBot = null;
+        //if(other.CompareTag("Robot"))
+        //{
+        //    _currentState = DoorState.IDLE; //This resets the door after a robot comes through
+        //}
+        //_tempTriggerBot = null;
     }
     #endregion
 }

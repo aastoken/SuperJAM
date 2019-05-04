@@ -482,6 +482,51 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &711008018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 711008020}
+  - component: {fileID: 711008019}
+  m_Layer: 0
+  m_Name: falsedoor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &711008020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711008018}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.37, y: 5.07, z: 4.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1731147876}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &711008019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711008018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f49fe35a5448d854aa5c1b352ed7bb0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialDoorColor: 1
+  dropper: {fileID: 1731147870}
 --- !u!1 &741245846
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +710,7 @@ GameObject:
   - component: {fileID: 4956356177914778735}
   m_Layer: 0
   m_Name: dropper
-  m_TagString: Untagged
+  m_TagString: Robot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -687,6 +732,7 @@ Transform:
   - {fileID: 266786554590551206}
   - {fileID: 7751130417129267380}
   - {fileID: 7391245717505426487}
+  - {fileID: 711008020}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -710,6 +756,8 @@ MonoBehaviour:
   - {fileID: 7751130417129267380}
   - {fileID: 266786554590551206}
   - {fileID: 6382912775724334360}
+  - {fileID: 741245847}
+  - {fileID: 704278806}
   CorrectBot: {fileID: 0}
   IncorrectBot: {fileID: 0}
   allowBridgeExit: 0
@@ -843,7 +891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816655370091548230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.18, y: 4.7, z: 1.25}
+  m_LocalPosition: {x: -5.331, y: 5.117, z: 1.325}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1731147876}

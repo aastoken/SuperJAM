@@ -8,6 +8,7 @@ TagManager:
   - GameManager
   - ExitButton
   - NewGameButton
+  - Robot
   layers:
   - Default
   - TransparentFX
