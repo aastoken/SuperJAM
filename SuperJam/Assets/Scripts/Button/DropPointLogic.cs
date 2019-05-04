@@ -5,7 +5,8 @@ using UnityEngine;
 public class DropPointLogic : MonoBehaviour
 {
     #region Public
-    public GameObject door;
+    public Transform door;
+    public Transform buttonDeco;
     public List<RobotBehaviour> WaitingList;
     public List<RobotBehaviour> CorrectList;
     public List<RobotBehaviour> IncorrectList;
@@ -21,9 +22,10 @@ public class DropPointLogic : MonoBehaviour
     float _doorAngle = 90;
     Quaternion _initialRotation;
     Quaternion _targetRotation;
-    float _rotationSpeed = 50f;
+    float _rotationSpeed = 10f;
     float _delta;
     float _t;
+    bool _allowButtonRot = false;
 
     #endregion
 
@@ -36,7 +38,7 @@ public class DropPointLogic : MonoBehaviour
         _initialRotation = door.transform.localRotation;
         
         
-        _targetRotation = Quaternion.AngleAxis(door.transform.localRotation.eulerAngles.z - _doorAngle, Vector3.forward);
+        _targetRotation = Quaternion.AngleAxis(door.transform.localRotation.eulerAngles.y - _doorAngle, Vector3.up);
     }
 
     // Update is called once per frame
@@ -57,6 +59,8 @@ public class DropPointLogic : MonoBehaviour
     {
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;
+
+        _allowButtonRot = true;
     }
     #endregion
 
@@ -117,6 +121,11 @@ public class DropPointLogic : MonoBehaviour
         else if (_t >= 1) _correctPath = false;
 
         if (_t >= 1 || _t <= 0) _currentState = DoorState.IDLE;
+    }
+
+    private void MoveDecoButton()
+    {
+
     }
 
     private void OnTriggerExit(Collider other)
