@@ -7,6 +7,7 @@ public class RobotAI : MonoBehaviour
     #region Private
     // BLUE, RED, YELLOW, GREEN ...
     private float[] probs = { 1, 1, 1, 1 };
+    private RobotBehaviour _rm = null;
     #endregion 
 
     public bool Think(GameObject objective)
@@ -54,15 +55,16 @@ public class RobotAI : MonoBehaviour
                 if (i == boxColor)
                 {
                     probs[i] += decider;
-                    probs[i] = Mathf.Clamp(boxColor, 0, 1);
+                    probs[i] = Mathf.Clamp(probs[i], 0.0f, 1.0f);
                 }
                 else
                 {
                     probs[i] -= decider;
-                    probs[i] = Mathf.Clamp(boxColor, 0, 1);
+                    probs[i] = Mathf.Clamp(probs[i], 0, 1);
                 }
             }
         }
-        Debug.Log(probs);
+        Debug.Log("PROBABILIDADES: " + probs[0] + " " + probs[1] + " " + probs[2] + " " + probs[3]);
     }
+
 }
