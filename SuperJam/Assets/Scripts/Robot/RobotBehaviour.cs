@@ -83,10 +83,12 @@ public class RobotBehaviour : MonoBehaviour
                 bool isRobotRight = false;
                 isRobotRight = _door.GetComponent<ButtonCommunicator>().Communicate();
                 _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
+                HandleIfTheUserIsRight(_currentBoxPicked.boxManager.color, isRobotRight);
                 Destroy(_currentBoxPicked.box);
                 _currentBoxPicked.boxManager = null;
                 _door = null;
                 _currentState = RobotState.SEARCH;
+
                 break;
             case RobotState.WAIT:
                 break;
@@ -132,6 +134,7 @@ public class RobotBehaviour : MonoBehaviour
         GameObject desiredButton = _gm.GiveButton(_colorOfRobot);
         Vector3 objective = desiredButton.transform.position;
         _rm.Move(objective);
+        _op.SetTarget(_currentBoxPicked.box);
         _op.Stay();
         if (_rm.IsHeNearInstance(objective))
         {
@@ -219,6 +222,18 @@ public class RobotBehaviour : MonoBehaviour
         _colorOfRobot = robotColor;
     }
 
+    void HandleIfTheUserIsRight(BoxColor box, bool right)
+    {
+        if (right && box != _colorOfRobot)
+        {
+            _gm.LessHealth();
+        }
+        if (!right)
+        {
+            if (right && box == _colorOfRobot) _gm.LessHealth();
+        }
+    }
+
     /// <summary>
     /// Sets the state.
     /// </summary>
@@ -266,6 +281,7 @@ public class RobotBehaviour : MonoBehaviour
     {
         modelMaterial.materials[0].color = _gm.colors[(int)_colorOfRobot];        
     }
+
 
     #endregion
 }

@@ -191,6 +191,20 @@ public class GameManager : MonoBehaviour
         return FindButton(c);
     }
 
+    /// <summary>
+    /// Adds one point to the health.
+    /// </summary>
+    public void MoreHealth()
+    {
+        _currentLife++;
+    }
 
+    /// <summary>
+    /// Lesses the health.
+    /// </summary>
+    public void LessHealth()
+    {
+        _currentLife--;
+    }
     #endregion 
 }
