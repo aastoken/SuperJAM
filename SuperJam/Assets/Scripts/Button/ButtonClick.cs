@@ -20,10 +20,11 @@ public class ButtonClick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (_currentState == DoorState.MOVING)
             MoveDoor();
 
+
+        Debug.Log(_currentState);
     }
 
     private void OnMouseDown()
@@ -34,8 +35,7 @@ public class ButtonClick : MonoBehaviour
 
     void MoveDoor()
     {
-
-        door.transform.rotation
+        door.transform.Rotate(Vector3.up, 5.0f * Time.deltaTime);
     }
 
 }
