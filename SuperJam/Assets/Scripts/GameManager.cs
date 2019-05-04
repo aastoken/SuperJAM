@@ -19,12 +19,17 @@ public class GameManager : MonoBehaviour
     public GameObject boxPrefab = null;
     public GameObject robotPrefab = null;
     public float SceneDimensions = 500.0f;
+    public GameObject[] Buttons;
     #endregion
 
     #region MonoBehaviour
     void Start()
     {
         _currentLife = lifeStart;
+        if (Buttons == null || Buttons.Length <= 0)
+        {
+            Debug.LogError("ERROR! Set the GameManagers buttons");
+        }
     }
 
     void Update()
@@ -50,7 +55,7 @@ public class GameManager : MonoBehaviour
                     _currentState = GameManagerState.FINISH;
                     return;
                 }
-                StartCoroutinesForSpawn();
+                //StartCoroutinesForSpawn();
                 break;
             case GameManagerState.FINISH:
 
@@ -134,5 +139,35 @@ public class GameManager : MonoBehaviour
         _assignedCoroutineBoxSpawn = false;
         _assignedCoroutineRobotSpawn = false;
     }
+
+    /// <summary>
+    /// Finds the button depending on the color you pass.
+    /// </summary>
+    /// <returns>The button.</returns>
+    /// <param name="c">C.</param>
+    GameObject FindButton(BoxColor c)
+    {
+        for (int i = 0; i < Buttons.Length; i++)
+        {
+            if (Buttons[i].GetComponent<DoorRobotInteraction>().CurrentColor() == c)
+            {
+                return Buttons[i];
+            }
+        }
+        Debug.LogError("Color not found for FindButton(), please, check if you passed the right enum.");
+        return null;
+    }
+
+    /// <summary>
+    /// Returns a Button GameObject for Robot Info.
+    /// </summary>
+    /// <returns>The button to go.</returns>
+    /// <param name="c">C.</param>
+    public GameObject GiveButton(BoxColor c)
+    {
+        return FindButton(c);
+    }
+
+
     #endregion 
 }
