@@ -6,7 +6,7 @@ public class RobotAI : MonoBehaviour
 {
     #region Private
     // BLUE, RED, YELLOW, GREEN ...
-    private float[] probs = { 1, 1, 1, 1f };
+    private float[] probs = { 1, 1, 1, 1 };
     #endregion 
 
     public bool Think(GameObject objective)
