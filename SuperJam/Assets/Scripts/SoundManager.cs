@@ -4,7 +4,16 @@ using System.Collections;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource efxSource;                   //Drag a reference to the audio source which will play the sound effects.
-    public AudioSource robotMovementSource;
+
+    //MOVEMENT
+    public AudioClip robotMovementSource1;
+    public AudioClip robotMovementSource2;
+
+    //JOINTS
+    public AudioClip robotJointSource1;
+    public AudioClip robotJointSource2;
+
+
     public AudioSource musicSource;                 //Drag a reference to the audio source which will play the music.
     public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
@@ -70,6 +79,50 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     public void PlayRobotSoundMovement()
     {
-        robotMovementSource.Play();       
+        int randomSound = Random.Range(0, 2);
+
+        if(randomSound==0)
+        {
+            efxSource.clip = robotMovementSource1;
+            efxSource.Play();
+        }
+        else if(randomSound==1)
+        {
+            efxSource.clip = robotMovementSource2;
+            efxSource.Play();
+        }
+        else
+        {
+            efxSource.clip = robotMovementSource1;
+            efxSource.Play();
+        }
+             
     }
+
+    /// <summary>
+    /// Plays the robot joints
+    /// </summary>
+    public void PlayRobotSoundJoint()
+    {
+        int randomSound = Random.Range(0, 2);
+
+        if (randomSound == 0)
+        {
+            efxSource.clip = robotJointSource1;
+            efxSource.Play();
+        }
+        else if (randomSound == 1)
+        {
+            efxSource.clip = robotJointSource2;
+            efxSource.Play();
+        }
+        else
+        {
+            efxSource.clip = robotJointSource1;
+            efxSource.Play();
+        }
+
+    }
+
+
 }

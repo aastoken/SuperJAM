@@ -12,7 +12,7 @@ public class RobotBehaviour : MonoBehaviour
     #endregion
 
     #region Private
-    private RobotState _currentState = RobotState.SEARCH;
+    public RobotState _currentState = RobotState.SEARCH;
     private BoxRobot _currentBoxTarget = new BoxRobot();
     private BoxRobot _currentBoxPicked = new BoxRobot();
     private RobotMovement _rm;
@@ -51,7 +51,8 @@ public class RobotBehaviour : MonoBehaviour
         {
             case RobotState.SEARCH:
                 // todo Wandering script.
-
+                _currentBoxPicked = new BoxRobot();
+                _currentBoxTarget = new BoxRobot();
                 break;
             case RobotState.GO:
                 HandleGo();
@@ -70,7 +71,7 @@ public class RobotBehaviour : MonoBehaviour
                 isRobotRight = _door.GetComponent<ButtonCommunicator>().Communicate();
                 _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
                 Destroy(_currentBoxPicked.box);
-                _currentBoxPicked.boxManager = new BoxManager();
+                _currentBoxPicked.boxManager = null;
                 _door = null;
                 _currentState = RobotState.SEARCH;
                 break;
@@ -102,7 +103,7 @@ public class RobotBehaviour : MonoBehaviour
         GameObject desiredButton = _gm.GiveButton(_colorOfRobot);
         Vector3 objective = desiredButton.transform.position;
         _rm.Move(objective);
-
+        _op.Stay();
         if (_rm.IsHeNearInstance(objective))
         {
             _door = desiredButton;
@@ -218,5 +219,18 @@ public class RobotBehaviour : MonoBehaviour
         return _currentState;
     }
 
+    /// <summary>
+    /// Sets the color.
+    /// </summary>
+    /// <param name="c">C.</param>
+    public void SetColor(BoxColor c)
+    {
+        _colorOfRobot = c;
+    }
+
+    public GameObject GetBoxTarget()
+    {
+        return _currentBoxTarget.box;
+    }
     #endregion
 }
