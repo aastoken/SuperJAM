@@ -11,7 +11,7 @@ public class ManageFillLevels : MonoBehaviour
     public float redAffinity;
     public float greenAffinity;
 
-    float maxAffinity = 80f;
+    float maxAffinity = 0.8f;
 
     private Material blueFill;
     private Material yellowFill;
@@ -41,8 +41,8 @@ public class ManageFillLevels : MonoBehaviour
 
     void ManageFillLevel()
     {
-        float maxL = 0.5f;
-        float minL = 1.36f;
+        float maxL = -1.32f;
+        float minL = -1.151f;
         float delta = minL - maxL;
         float tempB = getTemp(blueAffinity, maxL, delta);
         float tempY = getTemp(yellowAffinity, maxL, delta);

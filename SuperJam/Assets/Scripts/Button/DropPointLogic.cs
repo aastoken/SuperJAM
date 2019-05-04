@@ -195,7 +195,7 @@ public class DropPointLogic : MonoBehaviour
 
     public void ExecuteClick()
     {
-
+        Debug.Log("aaaa!)");
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;
 

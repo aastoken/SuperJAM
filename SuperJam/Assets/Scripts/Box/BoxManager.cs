@@ -63,7 +63,7 @@ public class BoxManager : MonoBehaviour
     public void SetColor(BoxColor c)
     {
         color = c;
-        GetComponent<MeshRenderer>().materials[0].color = _gm.colors[(int)c];
+        GetComponent<MeshRenderer>().materials[1].color = _gm.colors[(int)c];
     }
     
     IEnumerator DeleteTime()
