@@ -647,6 +647,7 @@ GameObject:
   - component: {fileID: 1731147876}
   - component: {fileID: 1731147870}
   - component: {fileID: 1731147869}
+  - component: {fileID: 4956356177914778735}
   m_Layer: 0
   m_Name: dropper
   m_TagString: Untagged
@@ -683,6 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 1731147868}
+  buttonDeco: {fileID: 0}
   WaitingList: []
   CorrectList: []
   IncorrectList: []
@@ -701,6 +703,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.804641, y: 0.32662964, z: 5.995875}
   m_Center: {x: 0.10889292, y: 6.785036, z: -3.9733274}
+--- !u!65 &4956356177914778735
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731147867}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9786015, y: 2.6316175, z: 2.0024092}
+  m_Center: {x: -5.307704, y: 6.085809, z: 1.3369006}
 --- !u!1 &1731147868
 GameObject:
   m_ObjectHideFlags: 0
