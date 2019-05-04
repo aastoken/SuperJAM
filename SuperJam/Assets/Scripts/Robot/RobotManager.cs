@@ -154,6 +154,7 @@ public class RobotManager : MonoBehaviour
             return;
         }
         _op.SetTarget(_currentBoxPicked.box);
+        _currentBoxPicked.boxManager.SetPicked();
         _op.PickUpObject();
         _currentState = RobotState.WITHBOX;
         return;

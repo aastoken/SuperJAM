@@ -4,6 +4,7 @@ using System.Collections;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource efxSource;                   //Drag a reference to the audio source which will play the sound effects.
+    public AudioSource robotMovementSource;
     public AudioSource musicSource;                 //Drag a reference to the audio source which will play the music.
     public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
@@ -26,6 +27,10 @@ public class SoundManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Plays the single clip
+    /// </summary>
+    /// <param name="clip">Clip.</param>
     //Used to play single sound clips.
     public void PlaySingle(AudioClip clip)
     {
@@ -37,6 +42,10 @@ public class SoundManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Randomizes the sfx.
+    /// </summary>
+    /// <param name="clips">Clips.</param>
     //RandomizeSfx chooses randomly between various audio clips and slightly changes their pitch.
     public void RandomizeSfx(params AudioClip[] clips)
     {
@@ -54,5 +63,13 @@ public class SoundManager : MonoBehaviour
 
         //Play the clip.
         efxSource.Play();
+    }
+
+    /// <summary>
+    /// Plays the robot sound movement (call from RobotManager).
+    /// </summary>
+    public void PlayRobotSoundMovement()
+    {
+        robotMovementSource.Play();       
     }
 }
