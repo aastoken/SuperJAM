@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -174,10 +174,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeStart: 4
-  waitSecondsForBoxSpawn: 10
+  waitSecondsForBoxSpawn: 1
   waitSecondsForRobotSpawn: 10
-  boxPrefab: {fileID: 0}
-  robotPrefab: {fileID: 0}
+  boxPrefab: {fileID: 2045886434}
+  robotPrefab: {fileID: 547179475}
   SceneDimensions: 500
   Buttons:
   - {fileID: 949463296}
@@ -208,8 +208,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae49c028a5cd7543bc3b72bf15560b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  efxSource: {fileID: 2059323628}
-  robotMovementSource: {fileID: 0}
+  efxSource: {fileID: 176270549}
+  robotMovementSource1: {fileID: 8300000, guid: 56910a165f0e29f4e98d2319cec9e3d9,
+    type: 3}
+  robotMovementSource2: {fileID: 8300000, guid: 56910a165f0e29f4e98d2319cec9e3d9,
+    type: 3}
+  MainTheme1: {fileID: 8300000, guid: 4c7b19ed249192040b3a6b1182cb26e0, type: 3}
+  robotJointSource1: {fileID: 8300000, guid: 5ec84c491e072d34499721fc9373bd5a, type: 3}
+  robotJointSource2: {fileID: 8300000, guid: 45d4ef857b8e38c4a941788e868c6683, type: 3}
   musicSource: {fileID: 2059323628}
   lowPitchRange: 0.95
   highPitchRange: 1.05
@@ -364,6 +370,133 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1288064691}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &176270548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 176270550}
+  - component: {fileID: 176270549}
+  m_Layer: 0
+  m_Name: Effects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &176270549
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176270548}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &176270550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176270548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.773643, y: 20.4, z: 14.956272}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &182827317 stripped
 Transform:
@@ -744,13 +877,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 547179475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4fa64e8c119d124cb61706a0f8379dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 83a8f492f18b344838f028cb533ba911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   testBox: {fileID: 0}
   robotColor: 0
-  gameManager: {fileID: 96975463}
+  gameManager: {fileID: 0}
   aiPercentageDecider: 0.125
+  _currentState: 0
 --- !u!114 &547179477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,7 +1063,6 @@ GameObject:
   - component: {fileID: 624611783}
   - component: {fileID: 624611782}
   - component: {fileID: 624611781}
-  - component: {fileID: 624611784}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1001,19 +1134,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &624611784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624611780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ccf6364ef0ad4a4ea66a7499b1044ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainTheme1: {fileID: 8300000, guid: 4c7b19ed249192040b3a6b1182cb26e0, type: 3}
 --- !u!1 &710514175
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,13 +1632,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1288064682}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4fa64e8c119d124cb61706a0f8379dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 83a8f492f18b344838f028cb533ba911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   testBox: {fileID: 0}
-  robotColor: 1
-  gameManager: {fileID: 96975463}
+  robotColor: 0
+  gameManager: {fileID: 0}
   aiPercentageDecider: 0.125
+  _currentState: 0
 --- !u!114 &1288064684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1911,7 +2032,7 @@ GameObject:
   - component: {fileID: 2059323629}
   - component: {fileID: 2059323628}
   m_Layer: 0
-  m_Name: Music/Effects
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

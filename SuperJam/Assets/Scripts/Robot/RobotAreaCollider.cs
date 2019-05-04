@@ -30,6 +30,7 @@ public class RobotAreaCollider : MonoBehaviour
     {
         if (other.CompareTag("Box") && _rm.GetRobotState() == RobotState.SEARCH)
         {
+            ;
             BoxManager otherManager = other.GetComponent<BoxManager>();
 
             if (otherManager.GetState() == BoxState.PICKED)

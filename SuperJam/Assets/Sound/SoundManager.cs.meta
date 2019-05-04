@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 2ae49c028a5cd7543bc3b72bf15560b8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - efxSource: {instanceID: 0}
+  - robotMovementSource1: {fileID: 8300000, guid: 56910a165f0e29f4e98d2319cec9e3d9,
+      type: 3}
+  - robotMovementSource2: {fileID: 8300000, guid: 56910a165f0e29f4e98d2319cec9e3d9,
+      type: 3}
+  - MainTheme1: {fileID: 8300000, guid: 4c7b19ed249192040b3a6b1182cb26e0, type: 3}
+  - robotJointSource1: {fileID: 8300000, guid: 5ec84c491e072d34499721fc9373bd5a, type: 3}
+  - robotJointSource2: {fileID: 8300000, guid: 45d4ef857b8e38c4a941788e868c6683, type: 3}
+  - musicSource: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
