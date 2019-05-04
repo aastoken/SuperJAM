@@ -49,5 +49,10 @@ public class RobotAreaCollider : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (_rm.GetBoxTarget().GetInstanceID() == other.gameObject.GetInstanceID())
+            _rm.SetState(RobotState.SEARCH);
+    }
     #endregion
 }
