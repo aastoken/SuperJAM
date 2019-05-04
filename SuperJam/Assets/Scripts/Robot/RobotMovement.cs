@@ -52,5 +52,21 @@ public class RobotMovement : MonoBehaviour
         return Mathf.Abs(dist.magnitude) < 3f;
     }
 
+    public void SetInstantSpeed(float spd)
+    {
+        GetComponent<NavMeshAgent>().velocity = Vector3.one * spd;
+    }
+
+    public bool IsHeLookingAt(Vector3 instance)
+    {
+        if (Vector3.Angle(transform.forward, instance - transform.position) < 1f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     #endregion
 }
