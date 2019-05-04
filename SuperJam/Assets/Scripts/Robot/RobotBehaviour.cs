@@ -58,7 +58,6 @@ public class RobotBehaviour : MonoBehaviour
         switch (_currentState)
         {
             case RobotState.SEARCH:
-                // todo Wandering script.
                 _currentBoxPicked = new BoxRobot();
                 _currentBoxTarget = new BoxRobot();
                 Wandering();
