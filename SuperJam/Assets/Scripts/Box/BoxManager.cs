@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoxManager : MonoBehaviour
 {
     #region Public
-
+    public BoxColor color = BoxColor.GREEN;
     #endregion
 
     #region Private

@@ -57,6 +57,8 @@ public class RobotManager : MonoBehaviour
                 break;
             case RobotState.WITHBOX:
                 // With box function
+                // TODO (Gabi) Set the motherfucking Move(Objective);
+
                 break;
             case RobotState.LEAVEBOX:
                 break;
