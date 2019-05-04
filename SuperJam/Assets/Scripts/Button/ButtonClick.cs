@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonClick : MonoBehaviour
 {
-
+    DoorSwitch _currentSwitch; //This is for knowing if the door is closing the "correct" (tick) path or the "wrong" (cross) path.
     DoorState _currentState;
     public GameObject door;
     float _doorAngle;
