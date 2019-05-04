@@ -42,6 +42,7 @@ public class RobotManager : MonoBehaviour
     #region Methods
     void Control()
     {
+        Debug.Log("ROBOT STATE: " + _currentState);
         switch (_currentState)
         {
             case RobotState.SEARCH:
@@ -125,5 +126,15 @@ public class RobotManager : MonoBehaviour
         _currentBoxTarget = bt;
         _currentBoxTargetManager = bt.GetComponent<BoxManager>();
     }
+
+    /// <summary>
+    /// Gets the state of the robot.
+    /// </summary>
+    /// <returns>The robot state.</returns>
+    public RobotState GetRobotState()
+    {
+        return _currentState;
+    }
+
     #endregion
 }
