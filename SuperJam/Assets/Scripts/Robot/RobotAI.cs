@@ -10,6 +10,11 @@ public class RobotAI : MonoBehaviour
     private RobotBehaviour _rm = null;
     #endregion 
 
+    public float[] getProbs()
+    {
+        return probs;
+    }
+
     public bool Think(GameObject objective)
     {
         BoxManager managerOfTheBoxObjective = objective.GetComponent<BoxManager>();
