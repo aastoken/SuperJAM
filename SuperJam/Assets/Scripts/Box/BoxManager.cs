@@ -43,5 +43,9 @@ public class BoxManager : MonoBehaviour
         return _currentState;
     }
 
+    public void SetPicked()
+    {
+        _currentState = BoxState.PICKED;
+    }
     #endregion
 }

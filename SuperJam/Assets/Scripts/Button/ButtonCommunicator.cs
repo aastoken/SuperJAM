@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class ButtonCommunicator : MonoBehaviour
 {
-    // Start is called before the first frame update
+    #region Public
+
+    #endregion
+
+    #region Private
+    ButtonManager _bm;
+    #endregion
+
+    #region MonoBehaviour
     void Start()
     {
-        
+        _bm = GetComponent<ButtonManager>();
+        if (_bm == null)
+        {
+            Debug.LogError("Error, not finding button manager");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    #endregion
+
+    #region Methods
+    /// <summary>
+    /// Communicate from this instance to the robot calling it if the decission was right.
+    /// </summary>
+    /// <returns>The communicate.</returns>
+    public bool Communicate()
     {
-        
+        return _bm.DecissionRightOrNot();
     }
+    #endregion
 }
