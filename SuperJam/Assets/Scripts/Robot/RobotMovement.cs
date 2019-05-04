@@ -37,6 +37,7 @@ public class RobotMovement : MonoBehaviour
         */
         // PONER AQUI TU CODIGO DE IA PATHFINDING 
         GetComponent<NavMeshAgent>().SetDestination(objective);
+
         // todo: make model look at point where he is going.
     }
 
