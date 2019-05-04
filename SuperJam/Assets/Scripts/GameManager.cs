@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
                     _currentState = GameManagerState.FINISH;
                     return;
                 }
-                //StartCoroutinesForSpawn();
+                StartCoroutinesForSpawn();
                 break;
             case GameManagerState.FINISH:
 
@@ -73,12 +73,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     IEnumerator InstantiateRandomBox()
     {
-        //GameObject box = (GameObject)Instantiate(boxPrefab);
-        //Vector2 randomPosition = ReturnRandomAvailablePosition(box.transform);
-        //box.transform.position = new Vector3(randomPosition.x, 0, randomPosition.y);       
+            
         while (true)
         {
             Debug.Log("WORK");
+            GameObject box = (GameObject)Instantiate(boxPrefab);
+            Vector3 randomPosition = ReturnRandomAvailablePosition(100, 100);
+            box.transform.position = new Vector3(randomPosition.x, randomPosition.y, randomPosition.y);
             yield return new WaitForSeconds(waitSecondsForBoxSpawn);
         }
     }
@@ -91,7 +92,18 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             GameObject robot = (GameObject)Instantiate(robotPrefab);
-            robot.transform.position = ReturnRandomAvailablePosition(100f, 100f);
+            robot.transform.position = ReturnRandomAvailablePosition(10f, 10f);
+            BoxColor r = RandomBoxColor();
+            RobotBehaviour rb = robot.GetComponent<RobotBehaviour>();
+            if (rb == null)
+            {
+                Debug.LogError("Error, no robot behaviour available");
+            }
+            else
+            {
+                rb.SetColor(r);
+            }
+
             yield return new WaitForSeconds(waitSecondsForBoxSpawn);
         }
     }
@@ -106,11 +118,22 @@ public class GameManager : MonoBehaviour
         do
         {
             // Assuming scenario is a square. We should change this
-            RandomV = new Vector3(Random.Range(-SceneDimensions, SceneDimensions), 1.0f, Random.Range(-SceneDimensions, SceneDimensions));
+            RandomV = new Vector3(Random.Range(-SceneDimensions, SceneDimensions), 10.0f, Random.Range(-SceneDimensions, SceneDimensions));
 
         } while (!Physics.CheckBox(RandomV, new Vector3(modelWidth, 0, modelLength)));
         Debug.Log("Random " + RandomV);
         return RandomV;
+    }
+
+    /// <summary>
+    /// Randoms the color of the box.
+    /// </summary>
+    /// <returns>The box color.</returns>
+    public BoxColor RandomBoxColor()
+    {
+        int r = Random.Range(0, 4);
+        BoxColor c = (BoxColor)r;
+        return c;
     }
 
     /// <summary>

@@ -61,9 +61,6 @@ public class ObjectPicking : MonoBehaviour
         targetObject = go;
     }
 
-    //************************ ACTIONS *********************************//
-
-
     //Delete after getting a pathfinding
     void TravelToObject()
     {
@@ -102,10 +99,10 @@ public class ObjectPicking : MonoBehaviour
         mainState = State.IDLE;
     }
 
-
-    //***********************************************************************************************//
-
-
+    public void Stay()
+    {
+        targetObject.transform.position = objectHandler.transform.position + distanceToObject.normalized;
+    }
 
     void StateHandling()
     {

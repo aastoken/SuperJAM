@@ -9,7 +9,7 @@ public class RobotAreaCollider : MonoBehaviour
     #endregion
 
     #region Private 
-    private RobotManager _rm;
+    private RobotBehaviour _rm;
     private RobotAI _ra;
     private List<int> _prohibitedBoxes = new List<int>();
     #endregion
@@ -17,7 +17,7 @@ public class RobotAreaCollider : MonoBehaviour
     #region MonoBehaviour
     void Start()
     {
-        _rm = Robot.GetComponent<RobotManager>();
+        _rm = Robot.GetComponent<RobotBehaviour>();
         _ra = Robot.GetComponent<RobotAI>();
     }
 
@@ -49,5 +49,10 @@ public class RobotAreaCollider : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (_rm.GetBoxTarget().GetInstanceID() == other.gameObject.GetInstanceID())
+            _rm.SetState(RobotState.SEARCH);
+    }
     #endregion
 }

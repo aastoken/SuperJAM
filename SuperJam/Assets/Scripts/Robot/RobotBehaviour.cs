@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotManager : MonoBehaviour
+public class RobotBehaviour : MonoBehaviour
 {
     #region Public
     public GameObject testBox = null;
@@ -12,7 +12,7 @@ public class RobotManager : MonoBehaviour
     #endregion
 
     #region Private
-    private RobotState _currentState = RobotState.SEARCH;
+    public RobotState _currentState = RobotState.SEARCH;
     private BoxRobot _currentBoxTarget = new BoxRobot();
     private BoxRobot _currentBoxPicked = new BoxRobot();
     private RobotMovement _rm;
@@ -20,11 +20,16 @@ public class RobotManager : MonoBehaviour
     private BoxColor _colorOfRobot;
     private GameManager _gm;
     private RobotAI _ai;
-    // Variable that will inform in LeaveBox if the robot is right or not. In the rest of states this will be null.
-    private GameObject _doorInform;
+    // Variable that will inform in LeaveBox if the robot is right or not. In the rest of states this will be null, it will be set on the WithBox state.
+    private GameObject _door;
     #endregion
 
     #region MonoBehaviour
+    void Awake()
+    {
+        gameManager = GameObject.FindWithTag("GameManager");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +51,8 @@ public class RobotManager : MonoBehaviour
         {
             case RobotState.SEARCH:
                 // todo Wandering script.
-
+                _currentBoxPicked = new BoxRobot();
+                _currentBoxTarget = new BoxRobot();
                 break;
             case RobotState.GO:
                 HandleGo();
@@ -62,8 +68,12 @@ public class RobotManager : MonoBehaviour
             case RobotState.LEAVEBOX:
                 Debug.Log("Leave box");
                 bool isRobotRight = false;
-                // todo: isRobotRight = _doorInform.GetComponent<DoorCommunicator>().IsRobotRight();
+                isRobotRight = _door.GetComponent<ButtonCommunicator>().Communicate();
                 _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
+                Destroy(_currentBoxPicked.box);
+                _currentBoxPicked.boxManager = null;
+                _door = null;
+                _currentState = RobotState.SEARCH;
                 break;
             case RobotState.WAIT:
                 break;
@@ -93,9 +103,10 @@ public class RobotManager : MonoBehaviour
         GameObject desiredButton = _gm.GiveButton(_colorOfRobot);
         Vector3 objective = desiredButton.transform.position;
         _rm.Move(objective);
-
+        _op.Stay();
         if (_rm.IsHeNearInstance(objective))
         {
+            _door = desiredButton;
             _currentState = RobotState.LEAVEBOX;
         }
     }
@@ -144,6 +155,7 @@ public class RobotManager : MonoBehaviour
             return;
         }
         _op.SetTarget(_currentBoxPicked.box);
+        _currentBoxPicked.boxManager.SetPicked();
         _op.PickUpObject();
         _currentState = RobotState.WITHBOX;
         return;
@@ -207,5 +219,18 @@ public class RobotManager : MonoBehaviour
         return _currentState;
     }
 
+    /// <summary>
+    /// Sets the color.
+    /// </summary>
+    /// <param name="c">C.</param>
+    public void SetColor(BoxColor c)
+    {
+        _colorOfRobot = c;
+    }
+
+    public GameObject GetBoxTarget()
+    {
+        return _currentBoxTarget.box;
+    }
     #endregion
 }
