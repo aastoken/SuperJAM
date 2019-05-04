@@ -213,13 +213,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   efxSource: {fileID: 969416390}
-  robotMovementSource1: {fileID: 8300000, guid: 56910a165f0e29f4e98d2319cec9e3d9,
+  robotMovementSource1: {fileID: 8300000, guid: 2dfd087ca3d4e5149a32f7bc9e1bcc93,
     type: 3}
-  robotMovementSource2: {fileID: 8300000, guid: 56910a165f0e29f4e98d2319cec9e3d9,
+  robotMovementSource2: {fileID: 8300000, guid: bfcb75264ad4702478ed1ea8ce0e6fc3,
     type: 3}
   MainTheme1: {fileID: 8300000, guid: 4c7b19ed249192040b3a6b1182cb26e0, type: 3}
   robotJointSource1: {fileID: 8300000, guid: 5ec84c491e072d34499721fc9373bd5a, type: 3}
   robotJointSource2: {fileID: 8300000, guid: 45d4ef857b8e38c4a941788e868c6683, type: 3}
+  point1: {fileID: 8300000, guid: a7d3d53b81cb9634890f276c144ab00f, type: 3}
+  point2: {fileID: 8300000, guid: 5450c9e40cea59a47a58a090361aa561, type: 3}
   musicSource: {fileID: 2059323628}
   lowPitchRange: 0.95
   highPitchRange: 1.05
@@ -495,10 +497,10 @@ GameObject:
   - component: {fileID: 547179481}
   - component: {fileID: 547179480}
   - component: {fileID: 547179479}
+  - component: {fileID: 547179477}
   - component: {fileID: 547179483}
   - component: {fileID: 547179484}
   - component: {fileID: 547179478}
-  - component: {fileID: 547179477}
   - component: {fileID: 547179476}
   - component: {fileID: 547179485}
   m_Layer: 0
@@ -538,7 +540,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 547179475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bae96d19273d954f8835af92c51954d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bc073f1228cbb24fa8357cdc46ca2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
@@ -678,7 +680,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.528
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1357,7 +1359,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1645,7 +1647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1288064683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,8 +1681,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bae96d19273d954f8835af92c51954d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxSpeed: 5
   acceleration: 3
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1288064685
 MonoBehaviour:
   m_ObjectHideFlags: 0
