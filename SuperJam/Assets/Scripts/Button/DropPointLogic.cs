@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public enum PointsDrop
 {
     QUEUE, WAITSTATION, DROPRIGHT, DROPWRONG, VENTCORRECT, VENTINCORRECT, NOTHING 
@@ -196,6 +197,7 @@ public class DropPointLogic : MonoBehaviour
     public void ExecuteClick()
     {
         Debug.Log("aaaa!)");
+        SoundManager.instance.openDoor(gameObject.GetComponent<AudioSource>());
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;
 
