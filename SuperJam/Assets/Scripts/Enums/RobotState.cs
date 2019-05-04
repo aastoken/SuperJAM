@@ -3,7 +3,12 @@
     SEARCH,
     GO,
     WITHBOX,
+    WAITINGFORDROP,
     LEAVEBOX,
     TAKEBOX,
-    WAIT
+    QUEUE,
+    WAIT,
+    GOTOWAITZONE,
+    INWAITZONE,
+    GONNADROP,
 }
