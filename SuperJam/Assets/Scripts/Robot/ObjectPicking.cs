@@ -6,9 +6,38 @@ public class ObjectPicking : MonoBehaviour
 {
 
     public GameObject targetObject;
+    public Transform objectHandler;
     Vector3 distanceToObject;
     float distanceValue;
 
+
+    #region MonoBehaviour
+    void Start()
+    {
+        if (objectHandler == null)
+        {
+            Debug.LogError("Oopsie whoopsie! Please set the objectHandler Transform to the Robot please!");
+        }
+        mainState = State.IDLE;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            mainState = State.TRAVELLING;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && mainState == State.PICKEDUP)
+        {
+            mainState = State.DROPPING;
+        }
+
+        StateHandling();
+    }
+
+    #endregion 
 
     //STATES
 
@@ -56,10 +85,13 @@ public class ObjectPicking : MonoBehaviour
 
     public void PickUpObject()
     {
-        targetObject.transform.SetParent(transform);
-        targetObject.transform.position = transform.position + distanceToObject.normalized;
-        targetObject.GetComponent<Rigidbody>().useGravity = false;
-        mainState = State.PICKEDUP;
+        if (targetObject != null)
+        {
+            targetObject.transform.SetParent(transform);
+            targetObject.transform.position = objectHandler.transform.position + distanceToObject.normalized;
+            targetObject.GetComponent<Rigidbody>().useGravity = false;
+            mainState = State.PICKEDUP;
+        }
     }
 
     public void DropObject()
@@ -98,28 +130,6 @@ public class ObjectPicking : MonoBehaviour
                 break;
        
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        mainState = State.IDLE;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            mainState = State.TRAVELLING;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftControl) && mainState == State.PICKEDUP)
-        {
-            mainState = State.DROPPING;
-        }
-
-        StateHandling();        
     }
 
 }

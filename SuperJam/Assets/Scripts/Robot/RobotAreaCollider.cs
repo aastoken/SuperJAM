@@ -28,8 +28,15 @@ public class RobotAreaCollider : MonoBehaviour
     /// <param name="other">Other.</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Box"))
+        if (other.CompareTag("Box") && _rm.GetRobotState() == RobotState.SEARCH)
         {
+            BoxManager otherManager = other.GetComponent<BoxManager>();
+
+            if (otherManager.GetState() == BoxState.PICKED)
+            {
+                return;
+            }
+
             if (!_prohibitedBoxes.Contains(other.gameObject.GetInstanceID()) && _ra.Think(other.gameObject))
             {
                 _rm.SetBoxTarget(other.gameObject);

@@ -48,7 +48,7 @@ public class RobotMovement : MonoBehaviour
     public bool IsHeNearInstance(Vector3 instance)
     {
         Vector3 dist = transform.position - instance;
-        return Mathf.Abs(dist.magnitude) < 1.5f;
+        return Mathf.Abs(dist.magnitude) < 3f;
     }
 
     #endregion
