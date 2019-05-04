@@ -8,6 +8,7 @@ public class RobotManager : MonoBehaviour
     public GameObject testBox = null;
     public BoxColor robotColor = BoxColor.BLUE;
     public GameObject gameManager = null;
+    public float aiPercentageDecider = 0.125f;
     #endregion
 
     #region Private
@@ -62,10 +63,7 @@ public class RobotManager : MonoBehaviour
                 Debug.Log("Leave box");
                 bool isRobotRight = false;
                 // todo: isRobotRight = _doorInform.GetComponent<DoorCommunicator>().IsRobotRight();
-                if (isRobotRight)
-                {
-
-                }
+                _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
                 break;
             case RobotState.WAIT:
                 break;
