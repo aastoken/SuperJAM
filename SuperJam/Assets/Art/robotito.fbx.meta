@@ -10,6 +10,8 @@ ModelImporter:
     100008: RightArm
     100010: RobotBody
     100012: //RootNode
+    100014: RobotBody.001
+    100016: affinityLights
     400000: Antennas
     400002: Eyes
     400004: Leftarm
@@ -17,6 +19,8 @@ ModelImporter:
     400008: RightArm
     400010: RobotBody
     400012: //RootNode
+    400014: RobotBody.001
+    400016: affinityLights
     2100000: RobotColor
     2100002: RobotMetalBase
     2100004: LightBulb
@@ -26,18 +30,24 @@ ModelImporter:
     2300006: LightBulb
     2300008: RightArm
     2300010: RobotBody
+    2300012: RobotBody.001
+    2300014: affinityLights
     3300000: Antennas
     3300002: Eyes
     3300004: Leftarm
     3300006: LightBulb
     3300008: RightArm
     3300010: RobotBody
+    3300012: RobotBody.001
+    3300014: affinityLights
     4300000: RobotBody
     4300002: Eyes
     4300004: LightBulb
     4300006: RightArm
     4300008: Leftarm
     4300010: Antennas
+    4300012: RobotBody.001
+    4300014: affinityLights
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -59,6 +69,26 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: RobotMetalBase
     second: {fileID: 2100000, guid: 16dd612ef9494744cbcb2d2260d796e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShaderFillBlue
+    second: {fileID: 2100000, guid: cd1a9b34df125304bafc0adfd276d24a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShaderFillGreen
+    second: {fileID: 2100000, guid: b5d8096a55716194ba3bd238f7bf1f4b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShaderFillRed
+    second: {fileID: 2100000, guid: 1cda706a98e016442a65b131c7ea9155, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShaderFillYellow
+    second: {fileID: 2100000, guid: b5527254757a0a2419a2c03d632b0a65, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
