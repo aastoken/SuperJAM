@@ -13,6 +13,7 @@ public class RobotBehaviour : MonoBehaviour
     public float arenaTamZ = 100.0f;
     public Color currentMaterialColor;
     public MeshRenderer modelMaterial;
+    public int adderForHighScore = 100;
     #endregion
 
     #region Private
@@ -125,9 +126,11 @@ public class RobotBehaviour : MonoBehaviour
         _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
         HandleIfTheUserIsRight(_currentBoxPicked.boxManager.color, isRobotRight);
         Destroy(_currentBoxPicked.box);
+        AddScore(_currentBoxPicked.boxManager.color, _colorOfRobot, isRobotRight);
         _currentBoxPicked.boxManager = null;
         _door = null;
         _rcd.SubstractOne();
+
         _currentState = RobotState.SEARCH;
 
     }
@@ -221,6 +224,7 @@ public class RobotBehaviour : MonoBehaviour
             _door = _desiredDropPoint;
             DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
             dropper.AddToQueue(this);
+            Debug.LogWarning("DOOR WARNING  " + _door.GetInstanceID());
             _currentState = RobotState.QUEUE;
         }
     }
@@ -378,6 +382,13 @@ public class RobotBehaviour : MonoBehaviour
         modelMaterial.materials[0].color = _gm.colors[(int)_colorOfRobot];        
     }
 
+    void AddScore(BoxColor box, BoxColor robotColor, bool userDecission)
+    {
+        if (userDecission && box == robotColor)
+        {
+            _gm.score += 100;
+        }
+    }
 
     #endregion
 }
