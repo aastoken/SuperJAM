@@ -10,7 +10,8 @@ public class BoxManager : MonoBehaviour
 
     #region Private
     BoxState _currentState = BoxState.NOTPICKED;
-    GameManager _gm; 
+    GameManager _gm;
+    int numberOfTimes = 0;
     #endregion
 
     #region MonoBehaviour
@@ -33,8 +34,10 @@ public class BoxManager : MonoBehaviour
         switch (_currentState)
         {
             case BoxState.NOTPICKED:
+                StartCoroutine("DeleteTime");
                 break;
             case BoxState.PICKED:
+                StopAllCoroutines();
                 break;
             default:
                 Debug.LogWarning("This state does not exist for BoxManager!");
@@ -60,6 +63,22 @@ public class BoxManager : MonoBehaviour
     {
         color = c;
         GetComponent<MeshRenderer>().materials[0].color = _gm.colors[(int)c];
+    }
+    
+    IEnumerator DeleteTime()
+    {
+        while(true)
+        {
+            if (numberOfTimes <= 0)
+            {
+                numberOfTimes++;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            yield return new WaitForSeconds(20.0f);
+        }
     }
     #endregion
 }
