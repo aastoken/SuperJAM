@@ -33,10 +33,10 @@ public class DropPointLogic : MonoBehaviour
     void Start()
     {
         _currentState = DoorState.IDLE;
-        _initialRotation = door.transform.rotation;
+        _initialRotation = door.transform.localRotation;
         
         
-        _targetRotation = Quaternion.AngleAxis(door.transform.rotation.eulerAngles.y + _doorAngle, Vector3.up);
+        _targetRotation = Quaternion.AngleAxis(door.transform.localRotation.eulerAngles.z - _doorAngle, Vector3.forward);
     }
 
     // Update is called once per frame
