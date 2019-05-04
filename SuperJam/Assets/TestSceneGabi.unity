@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeStart: 4
   waitSecondsForBoxSpawn: 10
-  waitSecondsForRobotSpawn: 2
+  waitSecondsForRobotSpawn: 500
   boxPrefab: {fileID: 8937722785061159898, guid: 65c2bdf3a2c684574b045613521bf027,
     type: 3}
   robotPrefab: {fileID: 547179475}
@@ -367,7 +367,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!136 &408676584
 CapsuleCollider:
@@ -518,9 +518,9 @@ MonoBehaviour:
   testBox: {fileID: 96975463}
   robotColor: 0
   gameManager: {fileID: 96975463}
-  aiPercentageDecider: 0.125
-  arenaTamX: 100
-  arenaTamZ: 100
+  aiPercentageDecider: 0.1
+  arenaTamX: 30
+  arenaTamZ: 30
   currentMaterialColor: {r: 0, g: 0, b: 0, a: 0}
   modelMaterial: {fileID: 180741790}
   _currentState: 0
@@ -1005,7 +1005,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!136 &803285247
 CapsuleCollider:
@@ -1663,7 +1663,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!136 &1338912927
 CapsuleCollider:
