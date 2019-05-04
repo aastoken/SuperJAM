@@ -89,6 +89,7 @@ public class RobotBehaviour : MonoBehaviour
             case RobotState.GONNADROP:
                 HandleGonnaDrop();
                 break;
+            
             case RobotState.LEAVEBOX:
                 HandleLeaveBox();
                 break;
