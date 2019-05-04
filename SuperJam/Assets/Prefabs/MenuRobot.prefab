@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6311851196441304335}
-  - component: {fileID: 6311851196441304332}
+  - component: {fileID: 8852279965718336883}
   - component: {fileID: 6311851196441304338}
   - component: {fileID: 6311851196441304333}
   m_Layer: 0
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 6311851197117966552}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6311851196441304332
+--- !u!114 &8852279965718336883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6311851196441304334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 052704b81551049248314b08e4ca6c18, type: 3}
+  m_Script: {fileID: 11500000, guid: 6972df5ed019ae04a8dcb3839004c193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Robot: {fileID: 6311851197117966545}
@@ -118,12 +118,12 @@ GameObject:
   - component: {fileID: 6311851197117966554}
   - component: {fileID: 6311851197117966549}
   - component: {fileID: 6311851197117966553}
+  - component: {fileID: 1688507695844704255}
   - component: {fileID: 6311851197117966558}
   - component: {fileID: 6311851197117966548}
-  - component: {fileID: 6311851197117966551}
   - component: {fileID: 6311851197117966550}
   m_Layer: 0
-  m_Name: ROBOTtest
+  m_Name: MenuRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,6 +226,20 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1688507695844704255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311851197117966545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc073f1228cbb24fa8357cdc46ca2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 5
+  acceleration: 3
 --- !u!114 &6311851197117966558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,20 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3413c8893ca3b104b83a8a32fc8dea51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6311851197117966551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6311851197117966545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bae96d19273d954f8835af92c51954d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 5
-  acceleration: 3
 --- !u!114 &6311851197117966550
 MonoBehaviour:
   m_ObjectHideFlags: 0
