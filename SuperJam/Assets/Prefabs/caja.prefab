@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2276473682867194367}
   - component: {fileID: 2276473682867194361}
   - component: {fileID: 2276473682867194365}
-  - component: {fileID: 2276473682867194366}
   m_Layer: 0
   m_Name: caja
   m_TagString: Box
@@ -28,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2276473682867194360}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -41.05, y: 2.25, z: -3.9494507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -110,16 +109,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.42435, y: 2.9251285, z: 4.357762}
   m_Center: {x: 0, y: -0.000043332577, z: 0}
---- !u!114 &2276473682867194366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2276473682867194360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7199b3d4261c8994fb61569cc09750b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 1
