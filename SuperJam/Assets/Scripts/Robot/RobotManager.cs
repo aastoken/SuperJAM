@@ -59,7 +59,7 @@ public class RobotManager : MonoBehaviour
             case RobotState.WITHBOX:
                 // With box function
                 // TODO (Gabi) Set the motherfucking Move(Objective);
-                HandleWithBox();
+                HandleWithBox();                
                 break;
             case RobotState.LEAVEBOX:
                 Debug.Log("Leave box");
@@ -127,7 +127,7 @@ public class RobotManager : MonoBehaviour
         if (_rm.IsHeNearInstance(_currentBoxTarget.box.transform.position))
         {
             _currentState = RobotState.TAKEBOX;
-            _currentBoxPicked = _currentBoxTarget;
+            _currentBoxPicked = _currentBoxTarget;            
             // Clean target of box.
             _currentBoxTarget = new BoxRobot();
 
@@ -149,7 +149,7 @@ public class RobotManager : MonoBehaviour
         _op.SetTarget(_currentBoxPicked.box);
         _op.PickUpObject();
         //SONIDO COGER
-        SoundManager.instance.PlayRobotSoundJoint();
+  
         _currentState = RobotState.WITHBOX;
         return;
     }

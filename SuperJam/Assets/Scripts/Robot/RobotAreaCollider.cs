@@ -29,8 +29,7 @@ public class RobotAreaCollider : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Box") && _rm.GetRobotState() == RobotState.SEARCH)
-        {
-            ;
+        {        
             BoxManager otherManager = other.GetComponent<BoxManager>();
 
             if (otherManager.GetState() == BoxState.PICKED)
@@ -52,8 +51,8 @@ public class RobotAreaCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        //if (other.CompareTag("Box") && _rm != null && other.gameObject != null && _rm.GetBoxTarget().GetInstanceID() == other.gameObject.GetInstanceID())
-            //_rm.SetState(RobotState.SEARCH);
+        if (_rm.GetBoxTarget() && _rm.GetBoxTarget().GetInstanceID() == other.gameObject.GetInstanceID())
+            _rm.SetState(RobotState.SEARCH);
     }
     #endregion
 }

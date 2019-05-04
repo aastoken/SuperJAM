@@ -67,11 +67,13 @@ public class RobotBehaviour : MonoBehaviour
                 break;
             case RobotState.TAKEBOX:
                 HandleTakeBox();
+                SoundManager.instance.PlayRobotSoundMovement();
                 break;
             case RobotState.WITHBOX:
                 // With box function
                 // TODO (Gabi) Set the motherfucking Move(Objective);
                 HandleWithBox();
+                
                 break;
 
             case RobotState.LEAVEBOX:
