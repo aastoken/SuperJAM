@@ -49,13 +49,13 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="clip">Clip.</param>
     //Used to play single sound clips.
-    public void PlaySingle(AudioClip clip)
+    public void PlaySingle(AudioClip clip, AudioSource src)
     {
         //Set the clip of our efxSource audio source to the clip passed in as a parameter.
-        efxSource.clip = clip;
+        src.clip = clip;
 
         //Play the clip.
-        efxSource.Play();
+        src.Play();
     }
 
     public void PlayMusic(AudioClip clip)
@@ -94,21 +94,21 @@ public class SoundManager : MonoBehaviour
     /// <summary>
     /// Plays the robot sound movement (call from RobotManager).
     /// </summary>
-    public void PlayRobotSoundMovement()
+    public void PlayRobotSoundMovement(AudioSource audioSrc)
     {
         int randomSound = Random.Range(0, 2);
 
         if(randomSound==0)
         {
-            instance.PlaySingle(robotMovementSource1);
+            instance.PlaySingle(robotMovementSource1, audioSrc);
         }
         else if(randomSound==1)
         {
-            instance.PlaySingle(robotMovementSource2);
+            instance.PlaySingle(robotMovementSource2, audioSrc);
         }
         else
         {
-            instance.PlaySingle(robotMovementSource1);
+            instance.PlaySingle(robotMovementSource1, audioSrc);
         }
              
     }
@@ -116,28 +116,28 @@ public class SoundManager : MonoBehaviour
     /// <summary>
     /// Plays the robot joints
     /// </summary>
-    public void PlayRobotSoundJoint()
+    public void PlayRobotSoundJoint(AudioSource audioSrc)
     {
         int randomSound = Random.Range(0, 2);
         Debug.Log("!");
         if (randomSound == 0)
         {
-            instance.PlaySingle(robotJointSource1);
+            instance.PlaySingle(robotJointSource1, audioSrc);
         }
         else if (randomSound == 1)
         {
-            instance.PlaySingle(robotJointSource2);
+            instance.PlaySingle(robotJointSource2, audioSrc);
         }
         else
         {
-            instance.PlaySingle(robotJointSource1);
+            instance.PlaySingle(robotJointSource1, audioSrc);
         }
 
     }
 
-    public void PlayRobotSpawn()
+    public void PlayRobotSpawn(AudioSource audioSrc)
     {            
-        instance.PlaySingle(robotJointSource2);         
+        instance.PlaySingle(robotJointSource2, audioSrc);         
     }
 
 

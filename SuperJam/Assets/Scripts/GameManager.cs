@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     #region Public
     public int lifeStart = 4;
+    public AudioSource audioSrc;
     public int waitSecondsForBoxSpawn = 10;
     public int waitSecondsForRobotSpawn = 10;
     public GameObject boxPrefab = null;
@@ -81,7 +82,7 @@ public class GameManager : MonoBehaviour
             GameObject box = (GameObject)Instantiate(boxPrefab);
             Vector3 randomPosition = ReturnRandomAvailablePosition(100, 100);
             box.transform.position = new Vector3(randomPosition.x, randomPosition.y, randomPosition.y);
-            SoundManager.instance.PlayRobotSoundJoint();
+            //SoundManager.instance.PlayRobotSoundJoint();
             yield return new WaitForSeconds(waitSecondsForBoxSpawn);
         }
     }
@@ -93,7 +94,6 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            SoundManager.instance.PlayRobotSpawn();
             GameObject robot = (GameObject)Instantiate(robotPrefab);
             robot.transform.position = ReturnRandomAvailablePosition(10f, 10f);
             BoxColor r = RandomBoxColor();

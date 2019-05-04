@@ -54,7 +54,6 @@ public class RobotManager : MonoBehaviour
                 break;
             case RobotState.TAKEBOX:
                 HandleTakeBox();
-                SoundManager.instance.PlayRobotSoundJoint();
                 break;
             case RobotState.WITHBOX:
                 // With box function

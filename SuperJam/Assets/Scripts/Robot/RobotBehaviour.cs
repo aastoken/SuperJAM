@@ -35,6 +35,7 @@ public class RobotBehaviour : MonoBehaviour
     void Awake()
     {
         gameManager = GameObject.FindWithTag("GameManager");
+        SoundManager.instance.PlayRobotSpawn(gameObject.GetComponent<AudioSource>());
     }
 
     // Start is called before the first frame update
@@ -53,6 +54,7 @@ public class RobotBehaviour : MonoBehaviour
     #endregion
 
     #region Methods
+    
     void Control()
     {
         switch (_currentState)
@@ -67,7 +69,7 @@ public class RobotBehaviour : MonoBehaviour
                 break;
             case RobotState.TAKEBOX:
                 HandleTakeBox();
-                SoundManager.instance.PlayRobotSoundMovement();
+                SoundManager.instance.PlayRobotSoundMovement(gameObject.GetComponent<AudioSource>()); 
                 break;
             case RobotState.WITHBOX:
                 // With box function
