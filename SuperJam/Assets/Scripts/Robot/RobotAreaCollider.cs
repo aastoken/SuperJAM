@@ -26,7 +26,7 @@ public class RobotAreaCollider : MonoBehaviour
     /// Trigger Enter
     /// </summary>
     /// <param name="other">Other.</param>
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Box") && _rm.GetRobotState() == RobotState.SEARCH)
         {
@@ -48,5 +48,6 @@ public class RobotAreaCollider : MonoBehaviour
             }
         }
     }
+
     #endregion
 }

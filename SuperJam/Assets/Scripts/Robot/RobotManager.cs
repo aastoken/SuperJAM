@@ -20,11 +20,16 @@ public class RobotManager : MonoBehaviour
     private BoxColor _colorOfRobot;
     private GameManager _gm;
     private RobotAI _ai;
-    // Variable that will inform in LeaveBox if the robot is right or not. In the rest of states this will be null.
-    private GameObject _doorInform;
+    // Variable that will inform in LeaveBox if the robot is right or not. In the rest of states this will be null, it will be set on the WithBox state.
+    private GameObject _door;
     #endregion
 
     #region MonoBehaviour
+    void Awake()
+    {
+        gameManager = GameObject.FindWithTag("GameManager");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,8 +67,12 @@ public class RobotManager : MonoBehaviour
             case RobotState.LEAVEBOX:
                 Debug.Log("Leave box");
                 bool isRobotRight = false;
-                // todo: isRobotRight = _doorInform.GetComponent<DoorCommunicator>().IsRobotRight();
+                isRobotRight = _door.GetComponent<ButtonCommunicator>().Communicate();
                 _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
+                Destroy(_currentBoxPicked.box);
+                _currentBoxPicked.boxManager = new BoxManager();
+                _door = null;
+                _currentState = RobotState.SEARCH;
                 break;
             case RobotState.WAIT:
                 break;
@@ -96,6 +105,7 @@ public class RobotManager : MonoBehaviour
 
         if (_rm.IsHeNearInstance(objective))
         {
+            _door = desiredButton;
             _currentState = RobotState.LEAVEBOX;
         }
     }
