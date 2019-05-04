@@ -6,30 +6,29 @@ public class RobotManager : MonoBehaviour
 {
     #region Public
     public GameObject testBox = null;
+    public BoxColor robotColor = BoxColor.BLUE;
+    public GameObject gameManager = null;
+    public float aiPercentageDecider = 0.125f;
     #endregion
 
     #region Private
     private RobotState _currentState = RobotState.SEARCH;
-    private GameObject _currentBoxTarget = null;
-    private BoxManager _currentBoxTargetManager = null;
+    private BoxRobot _currentBoxTarget = new BoxRobot();
+    private BoxRobot _currentBoxPicked = new BoxRobot();
     private RobotMovement _rm;
     private ObjectPicking _op;
+    private BoxColor _colorOfRobot;
+    private GameManager _gm;
+    private RobotAI _ai;
+    // Variable that will inform in LeaveBox if the robot is right or not. In the rest of states this will be null.
+    private GameObject _doorInform;
     #endregion
 
     #region MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _rm = GetComponent<RobotMovement>();
-        if (_rm == null)
-        {
-            Debug.LogError("ERROR! Set the RobotMovement Script in the prefab.");
-        }
-        _op = GetComponent<ObjectPicking>();
-        if (_op == null)
-        {
-            Debug.LogError("ERROR! Set the ObjectPicking Script in the prefab.");
-        }
+        HandleErrorsStart();
     }
 
     // Update is called once per frame
@@ -42,11 +41,11 @@ public class RobotManager : MonoBehaviour
     #region Methods
     void Control()
     {
+        Debug.Log("ROBOT STATE: " + _currentState);
         switch (_currentState)
         {
             case RobotState.SEARCH:
-                // With the probability script here we will find the box, when
-                // the box is found set state to GO
+                // todo Wandering script.
 
                 break;
             case RobotState.GO:
@@ -57,11 +56,47 @@ public class RobotManager : MonoBehaviour
                 break;
             case RobotState.WITHBOX:
                 // With box function
+                // TODO (Gabi) Set the motherfucking Move(Objective);
+                HandleWithBox();
                 break;
             case RobotState.LEAVEBOX:
+                Debug.Log("Leave box");
+                bool isRobotRight = false;
+                // todo: isRobotRight = _doorInform.GetComponent<DoorCommunicator>().IsRobotRight();
+                _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
                 break;
             case RobotState.WAIT:
                 break;
+        }
+    }
+
+    /// <summary>
+    /// Handles the withbox state.
+    /// </summary>
+    void HandleWithBox()
+    {
+        // Error handling
+        if (_currentBoxPicked.box == null)
+        {
+            Debug.LogWarning("Current box picked is not found? Probably an error picking it?");
+            _currentState = RobotState.SEARCH;
+            return;
+        }
+
+        if (_currentBoxPicked.box == null)
+        {
+            Debug.LogWarning("Current box picked script is not found? Probably an error picking it?");
+            _currentState = RobotState.SEARCH;
+            return;
+        }
+        // Move to desired door.
+        GameObject desiredButton = _gm.GiveButton(_colorOfRobot);
+        Vector3 objective = desiredButton.transform.position;
+        _rm.Move(objective);
+
+        if (_rm.IsHeNearInstance(objective))
+        {
+            _currentState = RobotState.LEAVEBOX;
         }
     }
 
@@ -70,21 +105,29 @@ public class RobotManager : MonoBehaviour
     /// </summary>
     void HandleGo()
     {
-        if (_currentBoxTargetManager == null)
+        // Error handling
+        if (_currentBoxTarget.boxManager == null)
         {
             Debug.LogWarning("Current box target is not found? Probably an error finding it?");
             _currentState = RobotState.SEARCH;
             return;
         }
-        if (_currentBoxTargetManager.GetState() == BoxState.PICKED)
+        if (_currentBoxTarget.boxManager.GetState() == BoxState.PICKED)
         {
+            _currentBoxTarget = new BoxRobot();
             _currentState = RobotState.SEARCH;
             return;
         }
-        _rm.Move(_currentBoxTarget.transform.position);
-        if (_rm.IsHeNearInstance(_currentBoxTarget.transform.position))
+        // Move to desired box.
+        _rm.Move(_currentBoxTarget.box.transform.position);
+
+        if (_rm.IsHeNearInstance(_currentBoxTarget.box.transform.position))
         {
             _currentState = RobotState.TAKEBOX;
+            _currentBoxPicked = _currentBoxTarget;
+            // Clean target of box.
+            _currentBoxTarget = new BoxRobot();
+
             return;
         }
     }
@@ -94,15 +137,45 @@ public class RobotManager : MonoBehaviour
     /// </summary>
     void HandleTakeBox()
     {
-        if (_currentBoxTargetManager.GetState() == BoxState.PICKED)
+        if (_currentBoxPicked.boxManager.GetState() == BoxState.PICKED)
         {
+            _currentBoxPicked = new BoxRobot();
             _currentState = RobotState.SEARCH;
             return;
         }
-        _op.SetTarget(_currentBoxTarget);
+        _op.SetTarget(_currentBoxPicked.box);
         _op.PickUpObject();
         _currentState = RobotState.WITHBOX;
         return;
+    }
+
+    /// <summary>
+    /// Handles the errors start.
+    /// </summary>
+    void HandleErrorsStart()
+    {
+        _ai = GetComponent<RobotAI>();
+
+        if (_ai == null)
+        {
+            Debug.LogError("ERROR! Set the RobotAI Script in the prefab.");
+        }
+        _rm = GetComponent<RobotMovement>();
+        if (_rm == null)
+        {
+            Debug.LogError("ERROR! Set the RobotMovement Script in the prefab.");
+        }
+        _op = GetComponent<ObjectPicking>();
+        if (_op == null)
+        {
+            Debug.LogError("ERROR! Set the ObjectPicking Script in the prefab.");
+        }
+        if (gameManager == null)
+        {
+            Debug.LogError("ERROR! Set the GameManager object when spawning.");
+        }
+        _gm = gameManager.GetComponent<GameManager>();
+        _colorOfRobot = robotColor;
     }
 
     /// <summary>
@@ -120,8 +193,19 @@ public class RobotManager : MonoBehaviour
     /// <param name="bt">Bt.</param>
     public void SetBoxTarget(GameObject bt)
     {
-        _currentBoxTarget = bt;
-        _currentBoxTargetManager = bt.GetComponent<BoxManager>();
+        _currentBoxTarget.box = bt;
+        _currentBoxTarget.boxManager = bt.GetComponent<BoxManager>();
+        Debug.Log("Target set: " + _currentBoxTarget.boxManager);
     }
+
+    /// <summary>
+    /// Gets the state of the robot.
+    /// </summary>
+    /// <returns>The robot state.</returns>
+    public RobotState GetRobotState()
+    {
+        return _currentState;
+    }
+
     #endregion
 }
