@@ -17,6 +17,7 @@ public class RobotBehaviour : MonoBehaviour
 
     #region Private
     public RobotState _currentState = RobotState.SEARCH;
+    private GameObject _desiredDropPoint = null;
     private BoxRobot _currentBoxTarget = new BoxRobot();
     private BoxRobot _currentBoxPicked = new BoxRobot();
     private RobotMovement _rm;
@@ -32,13 +33,13 @@ public class RobotBehaviour : MonoBehaviour
     #endregion
 
     #region MonoBehaviour
+
     void Awake()
     {
         gameManager = GameObject.FindWithTag("GameManager");
         SoundManager.instance.PlayRobotSpawn(gameObject.GetComponent<AudioSource>());
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         HandleErrorsStart();
@@ -46,11 +47,11 @@ public class RobotBehaviour : MonoBehaviour
         SetRendererColor();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Control();
     }
+
     #endregion
 
     #region Methods
@@ -72,12 +73,15 @@ public class RobotBehaviour : MonoBehaviour
                 SoundManager.instance.PlayRobotSoundMovement(gameObject.GetComponent<AudioSource>()); 
                 break;
             case RobotState.WITHBOX:
-                // With box function
-                // TODO (Gabi) Set the motherfucking Move(Objective);
-                HandleWithBox();
-                
+                HandleWithBox();            
                 break;
-
+            case RobotState.WAITINGFORDROP:
+                if (_desiredDropPoint.GetInstanceID() != _gm.GiveButton(_colorOfRobot).GetInstanceID())
+                {
+                    _currentState = RobotState.WITHBOX;
+                }
+                // if (!_desiredDropPoint.HasRobot()) _desiredDropPoint.GetPointToGo() -> GOINGTODROPPOINT -> LEAVEBOX
+                break;
             case RobotState.LEAVEBOX:
                 Debug.Log("Leave box");
                 bool isRobotRight = false;
@@ -131,15 +135,15 @@ public class RobotBehaviour : MonoBehaviour
             return;
         }
         // Move to desired door.
-        GameObject desiredButton = _gm.GiveButton(_colorOfRobot);
-        Vector3 objective = desiredButton.transform.position;
+        _desiredDropPoint = _gm.GiveButton(_colorOfRobot);
+        Vector3 objective = _desiredDropPoint.transform.position;
         _rm.Move(objective);
         _op.SetTarget(_currentBoxPicked.box);
         _op.Stay();
         if (_rm.IsHeNearInstance(objective))
         {
-            _door = desiredButton;
-            _currentState = RobotState.LEAVEBOX;
+            _door = _desiredDropPoint;
+            _currentState = RobotState.WAITINGFORDROP;
         }
     }
 
