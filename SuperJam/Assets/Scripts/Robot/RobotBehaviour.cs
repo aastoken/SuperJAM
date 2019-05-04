@@ -114,6 +114,7 @@ public class RobotBehaviour : MonoBehaviour
                     _rm.Move(dropper_.GetPoint(can));
                     if (_rm.IsHeNearInstance(dropper_.GetPoint(can)))
                     {
+                        dropper_.SetIDLE();
                         dropper_.SetBotInDropZone(this, can);
                         Debug.Log("WE ARE GODS");
                         _currentState = RobotState.GONNADROP;
