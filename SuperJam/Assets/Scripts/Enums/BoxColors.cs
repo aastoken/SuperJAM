@@ -1,4 +1,4 @@
 ﻿public enum BoxColor
 {
-    BLUE, RED, YELLOW, GREEN
+    BLUE = 0, RED = 1, YELLOW = 2, GREEN = 3
 }

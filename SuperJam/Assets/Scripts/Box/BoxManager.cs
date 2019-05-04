@@ -10,12 +10,20 @@ public class BoxManager : MonoBehaviour
 
     #region Private
     BoxState _currentState = BoxState.NOTPICKED;
+    GameManager _gm; 
     #endregion
 
     #region MonoBehaviour
     void Update()
     {
         Control();
+    }
+
+    void Start()
+    {
+        GameObject g = GameObject.FindWithTag("GameManager");
+        _gm = g.GetComponent<GameManager>();
+        SetColor(_gm.RandomBoxColor());
     }
     #endregion
 
@@ -46,6 +54,12 @@ public class BoxManager : MonoBehaviour
     public void SetPicked()
     {
         _currentState = BoxState.PICKED;
+    }
+
+    public void SetColor(BoxColor c)
+    {
+        color = c;
+        GetComponent<MeshRenderer>().materials[0].color = _gm.colors[(int)c];
     }
     #endregion
 }

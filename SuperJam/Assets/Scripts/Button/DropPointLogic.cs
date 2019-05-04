@@ -6,6 +6,11 @@ public class DropPointLogic : MonoBehaviour
 {
     #region Public
     public GameObject door;
+    public List<RobotBehaviour> WaitingList;
+    public List<RobotBehaviour> CorrectList;
+    public List<RobotBehaviour> IncorrectList;
+    public bool allowBridgeExit;
+    public bool allowDropPointEntrance;
     
     #endregion
 
@@ -43,7 +48,10 @@ public class DropPointLogic : MonoBehaviour
         if (_currentState == DoorState.MOVING)
             MoveDoor();
 
+
     }
+
+    
 
     private void OnMouseDown()
     {
@@ -53,16 +61,51 @@ public class DropPointLogic : MonoBehaviour
     #endregion
 
     #region Methods
-    void MoveDoor()
+    private void ManageQueues()
     {
-        if(_correctPath)
+        if(WaitingList.Count!=0)
         {
-            _t += _rotationSpeed * _delta;
+            if (_currentState == DoorState.IDLE)
+            {
+                allowBridgeExit = true; //From here, robot is allowed to move to the door's area (a point in the middle of the square of the door)
+                _currentState = DoorState.ROBOT_PASSING;
+            }
+            else
+            {
+                allowBridgeExit = false;
+                _currentState = DoorState.ROBOT_PASSING;
+            }
+            
+
         }
-        else
+
+        if (allowBridgeExit && _correctPath && CorrectList.Count == 0)
         {
-            _t -= _rotationSpeed * _delta;
+            allowDropPointEntrance = true;
+            //Evaluate is correctPath is true from the robot's behaviour
         }
+        else if (allowBridgeExit && !_correctPath && IncorrectList.Count == 0)
+        {
+            allowDropPointEntrance = true;
+            //Evaluate is correctPath is false from the robot's behaviour
+        }
+
+    }
+
+    private void MoveDoor()
+    {
+        if(_currentState != DoorState.ROBOT_PASSING)
+        {
+            if (_correctPath)
+            {
+                _t += _rotationSpeed * _delta;
+            }
+            else
+            {
+                _t -= _rotationSpeed * _delta;
+            }
+        }
+        
 
         
 
@@ -74,6 +117,14 @@ public class DropPointLogic : MonoBehaviour
         else if (_t >= 1) _correctPath = false;
 
         if (_t >= 1 || _t <= 0) _currentState = DoorState.IDLE;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Robot"))
+        {
+            _currentState = DoorState.IDLE; //This resets the door after a robot comes through
+        }
     }
     #endregion
 }
