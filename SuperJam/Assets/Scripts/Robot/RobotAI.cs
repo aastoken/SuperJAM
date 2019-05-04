@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class RobotAI : MonoBehaviour
 {
+    public bool Think(GameObject objective)
+    {
+        return true;
+    }
 
-    void Start()
-    {
-        
-    }
-    
-    void Update()
-    {
-        
-    }
 }

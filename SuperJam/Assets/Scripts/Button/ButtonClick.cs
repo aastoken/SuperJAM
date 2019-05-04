@@ -35,7 +35,7 @@ public class ButtonClick : MonoBehaviour
     void MoveDoor()
     {
 
-        door.transform.rotation
+
     }
 
 }
