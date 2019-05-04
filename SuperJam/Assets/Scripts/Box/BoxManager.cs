@@ -22,6 +22,7 @@ public class BoxManager : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine("DeleteTime");
         GameObject g = GameObject.FindWithTag("GameManager");
         _gm = g.GetComponent<GameManager>();
         SetColor(_gm.RandomBoxColor());
@@ -34,7 +35,7 @@ public class BoxManager : MonoBehaviour
         switch (_currentState)
         {
             case BoxState.NOTPICKED:
-                StartCoroutine("DeleteTime");
+                
                 break;
             case BoxState.PICKED:
                 StopAllCoroutines();
@@ -69,6 +70,7 @@ public class BoxManager : MonoBehaviour
     {
         while(true)
         {
+            Debug.Log("??");
             if (numberOfTimes <= 0)
             {
                 numberOfTimes++;
