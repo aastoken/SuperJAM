@@ -107,6 +107,7 @@ public class DropPointLogic : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log("WORKS");
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;
 
@@ -117,7 +118,7 @@ public class DropPointLogic : MonoBehaviour
     #region Methods
     private void ManageQueues()
     {
-        if(WaitingList.Count != 0)
+        if (WaitingList.Count != 0)
         {
             Debug.Log("uwu");
             if (_currentState == DoorState.IDLE && _correctPath && !CorrectBot)
@@ -134,12 +135,12 @@ public class DropPointLogic : MonoBehaviour
                 IncorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
             }
-            
-
         }
+    }
 
-        
-
+    public void SetIDLE()
+    {
+        _currentState = DoorState.IDLE;
     }
 
     private void MoveDoor()
@@ -185,11 +186,20 @@ public class DropPointLogic : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        //if(other.CompareTag("Robot"))
-        //{
-        //    _currentState = DoorState.IDLE; //This resets the door after a robot comes through
-        //}
-        //_tempTriggerBot = null;
+        if(other.CompareTag("Robot"))
+        {
+            _currentState = DoorState.IDLE; //This resets the door after a robot comes through
+        }
+        _tempTriggerBot = null;
+    }
+
+    public void ExecuteClick()
+    {
+
+        if (_currentState == DoorState.IDLE)
+            _currentState = DoorState.MOVING;
+
+        _allowButtonRot = true;
     }
     #endregion
 }
