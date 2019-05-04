@@ -87,7 +87,7 @@ public class ObjectPicking : MonoBehaviour
             targetObject.transform.SetParent(transform);
             targetObject.transform.position = objectHandler.transform.position + distanceToObject.normalized;
             targetObject.GetComponent<Rigidbody>().useGravity = false;
-            SoundManager.instance.PlayRobotSoundMovement();
+            SoundManager.instance.PlayRobotSoundMovement(gameObject.GetComponent<AudioSource>());
             mainState = State.PICKEDUP;
         }
     }
