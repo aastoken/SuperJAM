@@ -35,7 +35,12 @@ public class ButtonClick : MonoBehaviour
 
     void MoveDoor()
     {
+<<<<<<< HEAD
         door.transform.Rotate(Vector3.up, 5.0f * Time.deltaTime);
+=======
+
+
+>>>>>>> c499de625542f04403bef2cdfa95cc8cf352af75
     }
 
 }

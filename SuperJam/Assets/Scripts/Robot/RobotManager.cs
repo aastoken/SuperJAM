@@ -42,14 +42,12 @@ public class RobotManager : MonoBehaviour
     #region Methods
     void Control()
     {
-        switch(_currentState)
+        switch (_currentState)
         {
             case RobotState.SEARCH:
                 // With the probability script here we will find the box, when
                 // the box is found set state to GO
-                _currentBoxTarget = testBox;
-                _currentBoxTargetManager = testBox.GetComponent<BoxManager>();
-                _currentState = RobotState.GO;
+
                 break;
             case RobotState.GO:
                 HandleGo();
@@ -59,6 +57,8 @@ public class RobotManager : MonoBehaviour
                 break;
             case RobotState.WITHBOX:
                 // With box function
+                // TODO (Gabi) Set the motherfucking Move(Objective);
+
                 break;
             case RobotState.LEAVEBOX:
                 break;
@@ -66,7 +66,7 @@ public class RobotManager : MonoBehaviour
                 break;
         }
     }
-       
+
     /// <summary>
     /// Handles the go state.
     /// </summary>
@@ -84,7 +84,8 @@ public class RobotManager : MonoBehaviour
             return;
         }
         _rm.Move(_currentBoxTarget.transform.position);
-        if (_rm.IsHeNearInstance(_currentBoxTarget.transform.position)) {
+        if (_rm.IsHeNearInstance(_currentBoxTarget.transform.position))
+        {
             _currentState = RobotState.TAKEBOX;
             return;
         }
@@ -106,5 +107,23 @@ public class RobotManager : MonoBehaviour
         return;
     }
 
+    /// <summary>
+    /// Sets the state.
+    /// </summary>
+    /// <param name="state">State.</param>
+    public void SetState(RobotState state)
+    {
+        _currentState = state;
+    }
+
+    /// <summary>
+    /// Sets the box target.
+    /// </summary>
+    /// <param name="bt">Bt.</param>
+    public void SetBoxTarget(GameObject bt)
+    {
+        _currentBoxTarget = bt;
+        _currentBoxTargetManager = bt.GetComponent<BoxManager>();
+    }
     #endregion
 }
