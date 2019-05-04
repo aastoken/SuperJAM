@@ -83,6 +83,7 @@ public class RobotBehaviour : MonoBehaviour
                 // if (!_desiredDropPoint.HasRobot()) _desiredDropPoint.GetPointToGo() -> GOINGTODROPPOINT -> LEAVEBOX
                 break;
             case RobotState.LEAVEBOX:
+                SoundManager.instance.PlayRobotPoint(gameObject.GetComponent<AudioSource>());
                 Debug.Log("Leave box");
                 bool isRobotRight = false;
                 isRobotRight = _door.GetComponent<ButtonCommunicator>().Communicate();

@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PointsDrop
+{
+    QUEUE, WAITSTATION, DROPRIGHT, DROPWRONG, NOTHING
+}
+
 public class DropPointLogic : MonoBehaviour
 {
     #region Public
-    public GameObject door;
+    public Transform door;
+    public Transform buttonDeco;
     public List<RobotBehaviour> WaitingList;
-    public List<RobotBehaviour> CorrectList;
-    public List<RobotBehaviour> IncorrectList;
+    public Transform []paths;
+    public RobotBehaviour CorrectBot;
+    public RobotBehaviour IncorrectBot;
     public bool allowBridgeExit;
     public bool allowDropPointEntrance;
     
@@ -17,13 +24,15 @@ public class DropPointLogic : MonoBehaviour
     #region Private
     DoorState _currentState;
 
+    RobotBehaviour _tempTriggerBot;
     bool _correctPath = true;
     float _doorAngle = 90;
     Quaternion _initialRotation;
     Quaternion _targetRotation;
-    float _rotationSpeed = 50f;
+    float _rotationSpeed = 10f;
     float _delta;
     float _t;
+    bool _allowButtonRot = false;
 
     #endregion
 
@@ -33,10 +42,10 @@ public class DropPointLogic : MonoBehaviour
     void Start()
     {
         _currentState = DoorState.IDLE;
-        _initialRotation = door.transform.rotation;
+        _initialRotation = door.transform.localRotation;
         
         
-        _targetRotation = Quaternion.AngleAxis(door.transform.rotation.eulerAngles.y + _doorAngle, Vector3.up);
+        _targetRotation = Quaternion.AngleAxis(door.transform.localRotation.eulerAngles.y - _doorAngle, Vector3.up);
     }
 
     // Update is called once per frame
@@ -48,15 +57,49 @@ public class DropPointLogic : MonoBehaviour
         if (_currentState == DoorState.MOVING)
             MoveDoor();
 
-
+        ManageQueues();
     }
 
-    
+    public void AddToQueue(RobotBehaviour robotiyo)
+    {
+        WaitingList.Add(robotiyo);
+    }
+
+    public bool CanIGo(int id)
+    {
+        return WaitingList[0].gameObject.GetInstanceID() == id;
+    }
+
+    public Vector3 GetPoint(PointsDrop desiredDrop)
+    {
+        int desiredInt = (int)desiredDrop;
+        
+        return paths[desiredInt].position;
+    }
+
+    public PointsDrop WhatDrop(int id)
+    {
+       if (CorrectBot.gameObject.GetInstanceID() == id)
+       {
+            return PointsDrop.DROPRIGHT;
+       }
+       else if (IncorrectBot.gameObject.GetInstanceID() == id)
+       {
+            return PointsDrop.DROPWRONG;
+       }
+       else
+        {
+            Debug.LogError("Vaya, al parecer te has equivocado en la máquina de estados... gilipollas...");
+            return PointsDrop.NOTHING;
+        }
+    }
 
     private void OnMouseDown()
     {
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;
+
+        _allowButtonRot = true;
     }
     #endregion
 
@@ -65,30 +108,23 @@ public class DropPointLogic : MonoBehaviour
     {
         if(WaitingList.Count!=0)
         {
-            if (_currentState == DoorState.IDLE)
+            if (_currentState == DoorState.IDLE && _correctPath && !CorrectBot)
             {
-                allowBridgeExit = true; //From here, robot is allowed to move to the door's area (a point in the middle of the square of the door)
+                allowDropPointEntrance = true;
+                CorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
             }
-            else
+            else if (_currentState == DoorState.IDLE && !_correctPath && !IncorrectBot)
             {
-                allowBridgeExit = false;
+                allowDropPointEntrance = true;
+                IncorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
             }
             
 
         }
 
-        if (allowBridgeExit && _correctPath && CorrectList.Count == 0)
-        {
-            allowDropPointEntrance = true;
-            //Evaluate is correctPath is true from the robot's behaviour
-        }
-        else if (allowBridgeExit && !_correctPath && IncorrectList.Count == 0)
-        {
-            allowDropPointEntrance = true;
-            //Evaluate is correctPath is false from the robot's behaviour
-        }
+        
 
     }
 
@@ -119,12 +155,25 @@ public class DropPointLogic : MonoBehaviour
         if (_t >= 1 || _t <= 0) _currentState = DoorState.IDLE;
     }
 
+    private void MoveDecoButton()
+    {
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        //allowBridgeExit = false;
+        if(other.gameObject.CompareTag("Robot"))
+        _tempTriggerBot = other.gameObject.GetComponent<RobotBehaviour>();
+
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Robot"))
         {
             _currentState = DoorState.IDLE; //This resets the door after a robot comes through
         }
+        _tempTriggerBot = null;
     }
     #endregion
 }

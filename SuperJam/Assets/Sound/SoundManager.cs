@@ -16,6 +16,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip robotJointSource1;
     public AudioClip robotJointSource2;
 
+    //POINTS
+    public AudioClip point1;
+    public AudioClip point2;
 
     public AudioSource musicSource;                 //Drag a reference to the audio source which will play the music.
     public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
@@ -102,13 +105,9 @@ public class SoundManager : MonoBehaviour
         {
             instance.PlaySingle(robotMovementSource1, audioSrc);
         }
-        else if(randomSound==1)
-        {
-            instance.PlaySingle(robotMovementSource2, audioSrc);
-        }
         else
         {
-            instance.PlaySingle(robotMovementSource1, audioSrc);
+            instance.PlaySingle(robotMovementSource2, audioSrc);
         }
              
     }
@@ -124,13 +123,24 @@ public class SoundManager : MonoBehaviour
         {
             instance.PlaySingle(robotJointSource1, audioSrc);
         }
-        else if (randomSound == 1)
+        else
         {
             instance.PlaySingle(robotJointSource2, audioSrc);
         }
+
+    }
+
+    public void PlayRobotPoint(AudioSource audioSrc)
+    {
+        int randomSound = Random.Range(0, 2);
+        Debug.Log("!");
+        if (randomSound == 0)
+        {
+            instance.PlaySingle(point1, audioSrc);
+        }
         else
         {
-            instance.PlaySingle(robotJointSource1, audioSrc);
+            instance.PlaySingle(point2, audioSrc);
         }
 
     }
