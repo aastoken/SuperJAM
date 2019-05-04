@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotBehaviour : MonoBehaviour
+public class RobotManager : MonoBehaviour
 {
     #region Public
     public GameObject testBox = null;
     public BoxColor robotColor = BoxColor.BLUE;
     public GameObject gameManager = null;
     public float aiPercentageDecider = 0.125f;
-    public float arenaTamX = 100.0f;
-    public float arenaTamZ = 100.0f;
-    public Color currentMaterialColor;
-    public MeshRenderer modelMaterial;
+
     #endregion
 
     #region Private
-    public RobotState _currentState = RobotState.SEARCH;
+    private RobotState _currentState = RobotState.SEARCH;
     private BoxRobot _currentBoxTarget = new BoxRobot();
     private BoxRobot _currentBoxPicked = new BoxRobot();
     private RobotMovement _rm;
@@ -24,25 +21,15 @@ public class RobotBehaviour : MonoBehaviour
     private BoxColor _colorOfRobot;
     private GameManager _gm;
     private RobotAI _ai;
-    // Variable that will inform in LeaveBox if the robot is right or not. In the rest of states this will be null, it will be set on the WithBox state.
-    private GameObject _door;
-    // Wandering
-    private bool _finishedMovingWander = true;
-    private Vector3 _currentPositionWander = Vector3.one * -1;
+    // Variable that will inform in LeaveBox if the robot is right or not. In the rest of states this will be null.
+    private GameObject _doorInform;
     #endregion
 
     #region MonoBehaviour
-    void Awake()
-    {
-        gameManager = GameObject.FindWithTag("GameManager");
-    }
-
     // Start is called before the first frame update
     void Start()
     {
         HandleErrorsStart();
-        SetColor(_gm.RandomBoxColor());
-        SetRendererColor();
     }
 
     // Update is called once per frame
@@ -55,54 +42,34 @@ public class RobotBehaviour : MonoBehaviour
     #region Methods
     void Control()
     {
+        Debug.Log("ROBOT STATE: " + _currentState);
         switch (_currentState)
         {
             case RobotState.SEARCH:
-                _currentBoxPicked = new BoxRobot();
-                _currentBoxTarget = new BoxRobot();
-                Wandering();
+                // todo Wandering script.
+
                 break;
-            case RobotState.GO:
+            case RobotState.GO:               
                 HandleGo();
                 break;
             case RobotState.TAKEBOX:
                 HandleTakeBox();
+                SoundManager.instance.PlayRobotSoundJoint();
                 break;
             case RobotState.WITHBOX:
                 // With box function
                 // TODO (Gabi) Set the motherfucking Move(Objective);
                 HandleWithBox();
                 break;
-
             case RobotState.LEAVEBOX:
                 Debug.Log("Leave box");
                 bool isRobotRight = false;
-                isRobotRight = _door.GetComponent<ButtonCommunicator>().Communicate();
+                // todo: isRobotRight = _doorInform.GetComponent<DoorCommunicator>().IsRobotRight();
                 _ai.Learn(aiPercentageDecider, _currentBoxPicked.boxManager.color, isRobotRight);
-                Destroy(_currentBoxPicked.box);
-                _currentBoxPicked.boxManager = null;
-                _door = null;
-                _currentState = RobotState.SEARCH;
                 break;
             case RobotState.WAIT:
                 break;
         }
-    }
-
-    /// <summary>
-    /// Wandering this robot instance.
-    /// </summary>
-    void Wandering()
-    {
-        // First we generate coordinates for our robot to move towards
-        if (_finishedMovingWander)
-        {
-            Vector2 nextCoords = new Vector2(Random.Range(-arenaTamX, arenaTamX), Random.Range(-arenaTamZ, arenaTamZ));
-            _currentPositionWander = new Vector3(nextCoords.x, 1.0f, nextCoords.y);
-            _finishedMovingWander = false;
-        }
-        _rm.Move(_currentPositionWander);
-        _finishedMovingWander |= _rm.IsHeNearInstance(_currentPositionWander);
     }
 
     /// <summary>
@@ -128,10 +95,9 @@ public class RobotBehaviour : MonoBehaviour
         GameObject desiredButton = _gm.GiveButton(_colorOfRobot);
         Vector3 objective = desiredButton.transform.position;
         _rm.Move(objective);
-        _op.Stay();
+
         if (_rm.IsHeNearInstance(objective))
         {
-            _door = desiredButton;
             _currentState = RobotState.LEAVEBOX;
         }
     }
@@ -141,6 +107,7 @@ public class RobotBehaviour : MonoBehaviour
     /// </summary>
     void HandleGo()
     {
+      
         // Error handling
         if (_currentBoxTarget.boxManager == null)
         {
@@ -180,8 +147,9 @@ public class RobotBehaviour : MonoBehaviour
             return;
         }
         _op.SetTarget(_currentBoxPicked.box);
-        _currentBoxPicked.boxManager.SetPicked();
         _op.PickUpObject();
+        //SONIDO COGER
+        SoundManager.instance.PlayRobotSoundJoint();
         _currentState = RobotState.WITHBOX;
         return;
     }
@@ -242,25 +210,6 @@ public class RobotBehaviour : MonoBehaviour
     public RobotState GetRobotState()
     {
         return _currentState;
-    }
-
-    /// <summary>
-    /// Sets the color.
-    /// </summary>
-    /// <param name="c">C.</param>
-    public void SetColor(BoxColor c)
-    {
-        _colorOfRobot = c;
-    }
-
-    public GameObject GetBoxTarget()
-    {
-        return _currentBoxTarget.box;
-    }
-
-    public void SetRendererColor()
-    {
-        modelMaterial.materials[0].color = _gm.colors[(int)_colorOfRobot];        
     }
 
     #endregion

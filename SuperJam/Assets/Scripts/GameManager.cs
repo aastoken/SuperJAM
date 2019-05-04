@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject robotPrefab = null;
     public float SceneDimensions = 500.0f;
     public GameObject[] Buttons;
+    public readonly Color[] colors = { Color.blue, Color.red, Color.yellow, Color.green };
     #endregion
 
     #region MonoBehaviour
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
             GameObject box = (GameObject)Instantiate(boxPrefab);
             Vector3 randomPosition = ReturnRandomAvailablePosition(100, 100);
             box.transform.position = new Vector3(randomPosition.x, randomPosition.y, randomPosition.y);
+            SoundManager.instance.PlayRobotSoundJoint();
             yield return new WaitForSeconds(waitSecondsForBoxSpawn);
         }
     }
@@ -91,6 +93,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
+            SoundManager.instance.PlayRobotSpawn();
             GameObject robot = (GameObject)Instantiate(robotPrefab);
             robot.transform.position = ReturnRandomAvailablePosition(10f, 10f);
             BoxColor r = RandomBoxColor();
@@ -99,12 +102,8 @@ public class GameManager : MonoBehaviour
             {
                 Debug.LogError("Error, no robot behaviour available");
             }
-            else
-            {
-                rb.SetColor(r);
-            }
 
-            yield return new WaitForSeconds(waitSecondsForBoxSpawn);
+            yield return new WaitForSeconds(waitSecondsForRobotSpawn);
         }
     }
 
@@ -133,6 +132,7 @@ public class GameManager : MonoBehaviour
     {
         int r = Random.Range(0, 4);
         BoxColor c = (BoxColor)r;
+        Debug.Log(r + " " + c);
         return c;
     }
 

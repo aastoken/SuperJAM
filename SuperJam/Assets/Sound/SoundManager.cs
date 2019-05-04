@@ -9,6 +9,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip robotMovementSource1;
     public AudioClip robotMovementSource2;
 
+    //Music
+    public AudioClip MainTheme1;
+
     //JOINTS
     public AudioClip robotJointSource1;
     public AudioClip robotJointSource2;
@@ -20,6 +23,11 @@ public class SoundManager : MonoBehaviour
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
 
 
+    void Start()
+    {
+        PlayMusic(MainTheme1);
+
+    }
     void Awake()
     {
         //Check if there is already an instance of SoundManager
@@ -48,6 +56,15 @@ public class SoundManager : MonoBehaviour
 
         //Play the clip.
         efxSource.Play();
+    }
+
+    public void PlayMusic(AudioClip clip)
+    {
+        //Set the clip of our efxSource audio source to the clip passed in as a parameter.
+        musicSource.clip = clip;
+
+        //Play the clip.
+        musicSource.Play();
     }
 
 
@@ -83,18 +100,15 @@ public class SoundManager : MonoBehaviour
 
         if(randomSound==0)
         {
-            efxSource.clip = robotMovementSource1;
-            efxSource.Play();
+            instance.PlaySingle(robotMovementSource1);
         }
         else if(randomSound==1)
         {
-            efxSource.clip = robotMovementSource2;
-            efxSource.Play();
+            instance.PlaySingle(robotMovementSource2);
         }
         else
         {
-            efxSource.clip = robotMovementSource1;
-            efxSource.Play();
+            instance.PlaySingle(robotMovementSource1);
         }
              
     }
@@ -105,23 +119,25 @@ public class SoundManager : MonoBehaviour
     public void PlayRobotSoundJoint()
     {
         int randomSound = Random.Range(0, 2);
-
+        Debug.Log("!");
         if (randomSound == 0)
         {
-            efxSource.clip = robotJointSource1;
-            efxSource.Play();
+            instance.PlaySingle(robotJointSource1);
         }
         else if (randomSound == 1)
         {
-            efxSource.clip = robotJointSource2;
-            efxSource.Play();
+            instance.PlaySingle(robotJointSource2);
         }
         else
         {
-            efxSource.clip = robotJointSource1;
-            efxSource.Play();
+            instance.PlaySingle(robotJointSource1);
         }
 
+    }
+
+    public void PlayRobotSpawn()
+    {            
+        instance.PlaySingle(robotJointSource2);         
     }
 
 

@@ -15,7 +15,7 @@ public class RobotAreaCollider : MonoBehaviour
     #endregion
 
     #region MonoBehaviour
-    void Start()
+    void Awake()
     {
         _rm = Robot.GetComponent<RobotBehaviour>();
         _ra = Robot.GetComponent<RobotAI>();
@@ -30,6 +30,7 @@ public class RobotAreaCollider : MonoBehaviour
     {
         if (other.CompareTag("Box") && _rm.GetRobotState() == RobotState.SEARCH)
         {
+            ;
             BoxManager otherManager = other.GetComponent<BoxManager>();
 
             if (otherManager.GetState() == BoxState.PICKED)
@@ -51,8 +52,8 @@ public class RobotAreaCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (_rm.GetBoxTarget().GetInstanceID() == other.gameObject.GetInstanceID())
-            _rm.SetState(RobotState.SEARCH);
+        //if (other.CompareTag("Box") && _rm != null && other.gameObject != null && _rm.GetBoxTarget().GetInstanceID() == other.gameObject.GetInstanceID())
+            //_rm.SetState(RobotState.SEARCH);
     }
     #endregion
 }
