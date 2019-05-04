@@ -349,9 +349,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 44883808}
+  buttonDeco: {fileID: 0}
   WaitingList: []
-  CorrectList: []
-  IncorrectList: []
+  paths: []
+  CorrectBot: {fileID: 0}
+  IncorrectBot: {fileID: 0}
   allowBridgeExit: 0
   allowDropPointEntrance: 0
 --- !u!1 &636050800
@@ -588,9 +590,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 1502471358}
+  buttonDeco: {fileID: 0}
   WaitingList: []
-  CorrectList: []
-  IncorrectList: []
+  paths: []
+  CorrectBot: {fileID: 0}
+  IncorrectBot: {fileID: 0}
   allowBridgeExit: 0
   allowDropPointEntrance: 0
 --- !u!65 &1049633845
@@ -698,9 +702,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 0}
+  buttonDeco: {fileID: 0}
   WaitingList: []
-  CorrectList: []
-  IncorrectList: []
+  paths: []
+  CorrectBot: {fileID: 0}
+  IncorrectBot: {fileID: 0}
   allowBridgeExit: 0
   allowDropPointEntrance: 0
 --- !u!65 &1287338943
@@ -871,9 +877,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 651402260}
+  buttonDeco: {fileID: 0}
   WaitingList: []
-  CorrectList: []
-  IncorrectList: []
+  paths: []
+  CorrectBot: {fileID: 0}
+  IncorrectBot: {fileID: 0}
   allowBridgeExit: 0
   allowDropPointEntrance: 0
 --- !u!65 &1563964978

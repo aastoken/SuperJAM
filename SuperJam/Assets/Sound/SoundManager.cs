@@ -105,13 +105,9 @@ public class SoundManager : MonoBehaviour
         {
             instance.PlaySingle(robotMovementSource1, audioSrc);
         }
-        else if(randomSound==1)
-        {
-            instance.PlaySingle(robotMovementSource2, audioSrc);
-        }
         else
         {
-            instance.PlaySingle(robotMovementSource1, audioSrc);
+            instance.PlaySingle(robotMovementSource2, audioSrc);
         }
              
     }
@@ -127,13 +123,9 @@ public class SoundManager : MonoBehaviour
         {
             instance.PlaySingle(robotJointSource1, audioSrc);
         }
-        else if (randomSound == 1)
-        {
-            instance.PlaySingle(robotJointSource2, audioSrc);
-        }
         else
         {
-            instance.PlaySingle(robotJointSource1, audioSrc);
+            instance.PlaySingle(robotJointSource2, audioSrc);
         }
 
     }
@@ -146,13 +138,9 @@ public class SoundManager : MonoBehaviour
         {
             instance.PlaySingle(point1, audioSrc);
         }
-        else if (randomSound == 1)
-        {
-            instance.PlaySingle(point2, audioSrc);
-        }
         else
         {
-            instance.PlaySingle(point1, audioSrc);
+            instance.PlaySingle(point2, audioSrc);
         }
 
     }

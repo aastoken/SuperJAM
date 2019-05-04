@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private GameManagerState _currentState = GameManagerState.PLAYING;
     private bool _assignedCoroutineBoxSpawn = false;
     private bool _assignedCoroutineRobotSpawn = false;
+    private bool _assignedCoroutineColorChange = false;
     #endregion
 
     #region Public
@@ -41,6 +42,22 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Methods
+
+    IEnumerator ChangeColorsOfButtons()
+    {
+        while(true)
+        {
+            for (int i = 0; i < Buttons.Length; i++)
+            {
+                int randomPosition = Random.Range(0, Buttons.Length);
+                GameObject sustitute = Buttons[randomPosition];
+                // todo.
+                // Buttons[randomPosition].color = Buttons[i].color;
+                // Buttons[i].color = sustitute.color; 
+            }
+            yield return new WaitForSeconds(60);
+        }
+    }
 
     /// <summary>
     /// Control this instance.
@@ -151,6 +168,11 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine("InstantiateRandomRobot");
             _assignedCoroutineRobotSpawn = true;
+        }
+        if(!_assignedCoroutineColorChange)
+        {
+            StartCoroutine("ChangeColorsOfButtons");
+            _assignedCoroutineColorChange = true;
         }
     }
 
