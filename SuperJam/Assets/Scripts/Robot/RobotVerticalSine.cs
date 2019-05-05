@@ -6,7 +6,7 @@ public class RobotVerticalSine : MonoBehaviour
 {
     void FixedUpdate()
     {
-        StartCoroutine("Sine");
+        Sine();
         //Sine();
     }
 
@@ -17,18 +17,18 @@ public class RobotVerticalSine : MonoBehaviour
     {
         Vector3 v;
         v.x = x;
-        v.y = Mathf.Sin(Mathf.PI * (x + z + t)) + 6;
+        v.y = Mathf.Sin(Mathf.PI * (x / 2 + z / 2 + t / 2)) + 6;
         v.z = z;
         return v;
 
     }
 
-    IEnumerator Sine()
+    void Sine()
     {
 
 
         transform.position = Sine2DFunction(transform.position.x, transform.position.z, Time.deltaTime);
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(3f);
         
         //yield return new WaitForSeconds(0.5f);
     }
