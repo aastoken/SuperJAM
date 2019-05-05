@@ -229,6 +229,8 @@ MonoBehaviour:
   arenaTamZ: 30
   currentMaterialColor: {r: 0, g: 0, b: 0, a: 0}
   modelMaterial: {fileID: 4190022451531081627}
+  modelLeftArm: {fileID: 4190022451531081621}
+  modelRightArm: {fileID: 4190022451531081625}
   adderForHighScore: 100
   _currentState: 0
 --- !u!114 &4190022452297960127
@@ -442,6 +444,18 @@ PrefabInstance:
 --- !u!4 &4190022451529180541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400012, guid: 11a34b1bfc6a1454c858cee930d61470,
+    type: 3}
+  m_PrefabInstance: {fileID: 4190022451528794097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4190022451531081621 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300004, guid: 11a34b1bfc6a1454c858cee930d61470,
+    type: 3}
+  m_PrefabInstance: {fileID: 4190022451528794097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4190022451531081625 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300008, guid: 11a34b1bfc6a1454c858cee930d61470,
     type: 3}
   m_PrefabInstance: {fileID: 4190022451528794097}
   m_PrefabAsset: {fileID: 0}

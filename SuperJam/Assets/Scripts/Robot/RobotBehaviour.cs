@@ -13,6 +13,8 @@ public class RobotBehaviour : MonoBehaviour
     public float arenaTamZ = 100.0f;
     public Color currentMaterialColor;
     public MeshRenderer modelMaterial;
+    public MeshRenderer modelLeftArm;
+    public MeshRenderer modelRightArm;
     public int adderForHighScore = 100;
     #endregion
 
@@ -408,7 +410,9 @@ public class RobotBehaviour : MonoBehaviour
     /// </summary>
     public void SetRendererColor()
     {
-        modelMaterial.materials[0].color = _gm.colors[(int)_colorOfRobot];        
+        modelMaterial.materials[0].color = _gm.colors[(int)_colorOfRobot];
+        modelLeftArm.materials[0].color = _gm.colors[(int)_colorOfRobot];
+        modelRightArm.materials[0].color = _gm.colors[(int)_colorOfRobot];
     }
 
     void AddScore(BoxColor box, BoxColor robotColor, bool userDecission)
