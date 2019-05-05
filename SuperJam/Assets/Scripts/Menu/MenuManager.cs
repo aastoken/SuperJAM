@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
             GetComponent<RobotMovement>().Move(boxSpawnPoint.position);
 
             Vector3 distance = boxSpawnPoint.position - transform.position;
-            Debug.Log(distance.magnitude);
+         //   Debug.Log(distance.magnitude);
             if (distance.magnitude < 2.0f)
             {
                 GetBox();

@@ -8,7 +8,7 @@ public class RobotBehaviour : MonoBehaviour
     public GameObject testBox = null;
     public BoxColor robotColor = BoxColor.BLUE;
     public GameObject gameManager = null;
-    public float aiPercentageDecider = 0.125f;
+    public float aiPercentageDecider = 0.2f;
     public float arenaTamX = 100.0f;
     public float arenaTamZ = 100.0f;
     public Color currentMaterialColor;
@@ -179,7 +179,7 @@ public class RobotBehaviour : MonoBehaviour
         if (_rm.IsHeLookingAt(pt))
         {
             _currentState = RobotState.LEAVEBOX;
-            Debug.Log("Yo i'm lookin at the droppah");
+         //   Debug.Log("Yo i'm lookin at the droppah");
             return dropper.WhereIsHe();
         }
         return dropper.WhereIsHe();
@@ -199,7 +199,7 @@ public class RobotBehaviour : MonoBehaviour
             {
                 dropper_.SetIDLE();
                 dropper_.SetBotInDropZone(this, can);
-                Debug.Log("WE ARE GODS");
+                // Debug.Log("WE ARE GODS");
                 _currentState = RobotState.GONNADROP;
                 dropper_.waitZone = null;
             }
@@ -354,16 +354,25 @@ public class RobotBehaviour : MonoBehaviour
         _colorOfRobot = robotColor;
     }
 
+    /// <summary>
+    /// Checkes all the actions for user's decissions
+    /// </summary>
+    /// <param name="box"></param>
+    /// <param name="right"></param>
     void HandleIfTheUserIsRight(BoxColor box, bool right)
     {
         if (right && box != _colorOfRobot)
         {
+            SoundManager.instance.PlayRobotFail(GetComponent<AudioSource>());
             _gm.LessHealth();
         }
-        if (!right)
+
+        if (box == _colorOfRobot && !right)
         {
-            if (right && box == _colorOfRobot) _gm.LessHealth();
+            SoundManager.instance.PlayRobotFail(GetComponent<AudioSource>());
+            _gm.LessHealth();
         }
+        
         if (right && box == _colorOfRobot)
         {
             _rcd.SubstractOne();
@@ -389,7 +398,7 @@ public class RobotBehaviour : MonoBehaviour
     {
         _currentBoxTarget.box = bt;
         _currentBoxTarget.boxManager = bt.GetComponent<BoxManager>();
-        Debug.Log("Target set: " + _currentBoxTarget.boxManager);
+       //  Debug.Log("Target set: " + _currentBoxTarget.boxManager);
     }
 
     /// <summary>

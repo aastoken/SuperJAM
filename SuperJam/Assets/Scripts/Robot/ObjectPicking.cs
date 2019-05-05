@@ -86,7 +86,9 @@ public class ObjectPicking : MonoBehaviour
         {
             targetObject.transform.SetParent(transform);
             targetObject.transform.position = objectHandler.transform.position + distanceToObject.normalized;
+            targetObject.transform.rotation = objectHandler.transform.rotation;
             targetObject.GetComponent<Rigidbody>().useGravity = false;
+            targetObject.GetComponent<Rigidbody>().isKinematic = true;
             SoundManager.instance.PlayRobotSoundMovement(gameObject.GetComponent<AudioSource>());
             mainState = State.PICKEDUP;
         }
@@ -96,6 +98,7 @@ public class ObjectPicking : MonoBehaviour
     {
         targetObject.transform.SetParent(null);
         targetObject.GetComponent<Rigidbody>().useGravity = true;
+        targetObject.GetComponent<Rigidbody>().isKinematic = true;
         targetObject = null;
         mainState = State.IDLE;
     }

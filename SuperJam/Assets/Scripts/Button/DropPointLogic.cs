@@ -58,7 +58,7 @@ public class DropPointLogic : MonoBehaviour
     void Update()
     {
         _delta = Time.deltaTime;
-        Debug.Log("DOOR ANGLE: " + _doorAngle + " , TARGET: " + _targetRotation);
+        // Debug.Log("DOOR ANGLE: " + _doorAngle + " , TARGET: " + _targetRotation);
 
         if (_currentState == DoorState.MOVING)
         {
@@ -106,7 +106,7 @@ public class DropPointLogic : MonoBehaviour
 
     public PointsDrop WhatDrop(int id)
     {
-        if (CorrectBot) Debug.Log("righttt");
+        // if (CorrectBot) Debug.Log("righttt");
        if (_correctPath && !CorrectBot)
        {
             return PointsDrop.DROPRIGHT;
@@ -133,7 +133,9 @@ public class DropPointLogic : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("WORKS");
+        // Debug.Log("WORKS");
+        SoundManager.instance.openDoor(gameObject.GetComponent<AudioSource>());
+        Debug.LogWarning("aaaa!)");
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;
 
@@ -146,17 +148,17 @@ public class DropPointLogic : MonoBehaviour
     {
         if (waitZone)
         {
-            Debug.Log("uwu");
+           // Debug.Log("uwu");
             if (_currentState == DoorState.IDLE && _correctPath && !CorrectBot)
             {
-                Debug.LogWarning("Yes");
+                //Debug.LogWarning("Yes");
                 allowDropPointEntrance = true;
                 CorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
             }
             else if (_currentState == DoorState.IDLE && !_correctPath && !IncorrectBot)
             {
-                Debug.LogWarning("No");
+               // Debug.LogWarning("No");
                 allowDropPointEntrance = true;
                 IncorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
@@ -199,10 +201,11 @@ public class DropPointLogic : MonoBehaviour
     private void MoveDecoButton()
     {
         Quaternion temp = Quaternion.identity;
-
+        bool hasBeenClicked = false;
         if (_allowButtonRot)
         {
             _timer = 0.5f;
+            hasBeenClicked = true;
             _allowButtonRot = false;
         }
         _timer -= Time.deltaTime;
@@ -210,9 +213,13 @@ public class DropPointLogic : MonoBehaviour
         if (_timer > 0)
         {
             buttonDeco.transform.Rotate(Vector3.up * 400 * Time.deltaTime);
-            temp = transform.rotation;
+            temp = buttonDeco.transform.rotation;
         }
-        else buttonDeco.transform.rotation = Quaternion.Slerp(temp, transform.rotation, Time.deltaTime * 2f);
+        else if (hasBeenClicked && _timer <= 0)
+        {
+            buttonDeco.transform.rotation = Quaternion.Slerp(temp, transform.rotation, Time.deltaTime * 2f);
+            hasBeenClicked = false;
+        }
         
 
 
@@ -231,7 +238,7 @@ public class DropPointLogic : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //allowBridgeExit = false;
-        Debug.Log("ontrigger");
+        // Debug.Log("ontrigger");
         if(other.gameObject.CompareTag("Robot"))
             _tempTriggerBot = other.gameObject.GetComponent<RobotBehaviour>();
 
@@ -248,7 +255,7 @@ public class DropPointLogic : MonoBehaviour
 
     public void ExecuteClick()
     {
-        Debug.Log("aaaa!)");
+        
         SoundManager.instance.openDoor(gameObject.GetComponent<AudioSource>());
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;

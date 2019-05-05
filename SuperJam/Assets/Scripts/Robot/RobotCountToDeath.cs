@@ -6,6 +6,7 @@ public class RobotCountToDeath : MonoBehaviour
 {
     #region Variables
     public int countLeft = 5;
+    public float seconds = 80.0f;
     private int _countLeft = 5;
     #endregion
 
@@ -20,6 +21,7 @@ public class RobotCountToDeath : MonoBehaviour
     void Start()
     {
         _countLeft = countLeft;
+        StartCoroutine("Death");
     }
 
     void Update()
@@ -28,6 +30,12 @@ public class RobotCountToDeath : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(seconds);
+        Destroy(gameObject);
     }
     #endregion
 }

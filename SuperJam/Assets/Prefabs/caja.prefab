@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2276473682867194367}
   - component: {fileID: 2276473682867194361}
   - component: {fileID: 2276473682867194365}
-  - component: {fileID: 8592642693209210423}
+  - component: {fileID: 548641535018729377}
   m_Layer: 0
   m_Name: caja
   m_TagString: Box
@@ -104,13 +104,13 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2276473682867194360}
-  m_Material: {fileID: 13400000, guid: a42195e9cc6880b4386b7ead8fd40624, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.97638303, y: 0.5265231, z: 0.7843972}
   m_Center: {x: 0, y: -0.000007793307, z: 0}
---- !u!114 &8592642693209210423
+--- !u!114 &548641535018729377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

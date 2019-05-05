@@ -6,7 +6,7 @@ public class RobotAI : MonoBehaviour
 {
     #region Private
     // BLUE, RED, YELLOW, GREEN ...
-    private float[] probs = { 1, 1, 1, 1 };
+    public float[] probs = { 1, 1, 1, 1 };
     public float blueAffinity;
     public float yellowAffinity;
     public float redAffinity;
@@ -38,7 +38,7 @@ public class RobotAI : MonoBehaviour
         float prob = probs[(int)managerOfTheBoxObjective.color] * 100;
         float random = Random.Range(0, 100);
 
-        Debug.Log(random + " " + objective.name);
+     //   Debug.Log(random + " " + objective.name);
         return random <= prob;
     }
 
@@ -81,7 +81,7 @@ public class RobotAI : MonoBehaviour
                 }
             }
         }
-        Debug.Log("PROBABILIDADES: " + probs[0] + " " + probs[1] + " " + probs[2] + " " + probs[3]);
+       //  Debug.Log("PROBABILIDADES: " + probs[0] + " " + probs[1] + " " + probs[2] + " " + probs[3]);
     }
 
     public int getGreatestAffinity()
