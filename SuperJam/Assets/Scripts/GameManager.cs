@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] Buttons;
     public GameObject SpawnArea;
     public Color[] colors = { Color.blue, Color.red, Color.yellow, Color.green };
+    public TextHandler textMng;
     #endregion
 
     #region MonoBehaviour
@@ -40,6 +42,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Control();
+
+        //*DEBUG*//
+        if(Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            LessHealth();
+        }
     }
     #endregion
 
@@ -79,16 +87,17 @@ public class GameManager : MonoBehaviour
                 StartCoroutinesForSpawn();
                 break;
             case GameManagerState.FINISH:
-
                 Debug.Log("Game has finished, todo the end screen");
+                textMng.FinishScreen();
+                WaitForReturnToMainMenu();
                 break;
+
             default:
                 Debug.LogWarning("State not defined!");
                 _currentState = GameManagerState.START;
                 break;
         }
     }
-
     /// <summary>
     /// Instantiates a random box.
     /// </summary>
@@ -104,6 +113,13 @@ public class GameManager : MonoBehaviour
             //SoundManager.instance.PlayRobotSoundJoint();
             yield return new WaitForSeconds(waitSecondsForBoxSpawn);
         }
+    }
+
+    IEnumerator WaitForReturnToMainMenu()
+    {
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(0);
+        
     }
 
     /// <summary>
@@ -251,6 +267,11 @@ public class GameManager : MonoBehaviour
     public void LessHealth()
     {
         _currentLife--;
+    }
+
+    public int GetHealth()
+    {
+        return _currentLife;
     }
     #endregion 
 }
