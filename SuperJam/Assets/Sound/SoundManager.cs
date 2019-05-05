@@ -16,6 +16,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip robotJointSource1;
     public AudioClip robotJointSource2;
 
+    //DOOOR
+    public AudioClip doorSound;
+
     //POINTS
     public AudioClip point1;
     public AudioClip point2;
@@ -148,6 +151,11 @@ public class SoundManager : MonoBehaviour
     public void PlayRobotSpawn(AudioSource audioSrc)
     {            
         instance.PlaySingle(robotJointSource2, audioSrc);         
+    }
+    
+    public void openDoor(AudioSource audioSrc)
+    {
+        instance.PlaySingle(doorSound, audioSrc);
     }
 
 

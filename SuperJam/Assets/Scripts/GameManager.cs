@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public
+    public int score = 0;
     public int lifeStart = 4;
     public AudioSource audioSrc;
     public int waitSecondsForBoxSpawn = 10;
@@ -183,6 +184,7 @@ public class GameManager : MonoBehaviour
     {
         _assignedCoroutineBoxSpawn = false;
         _assignedCoroutineRobotSpawn = false;
+        _assignedCoroutineColorChange = false;
     }
 
     /// <summary>

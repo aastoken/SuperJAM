@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 6311851197117966553}
   - component: {fileID: 1688507695844704255}
   - component: {fileID: 6311851197117966558}
-  - component: {fileID: 6311851197117966548}
+  - component: {fileID: 8529318599228528982}
   - component: {fileID: 6311851197117966550}
   m_Layer: 0
   m_Name: MenuRobot
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetObject: {fileID: 0}
   objectHandler: {fileID: 6311851197051681853}
---- !u!114 &6311851197117966548
+--- !u!114 &8529318599228528982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6311851197117966545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3413c8893ca3b104b83a8a32fc8dea51, type: 3}
+  m_Script: {fileID: 11500000, guid: cfa59f8e91c22404faf521ffc0679736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6311851197117966550
