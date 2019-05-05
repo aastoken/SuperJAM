@@ -108,8 +108,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4190022450558582637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.00000047684, z: -0.00000026822}
+  m_LocalScale: {x: 0.4682498, y: 0.4682498, z: 0.4682498}
   m_Children: []
   m_Father: {fileID: 4190022452297960123}
   m_RootOrder: 1
@@ -196,7 +196,6 @@ GameObject:
   - component: {fileID: 4190022452297960125}
   - component: {fileID: 4190022452297960119}
   - component: {fileID: 4190022452297960117}
-  - component: {fileID: 4190022452297960127}
   - component: {fileID: 4190022452297960118}
   - component: {fileID: 4190022452297960124}
   - component: {fileID: 4190022452297960126}
@@ -249,8 +248,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 9
-  m_Acceleration: 12
+  m_Speed: 5
+  m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -287,6 +286,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3413c8893ca3b104b83a8a32fc8dea51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  probs:
+  - 1
+  - 1
+  - 1
+  - 1
   blueAffinity: 0
   yellowAffinity: 0
   redAffinity: 0
@@ -306,7 +310,7 @@ MonoBehaviour:
   testBox: {fileID: 0}
   robotColor: 1
   gameManager: {fileID: 0}
-  aiPercentageDecider: 0.1
+  aiPercentageDecider: 0.2
   arenaTamX: 30
   arenaTamZ: 30
   currentMaterialColor: {r: 0, g: 0, b: 0, a: 0}
@@ -315,20 +319,6 @@ MonoBehaviour:
   modelRightArm: {fileID: 4190022451531081625}
   adderForHighScore: 100
   _currentState: 0
---- !u!114 &4190022452297960127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4190022452297960114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc073f1228cbb24fa8357cdc46ca2cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 5
-  acceleration: 3
 --- !u!114 &4190022452297960118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,7 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1da4b170472e45368d9ce1604c20a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countLeft: 5
+  countLeft: 8
+  seconds: 120
 --- !u!82 &4190022452297960124
 AudioSource:
   m_ObjectHideFlags: 0

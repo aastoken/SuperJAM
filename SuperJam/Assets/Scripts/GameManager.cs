@@ -18,9 +18,13 @@ public class GameManager : MonoBehaviour
     #region Public
     public int score = 0;
     public int lifeStart = 4;
+    public float minimumRobotSpawn = 5f;
+    public float minimumBoxSpawn = 0.75f;
+    public float timeSubstractorBoxes = 0.1f;
+    public float timeSubstractorRobot = 0.1f;
     public AudioSource audioSrc;
-    public int waitSecondsForBoxSpawn = 10;
-    public int waitSecondsForRobotSpawn = 10;
+    public float waitSecondsForBoxSpawn = 10;
+    public float waitSecondsForRobotSpawn = 10;
     public GameObject boxPrefab = null;
     public GameObject robotPrefab = null;
     public float SceneDimensions = 500.0f;
@@ -109,25 +113,26 @@ public class GameManager : MonoBehaviour
             
         while (true)
         {
-            Debug.Log("WORK");
+          //  Debug.Log("WORK");
             GameObject box = (GameObject)Instantiate(boxPrefab);
             Vector3 randomPosition = SpawnFromTheCenter(); 
             box.transform.position = new Vector3(randomPosition.x, randomPosition.y, randomPosition.y);
             //SoundManager.instance.PlayRobotSoundJoint();
+            waitSecondsForBoxSpawn -= timeSubstractorBoxes;
+            waitSecondsForBoxSpawn = Mathf.Clamp(waitSecondsForBoxSpawn, minimumBoxSpawn, 100);
             yield return new WaitForSeconds(waitSecondsForBoxSpawn);
         }
     }
 
     IEnumerator WaitForReturnToMainMenu()
     {
-        Time.timeScale = 0.0f;
         yield return new WaitForSecondsRealtime(3.0f);
         Debug.Log("Loading Scene...");
         _currentState = GameManagerState.START;
         StopAllCoroutines();
-        SceneManager.LoadScene("MainMenu");
-        
-        
+        Application.LoadLevel(0);
+        //SceneManager.LoadScene("MainMenu");
+
     }
 
     /// <summary>
@@ -145,7 +150,8 @@ public class GameManager : MonoBehaviour
             {
                 Debug.LogError("Error, no robot behaviour available");
             }
-
+            waitSecondsForRobotSpawn -= timeSubstractorRobot;
+            waitSecondsForRobotSpawn = Mathf.Clamp(waitSecondsForRobotSpawn, minimumRobotSpawn, 100);
             yield return new WaitForSeconds(waitSecondsForRobotSpawn);
         }
     }
@@ -184,7 +190,7 @@ public class GameManager : MonoBehaviour
             RandomV = new Vector3(Random.Range(-SceneDimensions, SceneDimensions), Random.Range(-SceneDimensions, SceneDimensions), 10.0f);
 
         } while (!Physics.CheckBox(RandomV, new Vector3(modelWidth, 0, modelLength)));
-        Debug.Log("Random " + RandomV);
+       // Debug.Log("Random " + RandomV);
         return RandomV;
     }
 
@@ -196,7 +202,7 @@ public class GameManager : MonoBehaviour
     {
         int r = Random.Range(0, 4);
         BoxColor c = (BoxColor)r;
-        Debug.Log(r + " " + c);
+       // Debug.Log(r + " " + c);
         return c;
     }
 

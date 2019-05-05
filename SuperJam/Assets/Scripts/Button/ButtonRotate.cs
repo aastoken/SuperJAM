@@ -21,13 +21,12 @@ public class ButtonRotate : MonoBehaviour
 
     public void Pointer()
     {
-        Debug.Log(this.gameObject.name + " Was Clicked.");
         dropPointLogic.ExecuteClick();
     }
 
     private void OnMouseDown()
     {
-        Debug.LogWarning("aaaaJODEEEER");
+        
 
     }
 }

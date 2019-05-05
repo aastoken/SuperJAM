@@ -20,6 +20,12 @@ public class MenuButton : MonoBehaviour
     void Awake()
     {
         tmp = GetComponent<TextMeshPro>();
+        
+       
+        GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
+
+        if(gm)
+            Destroy(gm);
     }
 
     private void OnMouseOver()
@@ -43,7 +49,8 @@ public class MenuButton : MonoBehaviour
         if (gameObject.tag == "NewGameButton")
         {
             Debug.Log("Loading new game...");
-            SceneManager.LoadScene("MainScene");
+            Application.LoadLevel(1);
+            //SceneManager.LoadScene("MainScene");
         }
             
     }

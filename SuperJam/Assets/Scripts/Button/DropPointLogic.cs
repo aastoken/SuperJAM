@@ -58,7 +58,7 @@ public class DropPointLogic : MonoBehaviour
     void Update()
     {
         _delta = Time.deltaTime;
-        Debug.Log("DOOR ANGLE: " + _doorAngle + " , TARGET: " + _targetRotation);
+        // Debug.Log("DOOR ANGLE: " + _doorAngle + " , TARGET: " + _targetRotation);
 
         if (_currentState == DoorState.MOVING)
         {
@@ -106,7 +106,7 @@ public class DropPointLogic : MonoBehaviour
 
     public PointsDrop WhatDrop(int id)
     {
-        if (CorrectBot) Debug.Log("righttt");
+        // if (CorrectBot) Debug.Log("righttt");
        if (_correctPath && !CorrectBot)
        {
             return PointsDrop.DROPRIGHT;
@@ -133,7 +133,9 @@ public class DropPointLogic : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("WORKS");
+        // Debug.Log("WORKS");
+        SoundManager.instance.openDoor(gameObject.GetComponent<AudioSource>());
+        Debug.LogWarning("aaaa!)");
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;
 
@@ -146,17 +148,17 @@ public class DropPointLogic : MonoBehaviour
     {
         if (waitZone)
         {
-            Debug.Log("uwu");
+           // Debug.Log("uwu");
             if (_currentState == DoorState.IDLE && _correctPath && !CorrectBot)
             {
-                Debug.LogWarning("Yes");
+                //Debug.LogWarning("Yes");
                 allowDropPointEntrance = true;
                 CorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
             }
             else if (_currentState == DoorState.IDLE && !_correctPath && !IncorrectBot)
             {
-                Debug.LogWarning("No");
+               // Debug.LogWarning("No");
                 allowDropPointEntrance = true;
                 IncorrectBot = _tempTriggerBot;
                 _currentState = DoorState.ROBOT_PASSING;
@@ -231,7 +233,7 @@ public class DropPointLogic : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //allowBridgeExit = false;
-        Debug.Log("ontrigger");
+        // Debug.Log("ontrigger");
         if(other.gameObject.CompareTag("Robot"))
             _tempTriggerBot = other.gameObject.GetComponent<RobotBehaviour>();
 
@@ -248,7 +250,7 @@ public class DropPointLogic : MonoBehaviour
 
     public void ExecuteClick()
     {
-        Debug.Log("aaaa!)");
+        
         SoundManager.instance.openDoor(gameObject.GetComponent<AudioSource>());
         if (_currentState == DoorState.IDLE)
             _currentState = DoorState.MOVING;

@@ -23,6 +23,10 @@ public class SoundManager : MonoBehaviour
     public AudioClip point1;
     public AudioClip point2;
 
+    //fails
+    public AudioClip fail1;
+    public AudioClip fail2;
+
     public AudioSource musicSource;                 //Drag a reference to the audio source which will play the music.
     public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
@@ -158,6 +162,22 @@ public class SoundManager : MonoBehaviour
     {
         instance.PlaySingle(doorSound, audioSrc);
     }
+
+    public void PlayRobotFail(AudioSource audioSrc)
+    {
+        int randomSound = Random.Range(0, 2);
+        Debug.Log("!");
+        if (randomSound == 0)
+        {
+            instance.PlaySingle(fail1, audioSrc);
+        }
+        else
+        {
+            instance.PlaySingle(fail2, audioSrc);
+        }
+
+    }
+
 
 
 }

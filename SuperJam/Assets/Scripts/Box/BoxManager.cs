@@ -70,7 +70,6 @@ public class BoxManager : MonoBehaviour
     {
         while(true)
         {
-            Debug.Log("??");
             if (numberOfTimes <= 0)
             {
                 numberOfTimes++;
