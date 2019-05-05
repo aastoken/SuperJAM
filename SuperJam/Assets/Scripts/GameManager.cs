@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             GameObject robot = (GameObject)Instantiate(robotPrefab);
-            robot.transform.position = ReturnRandomAvailablePosition(1f, 1f);
+            robot.transform.position = SpawnFromTheCenter();
             BoxColor r = RandomBoxColor();
             RobotBehaviour rb = robot.GetComponent<RobotBehaviour>();
             if (rb == null)

@@ -43,7 +43,7 @@ public class MenuButton : MonoBehaviour
         if (gameObject.tag == "NewGameButton")
         {
             Debug.Log("Loading new game...");
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("MainScene");
         }
             
     }
