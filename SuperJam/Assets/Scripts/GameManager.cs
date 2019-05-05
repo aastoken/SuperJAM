@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private bool _assignedCoroutineBoxSpawn = false;
     private bool _assignedCoroutineRobotSpawn = false;
     private bool _assignedCoroutineColorChange = false;
+    private bool _isNotWaiting;
     #endregion
 
     #region Public
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     #region MonoBehaviour
     void Start()
     {
+        _isNotWaiting = true;
         _currentLife = lifeStart;
         if (Buttons == null || Buttons.Length <= 0)
         {
@@ -89,7 +91,8 @@ public class GameManager : MonoBehaviour
             case GameManagerState.FINISH:
                 Debug.Log("Game has finished, todo the end screen");
                 textMng.FinishScreen();
-                WaitForReturnToMainMenu();
+                StartCoroutine("WaitForReturnToMainMenu");
+
                 break;
 
             default:
@@ -117,8 +120,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForReturnToMainMenu()
     {
-        yield return new WaitForSeconds(3.0f);
-        SceneManager.LoadScene(0);
+        Time.timeScale = 0.0f;
+        yield return new WaitForSecondsRealtime(3.0f);
+        Debug.Log("Loading Scene...");
+        _currentState = GameManagerState.START;
+        StopAllCoroutines();
+        SceneManager.LoadScene("MainMenu");
+        
         
     }
 
