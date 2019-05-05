@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum PointsDrop
 {
-    QUEUE, WAITSTATION, DROPRIGHT, DROPWRONG, VENTCORRECT, VENTINCORRECT, EXITCORRECT, EXITINCORRECT,NOTHING 
+    QUEUE, WAITSTATION, DROPRIGHT, DROPWRONG, VENTCORRECT, VENTINCORRECT, EXITCORRECT, EXITINCORRECT, NOTHING 
 }
 
 public class DropPointLogic : MonoBehaviour
@@ -20,7 +20,7 @@ public class DropPointLogic : MonoBehaviour
     public RobotBehaviour IncorrectBot;    
     public bool allowDropPointEntrance;
     public float buttonRotationSpeed = 50f;
-   
+    public RobotBehaviour waitZone = null;
 
     #endregion
 
@@ -116,7 +116,19 @@ public class DropPointLogic : MonoBehaviour
             return PointsDrop.DROPWRONG;
        }
        return PointsDrop.NOTHING;
+    }
 
+    public bool WhereIsHe()
+    {
+        if (CorrectBot)
+        {
+            return true;
+        }
+        if (IncorrectBot)
+        {
+            return false;
+        }
+        return false;
     }
 
     private void OnMouseDown()
@@ -132,7 +144,7 @@ public class DropPointLogic : MonoBehaviour
     #region Methods
     private void ManageQueues()
     {
-        if (WaitingList.Count != 0)
+        if (waitZone)
         {
             Debug.Log("uwu");
             if (_currentState == DoorState.IDLE && _correctPath && !CorrectBot)
