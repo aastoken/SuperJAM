@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject robotPrefab = null;
     public float SceneDimensions = 500.0f;
     public GameObject[] Buttons;
+    public GameObject SpawnArea;
     public Color[] colors = { Color.blue, Color.red, Color.yellow, Color.green };
     #endregion
 
@@ -98,7 +99,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("WORK");
             GameObject box = (GameObject)Instantiate(boxPrefab);
-            Vector3 randomPosition = ReturnRandomAvailablePosition(100, 100);
+            Vector3 randomPosition = SpawnFromTheCenter(); 
             box.transform.position = new Vector3(randomPosition.x, randomPosition.y, randomPosition.y);
             //SoundManager.instance.PlayRobotSoundJoint();
             yield return new WaitForSeconds(waitSecondsForBoxSpawn);
@@ -125,17 +126,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public Vector3 SpawnFromTheCenter()
+    {
+        float xPoint, yPoint;
+        xPoint = Random.Range(-15.0f, 15.0f);
+        yPoint = Random.Range(-15.0f, 15.0f);
+
+        float randomPriority = Random.Range(-1.0f, 1.0f);
+
+        if (randomPriority >= 0.0f)
+            yPoint = Random.Range(-3.0f, 3.0f);
+
+        else
+            xPoint = Random.Range(-3.0f, 3.0f);
+
+
+        return new Vector3(xPoint, yPoint, 0.0f);
+    }
+
+
     /// <summary>
     /// Returns the random available position depending on the scale of the object.
     /// </summary>
     /// <returns>Vector2: The random available position.</returns>
     public Vector3 ReturnRandomAvailablePosition(float modelLength, float modelWidth)
     {
+
         Vector3 RandomV = new Vector3(0.0f, 0.0f, 0.0f);
         do
         {
             // Assuming scenario is a square. We should change this
-            RandomV = new Vector3(Random.Range(-SceneDimensions, SceneDimensions), 10.0f, Random.Range(-SceneDimensions, SceneDimensions));
+            RandomV = new Vector3(Random.Range(-SceneDimensions, SceneDimensions), Random.Range(-SceneDimensions, SceneDimensions), 10.0f);
 
         } while (!Physics.CheckBox(RandomV, new Vector3(modelWidth, 0, modelLength)));
         Debug.Log("Random " + RandomV);
