@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 71c1bcee71c95b345a63180c3822a248
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Maax Mono
+  fontNames:
+  - Maax Mono
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0b26e00419accc14fb4534667090681c, type: 3}
+  - {fileID: 12800000, guid: 06d8f5960b3cf544191bf87bc0237dd1, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

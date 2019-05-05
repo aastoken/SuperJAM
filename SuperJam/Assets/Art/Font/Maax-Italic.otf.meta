@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 1e799b84303b49c43a30d0e79ef6696f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Maax
+  fontNames:
+  - Maax
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0677f2d3f38ab7540ae5ad2190f26386, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
