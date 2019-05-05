@@ -1,0 +1,173 @@
+fileFormatVersion: 2
+guid: 40389aa49f2f2d5479784581934a587d
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Cube
+    100002: Cube.003
+    100004: Floor
+    100006: HandRail
+    100008: HandRail1
+    100010: HandRail2
+    100012: HandRail3
+    100014: //RootNode
+    100016: Plane.001
+    100018: Wall2
+    100020: WallNorth
+    400000: Cube
+    400002: Cube.003
+    400004: Floor
+    400006: HandRail
+    400008: HandRail1
+    400010: HandRail2
+    400012: HandRail3
+    400014: //RootNode
+    400016: Plane.001
+    400018: Wall2
+    400020: WallNorth
+    2100000: StadiumFloor
+    2100002: Wall
+    2100004: Material background
+    2100006: BrightMetal
+    2100008: DropPointBase
+    2300000: Cube
+    2300002: Cube.003
+    2300004: Floor
+    2300006: HandRail
+    2300008: HandRail1
+    2300010: HandRail2
+    2300012: HandRail3
+    2300014: Plane.001
+    2300016: Wall2
+    2300018: WallNorth
+    3300000: Cube
+    3300002: Cube.003
+    3300004: Floor
+    3300006: HandRail
+    3300008: HandRail1
+    3300010: HandRail2
+    3300012: HandRail3
+    3300014: Plane.001
+    3300016: Wall2
+    3300018: WallNorth
+    4300000: Floor
+    4300002: Cube
+    4300004: WallNorth
+    4300006: Wall2
+    4300008: Cube.003
+    4300010: Plane.001
+    4300012: HandRail2
+    4300014: HandRail3
+    4300016: HandRail1
+    4300018: HandRail
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BrightMetal
+    second: {fileID: 2100000, guid: bf352471cc4745f4d9b89e82ffbbab2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DropPointBase
+    second: {fileID: 2100000, guid: f4b16a775c971ff46a27ca37d1d05349, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material background
+    second: {fileID: 2100000, guid: 87de2af90495d6240a7141ce39fe28f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: StadiumFloor
+    second: {fileID: 2100000, guid: 69f1b94da686e34458a70e7e88692381, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall
+    second: {fileID: 2100000, guid: 0412be4df804b0b4fade259c0bfdffe8, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.815
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
