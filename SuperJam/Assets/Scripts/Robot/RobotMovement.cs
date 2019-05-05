@@ -59,7 +59,7 @@ public class RobotMovement : MonoBehaviour
 
     public bool IsHeLookingAt(Vector3 instance)
     {
-        if (Vector3.Angle(transform.forward, instance - transform.position) < 1f)
+        if (Vector3.Angle(transform.forward, instance - transform.position) < 5f)
         {
             return true;
         }

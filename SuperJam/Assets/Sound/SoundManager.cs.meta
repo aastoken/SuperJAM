@@ -13,7 +13,7 @@ MonoImporter:
   - robotJointSource1: {fileID: 8300000, guid: 5ec84c491e072d34499721fc9373bd5a, type: 3}
   - robotJointSource2: {fileID: 8300000, guid: 45d4ef857b8e38c4a941788e868c6683, type: 3}
   - musicSource: {instanceID: 0}
-  executionOrder: 0
+  executionOrder: -50
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

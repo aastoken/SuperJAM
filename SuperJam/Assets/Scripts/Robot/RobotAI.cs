@@ -7,8 +7,20 @@ public class RobotAI : MonoBehaviour
     #region Private
     // BLUE, RED, YELLOW, GREEN ...
     private float[] probs = { 1, 1, 1, 1 };
+    public float blueAffinity;
+    public float yellowAffinity;
+    public float redAffinity;
+    public float greenAffinity;
     private RobotBehaviour _rm = null;
     #endregion 
+
+    public void Update()
+    {
+        blueAffinity = probs[0];
+        redAffinity = probs[1];
+        yellowAffinity = probs[2];
+        greenAffinity = probs[3];
+    }
 
     public float[] getProbs()
     {
@@ -70,6 +82,22 @@ public class RobotAI : MonoBehaviour
             }
         }
         Debug.Log("PROBABILIDADES: " + probs[0] + " " + probs[1] + " " + probs[2] + " " + probs[3]);
+    }
+
+    public int getGreatestAffinity()
+    {
+        float? maxVal = null; //nullable so this works even if you have all super-low negatives
+        int index = -1;
+        for (int i = 0; i < probs.Length; i++)
+        {
+            float thisNum = probs[i];
+            if (!maxVal.HasValue || thisNum > maxVal.Value)
+            {
+                maxVal = thisNum;
+                index = i;
+            }
+        }
+        return index;
     }
 
 }

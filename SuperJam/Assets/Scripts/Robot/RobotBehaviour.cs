@@ -163,16 +163,18 @@ public class RobotBehaviour : MonoBehaviour
         DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
         PointsDrop can_ = dropper.WhatDrop(gameObject.GetInstanceID());
         Vector3 pt = dropper.GetPoint(can_ == PointsDrop.DROPRIGHT ? PointsDrop.VENTCORRECT : PointsDrop.VENTINCORRECT);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(pt), 50f * Time.deltaTime);
+        transform.LookAt(pt);
         if (_rm.IsHeLookingAt(pt))
         {
             _currentState = RobotState.LEAVEBOX;
+            Debug.Log("Yo i'm lookin at the droppah");
         }
+
         if (pt == dropper.GetPoint(PointsDrop.VENTCORRECT))
         {
-            return true;
+            return true;//if he's going to the correct path, go true
         }
-        else return false;
+        else return false;//if not, go false.
     }
 
     void HandleInWaitZone()

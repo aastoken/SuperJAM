@@ -6,6 +6,7 @@ public class DoorRobotInteraction : MonoBehaviour
 {
     #region Private
     private BoxColor _currentDoorColor = BoxColor.BLUE;
+    private GameManager gm;
     #endregion
 
     #region Public
@@ -18,6 +19,7 @@ public class DoorRobotInteraction : MonoBehaviour
     void Start()
     {
         _currentDoorColor = initialDoorColor;
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -39,6 +41,11 @@ public class DoorRobotInteraction : MonoBehaviour
         return _currentDoorColor;
     }
 
+    public Color CurrentRGBColor()
+    {
+        return gm.colors[(int)_currentDoorColor];
+    }
+
     public DropPointLogic Droper()
     {
         return dropper;
@@ -47,7 +54,7 @@ public class DoorRobotInteraction : MonoBehaviour
     /// <summary>
     /// Checks if the robot is right, and cleans the correspondent field
     /// </summary>
-    /// <returns><c>true</c>, if robot right was ised, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c>, if robot right was used, <c>false</c> otherwise.</returns>
     /// <param name="id">Identifier.</param>
     public bool IsRobotRight(int id)
     {

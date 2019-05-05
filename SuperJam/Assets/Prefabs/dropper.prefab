@@ -227,7 +227,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &5007017538251383475
 Transform:
@@ -844,6 +844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 5979036349699753922}
   buttonDeco: {fileID: 5850138751439932789}
+  dropperBody: {fileID: 8628807649589624936}
   WaitingList: []
   paths:
   - {fileID: 7391245717144900626}
@@ -857,6 +858,7 @@ MonoBehaviour:
   CorrectBot: {fileID: 0}
   IncorrectBot: {fileID: 0}
   allowDropPointEntrance: 0
+  buttonRotationSpeed: 50
 --- !u!65 &4193261588906898785
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1257,7 +1259,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &1324468363907057583
 Transform:
@@ -1378,7 +1380,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &5026660496597846164
 Transform:
@@ -1567,7 +1569,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &4032977800623700452
 Transform:

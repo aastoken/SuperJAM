@@ -6,10 +6,7 @@ public class ManageFillLevels : MonoBehaviour
 {
     RobotAI rabo;
 
-    public float blueAffinity;
-    public float yellowAffinity;
-    public float redAffinity;
-    public float greenAffinity;
+    
 
     float maxAffinity = 0.8f;
 
@@ -33,10 +30,7 @@ public class ManageFillLevels : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        blueAffinity = rabo.getProbs()[0];
-        redAffinity = rabo.getProbs()[1];
-        yellowAffinity = rabo.getProbs()[2];
-        greenAffinity = rabo.getProbs()[3];
+        ManageFillLevel();
     }
 
     void ManageFillLevel()
@@ -44,10 +38,10 @@ public class ManageFillLevels : MonoBehaviour
         float maxL = -1.32f;
         float minL = -1.151f;
         float delta = minL - maxL;
-        float tempB = getTemp(blueAffinity, maxL, delta);
-        float tempY = getTemp(yellowAffinity, maxL, delta);
-        float tempR = getTemp(redAffinity, maxL, delta);
-        float tempG = getTemp(greenAffinity, maxL, delta);
+        float tempB = getTemp(rabo.blueAffinity, maxL, delta);
+        float tempY = getTemp(rabo.yellowAffinity, maxL, delta);
+        float tempR = getTemp(rabo.redAffinity, maxL, delta);
+        float tempG = getTemp(rabo.greenAffinity, maxL, delta);
         blueFill.SetFloat("_FillAmount", Mathf.Lerp(minL, maxL, (tempB - maxL) / (minL - maxL)));//inverse proportion
         yellowFill.SetFloat("_FillAmount", Mathf.Lerp(minL, maxL, (tempY - maxL) / (minL - maxL)));//inverse proportion
         redFill.SetFloat("_FillAmount", Mathf.Lerp(minL, maxL, (tempR - maxL) / (minL - maxL)));//inverse proportion

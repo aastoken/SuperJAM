@@ -34,6 +34,7 @@ public class SoundManager : MonoBehaviour
         PlayMusic(MainTheme1);
 
     }
+
     void Awake()
     {
         //Check if there is already an instance of SoundManager

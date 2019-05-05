@@ -13,12 +13,15 @@ public class DropPointLogic : MonoBehaviour
     #region Public
     public Transform door;
     public Transform buttonDeco;
+    public Transform dropperBody;//to change the color
     public List<RobotBehaviour> WaitingList;
     public Transform []paths;
     public RobotBehaviour CorrectBot;
     public RobotBehaviour IncorrectBot;    
     public bool allowDropPointEntrance;
-    
+    public float buttonRotationSpeed = 50f;
+    DoorRobotInteraction DRI;
+
     #endregion
 
     #region Private
@@ -26,13 +29,15 @@ public class DropPointLogic : MonoBehaviour
 
     RobotBehaviour _tempTriggerBot;
     bool _correctPath = true;
-    float _doorAngle = 90;
+    float _doorAngle = -90;
     Quaternion _initialRotation;
     Quaternion _targetRotation;
     float _rotationSpeed = 10f;
     float _delta;
     float _t;
     bool _allowButtonRot = false;
+    float _timer = 0f;
+    
 
     #endregion
 
@@ -42,10 +47,11 @@ public class DropPointLogic : MonoBehaviour
     void Start()
     {
         _currentState = DoorState.IDLE;
-        _initialRotation = door.transform.localRotation;
+        _initialRotation = door.transform.rotation;
+        dropperBody = transform.GetChild(0);
         
         
-        _targetRotation = Quaternion.AngleAxis(- _doorAngle, Vector3.up);
+        _targetRotation = Quaternion.AngleAxis(door.transform.rotation.eulerAngles.y + _doorAngle, Vector3.up);
     }
 
     // Update is called once per frame
@@ -55,9 +61,17 @@ public class DropPointLogic : MonoBehaviour
         Debug.Log("DOOR ANGLE: " + _doorAngle + " , TARGET: " + _targetRotation);
 
         if (_currentState == DoorState.MOVING)
-            MoveDoor();
-
+        {
+            MoveDoor();            
+        }
+        MoveDecoButton();
+        setHighlightColor();
         ManageQueues();
+    }
+
+    public void setHighlightColor()
+    {
+        dropperBody.GetComponent<MeshRenderer>().materials[1].color = DRI.CurrentRGBColor();
     }
 
     public void AddToQueue(RobotBehaviour robotiyo)
@@ -70,9 +84,9 @@ public class DropPointLogic : MonoBehaviour
         return WaitingList[0].gameObject.GetInstanceID() == id;
     }
 
-    public Vector3 GetPoint(PointsDrop desiredDrop)
+    public Vector3 GetPoint(PointsDrop desiredPoint)
     {
-        int desiredInt = (int)desiredDrop;
+        int desiredInt = (int)desiredPoint;
         
         return paths[desiredInt].position;
     }
@@ -172,8 +186,35 @@ public class DropPointLogic : MonoBehaviour
 
     private void MoveDecoButton()
     {
+        Quaternion temp = Quaternion.identity;
+
+        if (_allowButtonRot)
+        {
+            _timer = 0.5f;
+            _allowButtonRot = false;
+        }
+        _timer -= Time.deltaTime;
+        _timer = Mathf.Clamp01(_timer);
+        if (_timer > 0)
+        {
+            buttonDeco.transform.Rotate(Vector3.up * 400 * Time.deltaTime);
+            temp = transform.rotation;
+        }
+        else buttonDeco.transform.rotation = Quaternion.Slerp(temp, transform.rotation, Time.deltaTime * 2f);
+        
+
 
     }
+
+    public static float QuadraticInOut(float k)
+    {
+        if ((k *= 2f) < 1f) return 0.5f * k * k;
+        return -0.5f * ((k -= 1f) * (k - 2f) - 1f);
+    }
+
+
+
+    
 
     private void OnTriggerStay(Collider other)
     {
