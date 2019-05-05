@@ -34,6 +34,7 @@ public class RobotBehaviour : MonoBehaviour
     // Wandering
     private bool _finishedMovingWander = true;
     private Vector3 _currentPositionWander = Vector3.one * -1;
+    bool droppedInRight = false;
     #endregion
 
     #region MonoBehaviour
@@ -62,7 +63,6 @@ public class RobotBehaviour : MonoBehaviour
     
     void Control()
     {
-        bool droppedInRight = false;
         Debug.Log(_currentState);
         switch (_currentState)
         {
@@ -91,7 +91,7 @@ public class RobotBehaviour : MonoBehaviour
                 HandleInWaitZone();
                 break;
             case RobotState.GONNADROP:
-                droppedInRight = HandleGonnaDrop();
+                HandleGonnaDrop();
                 break;
             
             case RobotState.LEAVEBOX:
@@ -114,8 +114,8 @@ public class RobotBehaviour : MonoBehaviour
         // First we generate coordinates for our robot to move towards
         if (_finishedMovingWander)
         {
-            Vector2 nextCoords = new Vector2(Random.Range(-arenaTamX, arenaTamX), Random.Range(-arenaTamZ, arenaTamZ));
-            _currentPositionWander = new Vector3(nextCoords.x, 1.0f, nextCoords.y);
+            Vector3 nextCoords = _gm.SpawnFromTheCenter();
+            _currentPositionWander = new Vector3(nextCoords.x, transform.position.y, nextCoords.z);
             _finishedMovingWander = false;
         }
         _rm.Move(_currentPositionWander);
@@ -127,20 +127,26 @@ public class RobotBehaviour : MonoBehaviour
     void HandleExitDropper(bool isRight)
     {
         DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
+        PointsDrop use = PointsDrop.EXITCORRECT;
         if (isRight)
         {
-            _rm.Move(dropper.GetPoint(PointsDrop.EXITCORRECT));
+            use = PointsDrop.EXITCORRECT;
+            _rm.Move(dropper.GetPoint(use));
         }
         else
         {
-            _rm.Move(dropper.GetPoint(PointsDrop.EXITINCORRECT));
+            use = PointsDrop.EXITINCORRECT;
+            _rm.Move(dropper.GetPoint(use));
         }
 
 
-        _door = null;
-        _currentState = RobotState.SEARCH;
-    }
 
+        if (_rm.IsHeNearInstance(dropper.GetPoint(use)))
+        {
+            _door = null;
+            _currentState = RobotState.SEARCH;
+        }
+    }
     void HandleLeaveBox()
     {
         SoundManager.instance.PlayRobotPoint(gameObject.GetComponent<AudioSource>());
@@ -153,8 +159,6 @@ public class RobotBehaviour : MonoBehaviour
         Destroy(_currentBoxPicked.box);
         AddScore(_currentBoxPicked.boxManager.color, _colorOfRobot, isRobotRight);
         _currentBoxPicked.boxManager = null;
-        
-        _rcd.SubstractOne();
         _currentState = RobotState.EXIT;
         
 
@@ -166,17 +170,19 @@ public class RobotBehaviour : MonoBehaviour
         PointsDrop can_ = dropper.WhatDrop(gameObject.GetInstanceID());
         Vector3 pt = dropper.GetPoint(can_ == PointsDrop.DROPRIGHT ? PointsDrop.VENTCORRECT : PointsDrop.VENTINCORRECT);
         transform.LookAt(pt);
+        //if (dropper.WhereIsHe())
+        //{
+        //    what = true; //if he's going to the correct path, go true
+        //}
+        //else what = false; //if not, go false.
+        droppedInRight = dropper.WhereIsHe();
         if (_rm.IsHeLookingAt(pt))
         {
             _currentState = RobotState.LEAVEBOX;
             Debug.Log("Yo i'm lookin at the droppah");
+            return dropper.WhereIsHe();
         }
-
-        if (pt == dropper.GetPoint(PointsDrop.VENTCORRECT))
-        {
-            return true;//if he's going to the correct path, go true
-        }
-        else return false;//if not, go false.
+        return dropper.WhereIsHe();
     }
 
     void HandleInWaitZone()
@@ -185,6 +191,7 @@ public class RobotBehaviour : MonoBehaviour
         PointsDrop can = dropper_.WhatDrop(gameObject.GetInstanceID());
         _op.SetTarget(_currentBoxPicked.box);
         _op.Stay();
+        dropper_.waitZone = this;
         if (can != PointsDrop.NOTHING)
         {
             _rm.Move(dropper_.GetPoint(can));
@@ -194,6 +201,7 @@ public class RobotBehaviour : MonoBehaviour
                 dropper_.SetBotInDropZone(this, can);
                 Debug.Log("WE ARE GODS");
                 _currentState = RobotState.GONNADROP;
+                dropper_.waitZone = null;
             }
         }
     }
@@ -355,6 +363,10 @@ public class RobotBehaviour : MonoBehaviour
         if (!right)
         {
             if (right && box == _colorOfRobot) _gm.LessHealth();
+        }
+        if (right && box == _colorOfRobot)
+        {
+            _rcd.SubstractOne();
         }
     }
 
