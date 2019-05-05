@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <returns>The button to go.</returns>
     /// <param name="c">C.</param>
-    public GameObject GiveButton(BoxColor c)
+    public GameObject GiveDoor(BoxColor c)
     {
         return FindButton(c);
     }

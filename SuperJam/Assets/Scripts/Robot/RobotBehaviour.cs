@@ -60,6 +60,7 @@ public class RobotBehaviour : MonoBehaviour
     
     void Control()
     {
+        bool droppedInRight = false;
         Debug.Log(_currentState);
         switch (_currentState)
         {
@@ -88,12 +89,16 @@ public class RobotBehaviour : MonoBehaviour
                 HandleInWaitZone();
                 break;
             case RobotState.GONNADROP:
-                HandleGonnaDrop();
+                droppedInRight = HandleGonnaDrop();
                 break;
             
             case RobotState.LEAVEBOX:
                 HandleLeaveBox();
                 break;
+            case RobotState.EXIT:
+                HandleExitDropper(droppedInRight);
+                break;
+
             case RobotState.WAIT:
                 break;
         }
@@ -116,6 +121,24 @@ public class RobotBehaviour : MonoBehaviour
     }
 
     #region Handlers
+
+    void HandleExitDropper(bool isRight)
+    {
+        DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
+        if (isRight)
+        {
+            _rm.Move(dropper.GetPoint(PointsDrop.EXITCORRECT));
+        }
+        else
+        {
+            _rm.Move(dropper.GetPoint(PointsDrop.EXITINCORRECT));
+        }
+
+
+        _door = null;
+        _currentState = RobotState.SEARCH;
+    }
+
     void HandleLeaveBox()
     {
         SoundManager.instance.PlayRobotPoint(gameObject.GetComponent<AudioSource>());
@@ -128,23 +151,28 @@ public class RobotBehaviour : MonoBehaviour
         Destroy(_currentBoxPicked.box);
         AddScore(_currentBoxPicked.boxManager.color, _colorOfRobot, isRobotRight);
         _currentBoxPicked.boxManager = null;
-        _door = null;
+        
         _rcd.SubstractOne();
-
-        _currentState = RobotState.SEARCH;
+        _currentState = RobotState.EXIT;
+        
 
     }
 
-    void HandleGonnaDrop()
+    bool HandleGonnaDrop()
     {
-        DropPointLogic dropper__ = _door.GetComponent<DoorRobotInteraction>().dropper;
-        PointsDrop can_ = dropper__.WhatDrop(gameObject.GetInstanceID());
-        Vector3 pt = dropper__.GetPoint(can_ == PointsDrop.DROPRIGHT ? PointsDrop.VENTCORRECT : PointsDrop.VENTINCORRECT);
-        transform.LookAt(pt);
+        DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
+        PointsDrop can_ = dropper.WhatDrop(gameObject.GetInstanceID());
+        Vector3 pt = dropper.GetPoint(can_ == PointsDrop.DROPRIGHT ? PointsDrop.VENTCORRECT : PointsDrop.VENTINCORRECT);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(pt), 50f * Time.deltaTime);
         if (_rm.IsHeLookingAt(pt))
         {
             _currentState = RobotState.LEAVEBOX;
         }
+        if (pt == dropper.GetPoint(PointsDrop.VENTCORRECT))
+        {
+            return true;
+        }
+        else return false;
     }
 
     void HandleInWaitZone()
@@ -214,7 +242,7 @@ public class RobotBehaviour : MonoBehaviour
             return;
         }
         // Move to desired door.
-        _desiredDropPoint = _gm.GiveButton(_colorOfRobot);
+        _desiredDropPoint = _gm.GiveDoor(_colorOfRobot);
         Vector3 objective = _desiredDropPoint.transform.position;
         _rm.Move(objective);
         _op.SetTarget(_currentBoxPicked.box);
@@ -325,6 +353,7 @@ public class RobotBehaviour : MonoBehaviour
             if (right && box == _colorOfRobot) _gm.LessHealth();
         }
     }
+
     #endregion
 
     /// <summary>

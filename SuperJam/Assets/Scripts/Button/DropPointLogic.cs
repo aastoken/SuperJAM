@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum PointsDrop
 {
-    QUEUE, WAITSTATION, DROPRIGHT, DROPWRONG, VENTCORRECT, VENTINCORRECT, NOTHING 
+    QUEUE, WAITSTATION, DROPRIGHT, DROPWRONG, VENTCORRECT, VENTINCORRECT, EXITCORRECT, EXITINCORRECT,NOTHING 
 }
 
 public class DropPointLogic : MonoBehaviour
@@ -16,8 +16,7 @@ public class DropPointLogic : MonoBehaviour
     public List<RobotBehaviour> WaitingList;
     public Transform []paths;
     public RobotBehaviour CorrectBot;
-    public RobotBehaviour IncorrectBot;
-    public bool allowBridgeExit;
+    public RobotBehaviour IncorrectBot;    
     public bool allowDropPointEntrance;
     
     #endregion
@@ -46,7 +45,7 @@ public class DropPointLogic : MonoBehaviour
         _initialRotation = door.transform.localRotation;
         
         
-        _targetRotation = Quaternion.AngleAxis(door.transform.localRotation.eulerAngles.y - _doorAngle, Vector3.up);
+        _targetRotation = Quaternion.AngleAxis(- _doorAngle, Vector3.up);
     }
 
     // Update is called once per frame

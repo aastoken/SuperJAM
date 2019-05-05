@@ -16,6 +16,10 @@ ModelImporter:
     100020: DropperBody
     100022: DropperBody.001
     100024: DropperFloor
+    100026: Bridge Planks.001
+    100028: Bridge Planks.002
+    100030: BridgeMasts.001
+    100032: BridgeMasts.002
     400000: AddedCarcasa
     400002: Bridge Planks
     400004: BridgeMasts
@@ -29,6 +33,10 @@ ModelImporter:
     400020: DropperBody
     400022: DropperBody.001
     400024: DropperFloor
+    400026: Bridge Planks.001
+    400028: Bridge Planks.002
+    400030: BridgeMasts.001
+    400032: BridgeMasts.002
     2100000: DropPointBase
     2100002: BrightMetal
     2100004: ButtonHighlight
@@ -54,6 +62,10 @@ ModelImporter:
     2300020: DropperBody
     2300022: DropperBody.001
     2300024: DropperFloor
+    2300026: Bridge Planks.001
+    2300028: Bridge Planks.002
+    2300030: BridgeMasts.001
+    2300032: BridgeMasts.002
     3300000: AddedCarcasa
     3300002: Bridge Planks
     3300004: BridgeMasts
@@ -67,6 +79,10 @@ ModelImporter:
     3300020: DropperBody
     3300022: DropperBody.001
     3300024: DropperFloor
+    3300026: Bridge Planks.001
+    3300028: Bridge Planks.002
+    3300030: BridgeMasts.001
+    3300032: BridgeMasts.002
     4300000: DropperBody
     4300002: VentIncorrect
     4300004: Grindr1
@@ -79,6 +95,10 @@ ModelImporter:
     4300018: ButtonArrows
     4300020: DropperBody.001
     4300022: DropperFloor
+    4300024: Bridge Planks.001
+    4300026: BridgeMasts.001
+    4300028: Bridge Planks.002
+    4300030: BridgeMasts.002
     2186277476908879412: ImportLogs
   externalObjects:
   - first:
