@@ -510,6 +510,7 @@ GameObject:
   - component: {fileID: 7496526992800479752}
   - component: {fileID: 5786914686841048118}
   - component: {fileID: 7967839526421130165}
+  - component: {fileID: 4947461074668808871}
   m_Layer: 0
   m_Name: Grindr
   m_TagString: Untagged
@@ -576,6 +577,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4947461074668808871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3855187694635772385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0595b7d77e3ea8d449a5ddda3a0e87af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  invert: 1
 --- !u!1 &3974991924018837906
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,7 +859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 5979036349699753922}
   buttonDeco: {fileID: 5850138751439932789}
-  dropperBody: {fileID: 8628807649589624936}
+  DRI: {fileID: 1608798006}
   WaitingList: []
   paths:
   - {fileID: 7391245717144900626}
@@ -1019,6 +1034,7 @@ GameObject:
   - component: {fileID: 5766421257803710563}
   - component: {fileID: 6749837641171849872}
   - component: {fileID: 7958582301437849626}
+  - component: {fileID: 7002235173307550391}
   m_Layer: 0
   m_Name: Grindr1
   m_TagString: Untagged
@@ -1085,6 +1101,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7002235173307550391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6719673862922875684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0595b7d77e3ea8d449a5ddda3a0e87af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  invert: -1
 --- !u!1 &7080552428076720819
 GameObject:
   m_ObjectHideFlags: 0

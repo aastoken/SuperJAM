@@ -13,20 +13,20 @@ public class DropPointLogic : MonoBehaviour
     #region Public
     public Transform door;
     public Transform buttonDeco;
-    public Transform dropperBody;//to change the color
+    public DoorRobotInteraction DRI; 
     public List<RobotBehaviour> WaitingList;
     public Transform []paths;
     public RobotBehaviour CorrectBot;
     public RobotBehaviour IncorrectBot;    
     public bool allowDropPointEntrance;
     public float buttonRotationSpeed = 50f;
-    DoorRobotInteraction DRI;
+   
 
     #endregion
 
     #region Private
     DoorState _currentState;
-
+    Transform dropperBody;//to change the color
     RobotBehaviour _tempTriggerBot;
     bool _correctPath = true;
     float _doorAngle = -90;
@@ -71,7 +71,7 @@ public class DropPointLogic : MonoBehaviour
 
     public void setHighlightColor()
     {
-        dropperBody.GetComponent<MeshRenderer>().materials[1].color = DRI.CurrentRGBColor();
+        dropperBody.GetComponent<MeshRenderer>().materials[2].color = DRI.CurrentRGBColor();
     }
 
     public void AddToQueue(RobotBehaviour robotiyo)
