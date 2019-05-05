@@ -184,6 +184,7 @@ public class GameManager : MonoBehaviour
     {
         _assignedCoroutineBoxSpawn = false;
         _assignedCoroutineRobotSpawn = false;
+        _assignedCoroutineColorChange = false;
     }
 
     /// <summary>
