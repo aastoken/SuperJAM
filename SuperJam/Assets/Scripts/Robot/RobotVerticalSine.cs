@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class RobotVerticalSine : MonoBehaviour
 {
-    void Update()
+    void FixedUpdate()
     {
-        VerticalSineMovement();
+        Sine();
+        //Sine();
     }
 
     /// <summary>
     /// This fucking method makes the robot go up and down as my dick
     /// </summary>
-    void VerticalSineMovement()
+    public Vector3 Sine2DFunction(float x, float z, float t)
     {
-        float dt = Time.deltaTime;
-        float amplitude = 10.0f;
-        float period = 2 * Mathf.PI;
+        Vector3 v;
+        v.x = x;
+        v.y = Mathf.Sin(Mathf.PI * (x / 2 + z / 2 + t / 2)) + 6;
+        v.z = z;
+        return v;
 
-        float sine = amplitude * Mathf.Sin(period * dt);
+    }
 
-        transform.position += new Vector3(0.0f, Mathf.Abs(sine), 0.0f);
+    void Sine()
+    {
+
+
+        transform.position = Sine2DFunction(transform.position.x, transform.position.z, Time.deltaTime);
+        //yield return new WaitForSeconds(3f);
+        
+        //yield return new WaitForSeconds(0.5f);
     }
 }
