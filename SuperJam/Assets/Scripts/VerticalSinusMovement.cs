@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class VerticalSinusMovement : MonoBehaviour {
 
-    
     public float period = 1;
     public float magnitude = 2;
     public float delay = 0;
@@ -25,22 +24,20 @@ public class VerticalSinusMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float dt = Time.deltaTime;
-        sinus(dt);
+        Sinus(dt);
 
         if (rotate == true){
             transform.Rotate(0.0f, 0.0f, speedRotation * dt);
         }
 	}
 
-    void sinus(float dt)
+    void Sinus(float dt)
     {
         realTime += dt;
         realTime %= period;
 
         float sinus = Mathf.Sin(Mathf.Abs(realTime * 2 * Mathf.PI / period)) * magnitude;
-
-        //transform.position += new Vector3(0.0f, sinus, 0.0f);
-        transform.Translate(Vector3.up * sinus,Space.Self);
+        transform.Translate(Vector3.up * sinus, Space.Self);
     }
 
     void OnTriggerEnter(Collider other)

@@ -11,7 +11,6 @@ public class RobotAI : MonoBehaviour
     public float yellowAffinity;
     public float redAffinity;
     public float greenAffinity;
-    private RobotBehaviour _rm = null;
     #endregion 
 
     public void Update()
@@ -32,13 +31,12 @@ public class RobotAI : MonoBehaviour
         BoxManager managerOfTheBoxObjective = objective.GetComponent<BoxManager>();
         if (managerOfTheBoxObjective == null)
         {
-            Debug.LogError("DUDE, Whoever is calling this Think() function reconsider your fucking life because you passed a wrong gameobject fuck you");
+            Debug.LogError("DUDE, Whoever is calling this Think() function reconsider your f***** life because you passed a wrong G.O, **** you");
         }
 
         float prob = probs[(int)managerOfTheBoxObjective.color] * 100;
         float random = Random.Range(0, 100);
 
-     //   Debug.Log(random + " " + objective.name);
         return random <= prob;
     }
 
@@ -80,11 +78,10 @@ public class RobotAI : MonoBehaviour
                     probs[i] = Mathf.Clamp(probs[i], 0, 1);
                 }
             }
-        }
-       //  Debug.Log("PROBABILIDADES: " + probs[0] + " " + probs[1] + " " + probs[2] + " " + probs[3]);
+        }     
     }
 
-    public int getGreatestAffinity()
+    public int GetGreatestAffinity()
     {
         float? maxVal = null; //nullable so this works even if you have all super-low negatives
         int index = -1;

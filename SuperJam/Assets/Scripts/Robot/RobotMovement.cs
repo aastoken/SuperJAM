@@ -37,8 +37,6 @@ public class RobotMovement : MonoBehaviour
         */
         // PONER AQUI TU CODIGO DE IA PATHFINDING 
         GetComponent<NavMeshAgent>().SetDestination(objective);
-
-        // todo: make model look at point where he is going.
     }
 
     /// <summary>
@@ -52,6 +50,10 @@ public class RobotMovement : MonoBehaviour
         return Mathf.Abs(dist.magnitude) < 3f;
     }
 
+    /// <summary>
+    /// Sets the instant speed of the robot if you really don't want acceleration.
+    /// </summary>
+    /// <param name="spd">Spd.</param>
     public void SetInstantSpeed(float spd)
     {
         GetComponent<NavMeshAgent>().velocity = Vector3.one * spd;

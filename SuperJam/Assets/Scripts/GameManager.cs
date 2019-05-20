@@ -59,6 +59,10 @@ public class GameManager : MonoBehaviour
 
     #region Methods
 
+    /// <summary>
+    /// Changes the colors of buttons.
+    /// </summary>
+    /// <returns>Coroutine</returns>
     IEnumerator ChangeColorsOfButtons()
     {
         while(true)
@@ -140,6 +144,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     IEnumerator InstantiateRandomRobot()
     {
+        // TODO: This should be handled better for performance.
         while (true)
         {
             GameObject robot = (GameObject)Instantiate(robotPrefab);

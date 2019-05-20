@@ -18,6 +18,6 @@ public class AffinityLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        light.color = gm.colors[IA.getGreatestAffinity()];
+        light.color = gm.colors[IA.GetGreatestAffinity()];
     }
 }

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Todo: This should be RobotCountToTeacher dude...
+/// </summary>
 public class RobotCountToDeath : MonoBehaviour
 {
     #region Variables
     public int countLeft = 5;
-    public float seconds = 80.0f;
+    public float countToAutoDestroy = 80.0f;
     private int _countLeft = 5;
     #endregion
 
@@ -29,12 +32,13 @@ public class RobotCountToDeath : MonoBehaviour
         if (_countLeft <= 0)
         {
             Destroy(gameObject);
+            // todo: GetComponent ROBOTBEHAVIOUR . superState = SuperState.Teacher.
         }
     }
 
     IEnumerator Death()
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(countToAutoDestroy);
         Destroy(gameObject);
     }
     #endregion

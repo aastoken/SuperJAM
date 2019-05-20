@@ -1,17 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
+[RequireComponent(typeof(RobotAI))]
+[RequireComponent(typeof(RobotMovement))]
+[RequireComponent(typeof(ObjectPicking))]
+[RequireComponent(typeof(RobotCountToDeath))]
+[RequireComponent(typeof(NavMeshAgent))]
 
 public class RobotBehaviour : MonoBehaviour
 {
+    #region Enum
+    public enum SuperState
+    {
+        Normal, Teacher
+    }
+    #endregion
+
     #region Public
+    [Header("General")]
     public GameObject testBox = null;
     public BoxColor robotColor = BoxColor.BLUE;
     public GameObject gameManager = null;
+    [Header("Factor of changing AI Decider")]
     public float aiPercentageDecider = 0.2f;
+    [Header("Wandering")]
     public float arenaTamX = 100.0f;
     public float arenaTamZ = 100.0f;
     public Color currentMaterialColor;
+    [Header("Materials")]
     public MeshRenderer modelMaterial;
     public MeshRenderer modelLeftArm;
     public MeshRenderer modelRightArm;
@@ -20,6 +38,8 @@ public class RobotBehaviour : MonoBehaviour
 
     #region Private
     public RobotState _currentState = RobotState.SEARCH;
+    [SerializeField]
+    private bool _substractWhenUserSaysRightAndRobotWrong = false;
     private GameObject _desiredDropPoint = null;
     private BoxRobot _currentBoxTarget = new BoxRobot();
     private BoxRobot _currentBoxPicked = new BoxRobot();
@@ -34,6 +54,7 @@ public class RobotBehaviour : MonoBehaviour
     // Wandering
     private bool _finishedMovingWander = true;
     private Vector3 _currentPositionWander = Vector3.one * -1;
+    private SuperState _superState = SuperState.Normal;
     bool droppedInRight = false;
     #endregion
 
@@ -41,6 +62,7 @@ public class RobotBehaviour : MonoBehaviour
 
     void Awake()
     {
+        // Because we are instancing this in a gamemanager, we need to find with tag, (even though it's not very proficient)
         gameManager = GameObject.FindWithTag("GameManager");
         SoundManager.instance.PlayRobotSpawn(gameObject.GetComponent<AudioSource>());
     }
@@ -54,13 +76,36 @@ public class RobotBehaviour : MonoBehaviour
 
     void Update()
     {
-        Control();
+        OmegaControl();
     }
 
     #endregion
 
     #region Methods
-    
+    /// <summary>
+    /// Handles the super machine state.
+    /// </summary>
+    void OmegaControl()
+    {
+        switch(_superState)
+        {
+            case SuperState.Normal:
+                Control();
+                break;
+            case SuperState.Teacher:
+                //... _teacherBehaviour aka _tb.Control();
+                break;
+            default:
+                Control();
+                Debug.LogWarning("Warning, no valid SuperState!");
+                break;
+        }
+    }
+
+
+    /// <summary>
+    /// Machine state...
+    /// </summary>
     void Control()
     {
         Debug.Log(_currentState);
@@ -124,6 +169,10 @@ public class RobotBehaviour : MonoBehaviour
 
     #region Handlers
 
+    /// <summary>
+    /// Handles the exit dropper.
+    /// </summary>
+    /// <param name="isRight">If set to <c>true</c> is right.</param>
     void HandleExitDropper(bool isRight)
     {
         DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
@@ -139,14 +188,16 @@ public class RobotBehaviour : MonoBehaviour
             _rm.Move(dropper.GetPoint(use));
         }
 
-
-
         if (_rm.IsHeNearInstance(dropper.GetPoint(use)))
         {
             _door = null;
             _currentState = RobotState.SEARCH;
         }
     }
+
+    /// <summary>
+    /// Handles the leave box state.
+    /// </summary>
     void HandleLeaveBox()
     {
         SoundManager.instance.PlayRobotPoint(gameObject.GetComponent<AudioSource>());
@@ -164,27 +215,28 @@ public class RobotBehaviour : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Handles the gonna drop.
+    /// </summary>
+    /// <returns><c>true</c>, if gonna drop was handled, <c>false</c> otherwise.</returns>
     bool HandleGonnaDrop()
     {
         DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
         PointsDrop can_ = dropper.WhatDrop(gameObject.GetInstanceID());
         Vector3 pt = dropper.GetPoint(can_ == PointsDrop.DROPRIGHT ? PointsDrop.VENTCORRECT : PointsDrop.VENTINCORRECT);
         transform.LookAt(pt);
-        //if (dropper.WhereIsHe())
-        //{
-        //    what = true; //if he's going to the correct path, go true
-        //}
-        //else what = false; //if not, go false.
         droppedInRight = dropper.WhereIsHe();
         if (_rm.IsHeLookingAt(pt))
         {
-            _currentState = RobotState.LEAVEBOX;
-         //   Debug.Log("Yo i'm lookin at the droppah");
+            _currentState = RobotState.LEAVEBOX;        
             return dropper.WhereIsHe();
         }
         return dropper.WhereIsHe();
     }
 
+    /// <summary>
+    /// Handles the in wait zone state
+    /// </summary>
     void HandleInWaitZone()
     {
         DropPointLogic dropper_ = _door.GetComponent<DoorRobotInteraction>().dropper;
@@ -206,6 +258,9 @@ public class RobotBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the go to wait zone state.
+    /// </summary>
     void HandleGoToWaitZone()
     {
         DropPointLogic dropperForWaitZone = _door.GetComponent<DoorRobotInteraction>().dropper;
@@ -220,7 +275,9 @@ public class RobotBehaviour : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Handles the queue state
+    /// </summary>
     void HandleQueue()
     {
         DropPointLogic dropper = _door.GetComponent<DoorRobotInteraction>().dropper;
@@ -355,7 +412,8 @@ public class RobotBehaviour : MonoBehaviour
     }
 
     /// <summary>
-    /// Checkes all the actions for user's decissions
+    /// Checkes all the actions for user's decissions and also
+    /// substracts to the RobotCountToTeacher (currently: 'RobotCountToDeath.cs')
     /// </summary>
     /// <param name="box"></param>
     /// <param name="right"></param>
@@ -365,18 +423,25 @@ public class RobotBehaviour : MonoBehaviour
         {
             SoundManager.instance.PlayRobotFail(GetComponent<AudioSource>());
             _gm.LessHealth();
+            if (_substractWhenUserSaysRightAndRobotWrong)
+                _rcd.SubstractOne();
+            return;
         }
 
         if (box == _colorOfRobot && !right)
         {
             SoundManager.instance.PlayRobotFail(GetComponent<AudioSource>());
             _gm.LessHealth();
+            return;
         }
         
         if (right && box == _colorOfRobot)
         {
             _rcd.SubstractOne();
+            return;
         }
+        Debug.LogWarning("Entered Nothing: " + box + " " + right);
+        return;
     }
 
     #endregion
