@@ -507,7 +507,7 @@ public class RobotBehaviour : MonoBehaviour
     {
         if (userDecission && box == robotColor)
         {
-            _gm.score += 100;
+            _gm.score += adderForHighScore;
         }
     }
 
