@@ -1,6 +1,6 @@
 # Brouder - The Videogame
 
-<img src="./brouder.png" alt="Logolastfm" width="250" height="250">
+<img src="./brouder.png" alt="Logo">
 
 ## Made for the Z-Jam 2019.
 ### Made in Unity3D.
