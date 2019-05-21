@@ -16,8 +16,8 @@ Videogame made in less than 48 hours (Currently making updates) that centers aro
 * @kogatell - Jorge Solano (Not participated in Z-Jam, only Mobile and VR Implementations)
 
 ## Captures
-<img src="./Captura de pantalla 2019-05-21 a las 12.20.59.png" alt="capture1" width="600" height="600"/>
-<img src="./Captura de pantalla 2019-05-21 a las 12.21.07.png" alt="capture2" width="600" height="600"/>
-<img src="./Captura de pantalla 2019-05-21 a las 12.21.28.png" alt="capture1" width=600" height="600"/>
+<img src="./Captura de pantalla 2019-05-21 a las 12.20.59.png" alt="capture1" width="600" height="400"/>
+<img src="./Captura de pantalla 2019-05-21 a las 12.21.07.png" alt="capture2" width="600" height="400"/>
+<img src="./Captura de pantalla 2019-05-21 a las 12.21.28.png" alt="capture1" width="600" height="400"/>
 
 © All rights reserved
