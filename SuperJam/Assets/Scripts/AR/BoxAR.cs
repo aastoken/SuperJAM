@@ -9,8 +9,8 @@ public class BoxAR : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Robot"))
         {
-            collision.gameObject.GetComponent<RobotAR>().score += 1;
             Destroy(gameObject);
+            collision.gameObject.GetComponent<RobotAR>().score += 1;           
         }
     }
 }
