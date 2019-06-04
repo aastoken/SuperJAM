@@ -94,6 +94,7 @@ public class RobotBehaviour : MonoBehaviour
                 break;
             case SuperState.Teacher:
                 //... _teacherBehaviour aka _tb.Control();
+                Destroy(gameObject);
                 break;
             default:
                 Control();
