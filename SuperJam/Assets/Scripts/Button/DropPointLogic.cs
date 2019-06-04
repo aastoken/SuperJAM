@@ -38,7 +38,7 @@ public class DropPointLogic : MonoBehaviour
     float _t;
     bool _allowButtonRot = false;
     float _timer = 0f;
-    
+    bool _canUseAxis = true;
 
     #endregion
 
@@ -58,8 +58,14 @@ public class DropPointLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // inputs
+        float inputRed = Input.GetAxis("Red");
+        float inputBlue = Input.GetAxis("Blue");
+        float inputGreen = Input.GetAxis("Green");
+        float inputYellow = Input.GetAxis("Yellow");
+        CheckInputs(inputRed, inputYellow, inputBlue, inputGreen);
         _delta = Time.deltaTime;
-        // Debug.Log("DOOR ANGLE: " + _doorAngle + " , TARGET: " + _targetRotation);
+
 
         if (_currentState == DoorState.MOVING)
         {
@@ -145,6 +151,36 @@ public class DropPointLogic : MonoBehaviour
     #endregion
 
     #region Methods
+    private void CheckInputs(float ir, float iy, float ib, float ig)
+    {
+        if (_canUseAxis)
+        {
+            BoxColor color = DRI.initialDoorColor;
+            bool used = true;
+            if (color == BoxColor.RED && Mathf.Abs(ir) > 0.01f)
+            {
+                ExecuteClick();
+            }
+            else if (color == BoxColor.GREEN && Mathf.Abs(ig) > 0.01f)
+            {
+                ExecuteClick();
+            }
+            else if (color == BoxColor.YELLOW && Mathf.Abs(iy) > 0.01f)
+            {
+                ExecuteClick();
+            }
+            else if (color == BoxColor.BLUE && Mathf.Abs(ib) > 0.01f)
+            {
+                ExecuteClick();
+            }
+            else used = false;
+            if (used) { _canUseAxis = false; StartCoroutine(StartCanInput()); }
+
+        }
+
+    }
+
+
     private void ManageQueues()
     {
         if (waitZone)
@@ -221,8 +257,12 @@ public class DropPointLogic : MonoBehaviour
             buttonDeco.transform.rotation = Quaternion.Slerp(temp, transform.rotation, Time.deltaTime * 2f);
             hasBeenClicked = false;
         }
-        
+    }
 
+    private IEnumerator StartCanInput()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _canUseAxis = true;
 
     }
 
