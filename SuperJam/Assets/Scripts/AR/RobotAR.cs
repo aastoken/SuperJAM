@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Vuforia;
 
 public class RobotAR : MonoBehaviour
 {
@@ -8,20 +9,29 @@ public class RobotAR : MonoBehaviour
     public int score;
     public GameObject redBox;
     public Transform ar;
+    public DefaultTrackableEventHandler df;
+    private Coroutine current; 
     // Update is called once per frame
     void Start()
     {
-        StartCoroutine(SpawnBoxes());
+
     }
 
     void Update()
     {
         float axisHorizontal = axis.GetAxis("Horizontal");
         float axisForward = axis.GetAxis("Forward");
+        Debug.Log(df.GetComponent<TrackableBehaviour>().CurrentStatus);
+        if (df.GetComponent<TrackableBehaviour>().CurrentStatus == TrackableBehaviour.Status.TRACKED)
+        {
+            if (current == null) current = StartCoroutine(SpawnBoxes());
+            transform.position += Vector3.right * axisHorizontal * 10 * Time.deltaTime + axisForward * Vector3.forward * 10 * Time.deltaTime;
+            if (Mathf.Abs(axisHorizontal) > 0.01f || Mathf.Abs(axisForward) > 0.01f)
+            {
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, Mathf.Atan2(axisHorizontal, axisForward) * Mathf.Rad2Deg, transform.eulerAngles.z);
+            }
+        }
 
-        Debug.Log(axisHorizontal);
-        transform.position += Vector3.right * axisHorizontal * 10 * Time.deltaTime + axisForward * Vector3.forward * 10 * Time.deltaTime;
-        transform.LookAt(Vector3.forward, Vector3.up);
     }
 
     IEnumerator SpawnBoxes()
@@ -29,6 +39,6 @@ public class RobotAR : MonoBehaviour
         yield return new WaitForSeconds(2f);
         GameObject rb = Instantiate(redBox, ar);
         redBox.transform.localPosition = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
-        StartCoroutine(SpawnBoxes());
+        current = null;
     }
 }

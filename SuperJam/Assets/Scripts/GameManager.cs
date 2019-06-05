@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public
+
     public int score = 0;
     public int lifeStart = 4;
     public float minimumRobotSpawn = 5f;

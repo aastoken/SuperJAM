@@ -7,8 +7,10 @@
 
 Videogame made in less than 48 hours (Currently making updates) that centers around the user teaching robots to bring the right boxes to their correspondant colors, then when they finish, they will teach other robots how to behave.
 
+Now it has cross-platform functionalities, like gamepad, mobile, keyboard and mouse. Also you can check out our brand new AR Mode where you control the robot in a real scene and you take the boxes to have more points! (ALPHA).
+
 ## Members
-* @DjComet - Albert Abad
+* @DjComet - Albert Abad 
 * @AbsideDeAuberon - Álvaro Tomás
 * @DaniGMX - Daniel Gracia
 * @Marutho - Javier Jiménez

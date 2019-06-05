@@ -156,6 +156,7 @@ public class DropPointLogic : MonoBehaviour
         if (_canUseAxis)
         {
             BoxColor color = DRI.initialDoorColor;
+            Debug.Log(color);
             bool used = true;
             if (color == BoxColor.RED && Mathf.Abs(ir) > 0.01f)
             {
