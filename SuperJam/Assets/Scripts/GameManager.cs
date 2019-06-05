@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     public GameObject SpawnArea;
     public Color[] colors = { Color.blue, Color.red, Color.yellow, Color.green };
     public TextHandler textMng;
-    public GameObject map;
     #endregion
 
     #region MonoBehaviour
@@ -119,9 +118,9 @@ public class GameManager : MonoBehaviour
         while (true)
         {
           //  Debug.Log("WORK");
-            GameObject box = (GameObject)Instantiate(boxPrefab, map.transform);
+            GameObject box = (GameObject)Instantiate(boxPrefab);
             Vector3 randomPosition = SpawnFromTheCenter(); 
-            box.transform.localPosition = new Vector3(randomPosition.x, randomPosition.y, randomPosition.y);
+            box.transform.position = new Vector3(randomPosition.x, randomPosition.y, randomPosition.y);
             //SoundManager.instance.PlayRobotSoundJoint();
             waitSecondsForBoxSpawn -= timeSubstractorBoxes;
             waitSecondsForBoxSpawn = Mathf.Clamp(waitSecondsForBoxSpawn, minimumBoxSpawn, 100);
@@ -148,8 +147,8 @@ public class GameManager : MonoBehaviour
         // TODO: This should be handled better for performance.
         while (true)
         {
-            GameObject robot = (GameObject)Instantiate(robotPrefab, map.transform);
-            robot.transform.localPosition = SpawnFromTheCenter();
+            GameObject robot = (GameObject)Instantiate(robotPrefab);
+            robot.transform.position = SpawnFromTheCenter();
             BoxColor r = RandomBoxColor();
             RobotBehaviour rb = robot.GetComponent<RobotBehaviour>();
             if (rb == null)
