@@ -41,7 +41,7 @@ public class RobotAR : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         GameObject rb = Instantiate(redBox, ar);
-        redBox.transform.localPosition = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+        redBox.transform.localPosition = new Vector3(Random.Range(-2, 2), 0, Random.Range(-2, 2));
         current = null;
     }
     #endregion
