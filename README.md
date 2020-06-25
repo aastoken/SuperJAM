@@ -10,7 +10,7 @@ Videogame made in less than 48 hours (Currently making updates) that centers aro
 Now it has cross-platform functionalities, like gamepad, mobile, keyboard and mouse. Also you can check out our brand new AR Mode where you control the robot in a real scene and you take the boxes to have more points! (ALPHA).
 
 ## Members
-* @DjComet - Albert Abad 
+* @thisisdoublesir - Albert Abad 
 * @AbsideDeAuberon - Álvaro Tomás
 * @DaniGMX - Daniel Gracia
 * @Marutho - Javier Jiménez
